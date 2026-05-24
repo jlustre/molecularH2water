@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Layers } from "lucide-react";
+import { Layers, Lightbulb } from "lucide-react";
 
 import interruptChainReactionsImage from "../../assets/images/antioxidants/interruptchainreactions.jpg";
 import neutralizeImage from "../../assets/images/antioxidants/neutralize.jpg";
@@ -134,13 +134,13 @@ export function AntioxidantHeroSection() {
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
           {antioxidantRoles.map((item) => (
             <article
-              className="overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm"
+              className="group overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift"
               key={item.title}
             >
               <div className="overflow-hidden bg-slate-950 p-px">
                 <img
                   alt={`${item.title} illustration`}
-                  className="h-auto w-full object-contain object-center"
+                  className="h-auto w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]"
                   src={item.image}
                 />
               </div>
@@ -152,7 +152,7 @@ export function AntioxidantHeroSection() {
                   {item.text}
                 </p>
                 <button
-                  className="mt-3 rounded-full bg-marine px-4 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-lagoon"
+                  className="mt-3 cursor-pointer rounded-full bg-marine px-4 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-lagoon"
                   onClick={() => setSelectedRole(item)}
                   type="button"
                 >
@@ -184,7 +184,7 @@ export function AntioxidantHeroSection() {
               <h3 className="mt-4 max-w-2xl text-2xl font-black leading-tight text-marine sm:text-3xl">
                 Why other antioxidants may not be the complete answer
               </h3>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+              <p className="mt-3 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
                 Vitamins, polyphenols, enzymes, and plant compounds can all be
                 valuable, but every antioxidant has practical limits. A responsible
                 wellness message should explain both the benefit and the boundary.
@@ -205,7 +205,7 @@ export function AntioxidantHeroSection() {
                       <h4 className="text-base font-black leading-5 text-marine">
                         {item.title}
                       </h4>
-                      <p className="mt-1.5 text-base leading-7 text-slate-600">
+                      <p className="mt-2 text-lg leading-8 text-slate-600">
                         {item.text}
                       </p>
                     </div>
@@ -214,22 +214,155 @@ export function AntioxidantHeroSection() {
               ))}
             </div>
 
-            <p className="relative mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-base font-bold leading-7 text-marine shadow-sm backdrop-blur">
-              If oxidative stress is the enemy and antioxidants are the hero,
-              what makes molecular hydrogen worth discussing? The answer begins
-              with size, selectivity, diffusion, and how H2 is different from
-              traditional antioxidants.
-            </p>
           </div>
         </div>
 
-        <figure className="mt-12 overflow-hidden rounded-[2rem] border-2 border-marine bg-white shadow-clean">
-          <img
-            alt="Why molecular hydrogen is different from traditional antioxidants"
-            className="h-auto w-full object-contain object-center"
-            src={whyH2DifferentImage}
-          />
-        </figure>
+        <div className="mt-10 grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+          <div className="group overflow-hidden rounded-[2rem] border border-amber-300 bg-amber-50 shadow-clean transition duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-[0_28px_85px_rgba(245,158,11,0.24)]">
+            <div className="relative h-full px-6 py-8 sm:px-10 sm:py-10">
+              <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-amber-200/55 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-24 left-8 h-56 w-56 rounded-full bg-yellow-200/45 blur-3xl" />
+              <div className="relative">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-marine text-white shadow-sm transition duration-300 group-hover:bg-lagoon">
+                    <Lightbulb className="h-7 w-7" strokeWidth={2.5} />
+                  </div>
+                  <p className="inline-flex rounded-full border border-amber-300 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-amber-700 shadow-sm">
+                    Why H2 Matters
+                  </p>
+                </div>
+                <div className="min-w-0">
+                  <p className="mt-5 text-2xl font-black leading-9 text-marine sm:text-3xl sm:leading-10">
+                    This is where molecular hydrogen becomes worth discussing.
+                  </p>
+                  <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
+                    If oxidative stress is the enemy and antioxidants are the
+                    hero, molecular hydrogen introduces the next part of the
+                    story. H2 is not simply another antioxidant ingredient to
+                    place beside vitamins or plant compounds. Its value begins
+                    with how small it is, how easily it can move, and why that
+                    matters when the conversation shifts from general antioxidant
+                    support to cellular-level access.
+                  </p>
+                  <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
+                    Traditional antioxidants can be valuable, but many are shaped
+                    by practical limits:
+                  </p>
+                  <ul className="mt-3 grid gap-2 text-lg font-semibold leading-7 text-slate-700">
+                    <li className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                      Absorption and timing
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                      Tissue access and where they can travel
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                      Water-soluble or fat-soluble activity
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                      The body&apos;s changing oxidative load
+                    </li>
+                  </ul>
+                  <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
+                    Molecular hydrogen gives you a cleaner, more focused
+                    educational message. Because H2 is exceptionally small, it
+                    can diffuse quickly and helps connect oxidative stress,
+                    cellular protection, and daily hydrogen-rich hydration into
+                    one simple wellness story people can actually understand and
+                    remember.
+                  </p>
+                  <blockquote className="mt-5 rounded-2xl border border-amber-300 bg-white/80 p-6 text-center text-2xl font-semibold italic leading-9 text-marine shadow-sm sm:text-3xl sm:leading-10">
+                    &ldquo;Hydrogen (H2) is not just an Antioxidant, it&apos;s a{" "}
+                    <strong className="font-black text-lagoon">
+                      SUPER ANTI-OXIDANT
+                    </strong>.&rdquo;
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <section
+            className="relative scroll-mt-28 overflow-hidden rounded-[2rem] border border-cyan-200/70 bg-[radial-gradient(circle_at_12%_8%,rgba(14,165,233,0.22),transparent_32%),linear-gradient(135deg,#ffffff_0%,#effcff_52%,#d8f5ff_100%)] p-4 shadow-clean sm:p-5"
+            id="ultimate-antioxidant"
+          >
+            <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-sky-200/60 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-28 left-12 h-64 w-64 rounded-full bg-cyan-200/45 blur-3xl" />
+            <div className="relative">
+              <figure className="-mx-4 -mt-4 overflow-hidden rounded-t-[2rem] border-b-2 border-marine bg-white shadow-clean sm:-mx-5 sm:-mt-5">
+                <img
+                  alt="Why molecular hydrogen is different from traditional antioxidants"
+                  className="h-auto w-full object-contain object-center"
+                  src={whyH2DifferentImage}
+                />
+              </figure>
+
+              <div className="px-2 pb-5 pt-2 sm:px-4 sm:pt-4">
+                <p className="inline-flex rounded-full border border-lagoon/20 bg-white/85 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-lagoon shadow-sm">
+                  Ultimate Antioxidant
+                </p>
+                <h3 className="mt-4 max-w-3xl text-2xl font-black leading-9 text-marine sm:text-3xl sm:leading-10">
+                  Why molecular hydrogen is different from traditional
+                  antioxidants
+                </h3>
+                <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+                  Molecular hydrogen is discussed differently because it is not
+                  simply another nutrient or plant compound. It is the smallest
+                  molecule in nature, which makes the H2 story easy to explain:
+                  size, movement, selectivity, and cellular access.
+                </p>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
+                    <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
+                      01 Small Size
+                    </p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
+                      H2 is tiny, so it can be discussed as a molecule with
+                      unusual mobility compared with many larger antioxidants.
+                    </p>
+                  </article>
+                  <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
+                    <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
+                      02 Fast Diffusion
+                    </p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
+                      Its size helps explain why molecular hydrogen is often
+                      connected to cellular access and deeper wellness support.
+                    </p>
+                  </article>
+                  <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
+                    <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
+                      03 Selective Support
+                    </p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
+                      H2 is commonly taught as selective, helping frame balance
+                      without suggesting the body should eliminate all radicals.
+                    </p>
+                  </article>
+                  <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
+                    <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
+                      04 Daily Hydration
+                    </p>
+                    <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
+                      Hydrogen-rich water turns the science into a simple daily
+                      habit people can understand, remember, and share.
+                    </p>
+                  </article>
+                </div>
+
+                <p className="mt-5 rounded-2xl border border-cyan-200 bg-white/80 p-4 text-lg font-black leading-8 text-marine shadow-sm">
+                  The message is simple: H2 brings the antioxidant conversation
+                  closer to the cell, where oxidative stress, protection, and
+                  recovery become easier to understand.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
 
       {selectedRole && (

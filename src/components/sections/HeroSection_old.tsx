@@ -87,11 +87,12 @@ export function HeroSection() {
 
                 <div className="rounded-3xl bg-marine p-5 text-white">
                   <p className="font-black">
-                    Replace this visual with your exact machine photo.
+                    Fresh hydrogen-rich water starts with a clear daily habit.
                   </p>
                   <p className="mt-2 text-sm leading-6 text-cyan-50/80">
-                    Add a clear glass of water, bubbles, stainless spout, and
-                    lifestyle image for stronger conversion.
+                    The machine brings molecular hydrogen education into the
+                    home with a simple, refreshing water routine families can
+                    understand.
                   </p>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CircleAlert } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 
 import cellularDisruptionImage from "../../assets/images/theproblem/freeradicals/cellulardisruption.jpg";
 import electronStealingImage from "../../assets/images/theproblem/freeradicals/electronstealing.jpg";
@@ -36,7 +36,7 @@ const damagePath = [
     details: [
       "Cells rely on healthy membranes, proteins, mitochondria, and DNA to function well. When oxidative pressure rises, those structures may become stressed.",
       "Cellular disruption can affect how efficiently cells communicate, repair, produce energy, and recover from daily demands.",
-      "This section is educational only, but it helps visitors understand why cellular health is often connected to energy, aging, recovery, and overall wellness conversations.",
+      "Cellular health is often connected to energy, aging, recovery, and overall wellness because the body depends on resilient cells to function well every day.",
     ],
   },
   {
@@ -84,16 +84,18 @@ export function EnemySection() {
               them, they may contribute to oxidative stress.
             </p>
 
-            <div className="mt-8 rounded-[2rem] border border-lagoon/10 bg-white p-6 shadow-clean">
+            <div className="group relative mt-8 overflow-hidden rounded-[2rem] border border-amber-300 bg-amber-50 p-6 shadow-clean transition duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-[0_28px_85px_rgba(245,158,11,0.24)]">
+              <div className="pointer-events-none absolute -right-14 -top-16 h-40 w-40 rounded-full bg-amber-200/55 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-20 left-6 h-44 w-44 rounded-full bg-yellow-200/45 blur-3xl" />
               <div className="flex gap-4">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-cyan-100 text-lagoon">
-                  <CircleAlert className="h-6 w-6" />
+                <div className="relative grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-marine text-white shadow-sm transition duration-300 group-hover:bg-lagoon">
+                  <Lightbulb className="h-6 w-6" strokeWidth={2.5} />
                 </div>
-                <div>
+                <div className="relative">
                   <h3 className="text-xl font-black text-marine">
                     Simple explanation
                   </h3>
-                  <p className="mt-2 leading-7 text-slate-600">
+                  <p className="mt-2 font-semibold leading-7 text-slate-700">
                     Think of free radicals like tiny sparks. A few sparks are
                     manageable, but too many can spread stress through the body and
                     put pressure on cells over time.
@@ -124,13 +126,13 @@ export function EnemySection() {
           <div className="grid gap-5 sm:grid-cols-2">
             {damagePath.map((item) => (
               <article
-                className="overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm"
+                className="group overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift"
                 key={item.title}
               >
                 <div className="overflow-hidden bg-slate-950 p-px">
                   <img
                     alt={`${item.title} illustration`}
-                    className="h-auto w-full object-contain object-center"
+                    className="h-auto w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]"
                     src={item.image}
                   />
                 </div>
@@ -142,7 +144,7 @@ export function EnemySection() {
                     {item.text}
                   </p>
                   <button
-                    className="mt-3 rounded-full bg-marine px-4 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-lagoon"
+                    className="mt-3 cursor-pointer rounded-full bg-marine px-4 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-lagoon"
                     onClick={() => setSelectedDamage(item)}
                     type="button"
                   >

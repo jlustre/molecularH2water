@@ -21,7 +21,7 @@ export function TestimonialSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           align="center"
-          description="Use approved testimonials here. Keep claims compliant and include results-vary language."
+          description="Personal stories can help make the education feel real while staying grounded, responsible, and clear that individual experiences vary."
           eyebrow="Testimonials"
           title="Wellness Stories Start With Learning"
         />
@@ -33,11 +33,12 @@ export function TestimonialSection() {
                 Featured Story
               </p>
               <h3 className="mt-4 text-3xl font-black">
-                Replace with your real customer video or photo
+                Real conversations make wellness education easier to share
               </h3>
               <p className="mt-4 text-sm leading-7 text-cyan-50/85">
-                This area is ideal for a lifestyle image, testimonial clip, or
-                family wellness photo.
+                A short story, family moment, or presentation reflection can
+                help visitors understand why people are exploring
+                hydrogen-rich water as part of a daily wellness routine.
               </p>
             </div>
 

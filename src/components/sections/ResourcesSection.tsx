@@ -65,7 +65,7 @@ export function ResourcesSection() {
                 className="mt-6 inline-flex font-black text-aqua hover:text-white"
                 href="#resources"
               >
-                View Resource -&gt;
+                Learn More -&gt;
               </a>
             </article>
           ))}

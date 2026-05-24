@@ -45,10 +45,10 @@ export type FoundationStep = SimpleCard & {
 };
 
 export const navItems: NavItem[] = [
-  { href: "#home", label: "Home" },
-  { href: "#foundations", label: "The Foundations" },
-  { href: "#technology", label: "The Technology" },
-  { href: "#resources", label: "Resources" },
+  { href: "/#home", label: "Home" },
+  { href: "/#foundations", label: "The Foundations" },
+  { href: "/#technology", label: "The Technology" },
+  { href: "/#resources", label: "Resources" },
 ];
 
 export const trustItems: SimpleCard[] = [
@@ -191,14 +191,14 @@ export const resources: Resource[] = [
     icon: "Play",
     title: "Water Awareness Presentation",
     description:
-      "Main presentation video placeholder for introducing hydrogen water and oxidative stress awareness.",
+      "A guided introduction to hydrogen water, oxidative stress, and why daily hydration quality matters.",
   },
   {
     category: "Videos",
     icon: "Clip",
     title: "Customer Story Clips",
     description:
-      "Approved testimonial video placeholders with compliant language and results-vary disclaimer.",
+      "Real wellness experiences shared in a responsible, education-first format with results-vary context.",
   },
   {
     category: "Articles",
@@ -249,7 +249,7 @@ export const faqs: Faq[] = [
   {
     question: "Can I add my own resources?",
     answer:
-      "Yes. The resource cards are placeholders for your videos, links, studies, PDFs, testimonials, and presentation materials.",
+      "Yes. The resource library can organize presentation videos, educational articles, research links, product documents, FAQs, and customer education materials in one place.",
   },
 ];
 

@@ -8,7 +8,7 @@ export function TechnologySection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHeading
           align="center"
-          description="Explain the machine clearly, visually, and responsibly."
+          description="The machine adds dissolved molecular hydrogen to drinking water, creating a clearer way to talk about hydration quality and oxidative-stress education."
           eyebrow="The Technology"
           title="How the Hydrogen Water Machine Works"
         />
@@ -56,10 +56,11 @@ export function TechnologySection() {
               <div>
                 <HydrogenBadge />
                 <p className="text-xl font-black text-marine">
-                  Product Image Placeholder
+                  Hydrogen-Rich Water System
                 </p>
                 <p className="mt-2 text-sm text-slate-500">
-                  Add machine, water glass, bubbles, and lifestyle image.
+                  Designed to prepare fresh H2 water for a daily home
+                  hydration routine.
                 </p>
               </div>
             </div>

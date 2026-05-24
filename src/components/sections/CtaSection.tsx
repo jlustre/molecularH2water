@@ -19,7 +19,7 @@ export function CtaSection() {
                 hydration routines.
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-                <CtaButton href="mailto:info@example.com" variant="outline">
+                <CtaButton href="#resources" variant="outline">
                   Request an Invitation
                 </CtaButton>
                 <CtaButton href="#resources" variant="light">
@@ -33,7 +33,8 @@ export function CtaSection() {
                 <p className="text-6xl font-black">H2</p>
                 <p className="mt-3 text-xl font-black">Water Awareness</p>
                 <p className="mt-2 text-sm text-slate-600">
-                  Presentation image or video thumbnail placeholder.
+                  A simple invitation to learn how hydrogen-rich water fits
+                  into everyday wellness education.
                 </p>
               </div>
             </div>

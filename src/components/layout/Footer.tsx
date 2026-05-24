@@ -8,8 +8,9 @@ export function Footer() {
         <div className="md:col-span-2">
           <BrandMark inverted subtitle="Hydrogen Water Education" />
           <p className="mt-5 max-w-md text-sm leading-7 text-cyan-50/80">
-            A clean public-facing site for hydrogen water presentations,
-            technology education, resource sharing, and compliant wellness copy.
+            Molecular hydrogen water education for families who want to
+            understand hydration, oxidative stress, and daily wellness habits
+            in a clear, responsible way.
           </p>
         </div>
 
@@ -27,17 +28,17 @@ export function Footer() {
         <div>
           <h3 className="font-black">Contact</h3>
           <div className="mt-4 grid gap-2 text-sm text-cyan-50/80">
-            <p>info@example.com</p>
-            <p>(000) 000-0000</p>
-            <p>Your City, State</p>
+            <p>For presentation invitations and product education</p>
+            <p>Connect with your H2Systems wellness educator</p>
+            <p>Serving local and virtual learning sessions</p>
           </div>
         </div>
       </div>
 
       <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-4 pt-6 text-sm text-cyan-50/70 sm:px-6 lg:px-8">
         <p>
-          Copyright 2026 H2Systems. All rights reserved. Replace with your legal
-          business information.
+          Copyright 2026 H2Systems. All rights reserved. Educational content is
+          provided for wellness awareness and is not medical advice.
         </p>
       </div>
     </footer>

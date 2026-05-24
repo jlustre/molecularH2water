@@ -1,3 +1,5 @@
+import { Lightbulb } from "lucide-react";
+
 import fatigueImage from "../../assets/images/theproblem/fatigue.jpg";
 import forgetfulnessImage from "../../assets/images/theproblem/forgetfullness.jpg";
 import inflammationImage from "../../assets/images/theproblem/inflammation.jpg";
@@ -108,19 +110,29 @@ export function ProblemSection() {
           ))}
         </div>
 
-        <div className="mx-auto mt-14 max-w-4xl overflow-hidden rounded-[2rem] bg-gradient-to-br from-marine via-slateblue to-lagoon p-[1px] shadow-clean">
-          <div className="relative rounded-[calc(2rem-1px)] bg-white/95 px-6 py-8 text-center sm:px-10 sm:py-10">
-            <div className="mx-auto mb-5 h-1.5 w-24 rounded-full bg-gradient-to-r from-lagoon to-aqua" />
-            <p className="text-sm font-black uppercase tracking-[.22em] text-lagoon">
-              Key Takeaway
-            </p>
-            <p className="mt-4 text-2xl font-black leading-9 text-marine sm:text-3xl sm:leading-10">
-              These challenges are real, relatable, and often ignored.
-            </p>
-            <p className="mx-auto mt-4 max-w-2xl text-lg leading-8 text-slate-600">
-              Addressing them is the first step toward better wellness before we
-              even mention the science.
-            </p>
+        <div className="group mx-auto mt-14 max-w-4xl overflow-hidden rounded-[2rem] border border-amber-300 bg-amber-50 shadow-clean transition duration-300 hover:-translate-y-1 hover:border-amber-400 hover:shadow-[0_28px_85px_rgba(245,158,11,0.24)]">
+          <div className="relative px-6 py-8 sm:px-10 sm:py-10">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-amber-200/55 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 left-8 h-56 w-56 rounded-full bg-yellow-200/45 blur-3xl" />
+
+            <div className="relative flex flex-col gap-5 md:flex-row md:items-start">
+              <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-marine text-white shadow-sm transition duration-300 group-hover:bg-lagoon">
+                <Lightbulb className="h-7 w-7" strokeWidth={2.5} />
+              </div>
+
+              <div className="min-w-0">
+                <p className="inline-flex rounded-full border border-amber-300 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-amber-700 shadow-sm">
+                  Key Takeaway
+                </p>
+                <p className="mt-5 text-2xl font-black leading-9 text-marine sm:text-3xl sm:leading-10">
+                  These challenges are real, relatable, and often ignored.
+                </p>
+                <p className="mt-4 max-w-2xl text-lg font-semibold leading-8 text-slate-700">
+                  Addressing them is the first step toward better wellness before
+                  we even mention the science.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

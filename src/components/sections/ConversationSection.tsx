@@ -7,7 +7,7 @@ export function ConversationSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
           <SectionHeading
-            description="Many families are asking why they feel tired, inflamed, stressed, or older than they expected. This section gently introduces oxidative stress and lifestyle pressure without making medical claims."
+            description="Many families are asking why they feel tired, inflamed, stressed, or older than expected. Oxidative stress and lifestyle pressure give people a practical starting point for a responsible wellness conversation."
             eyebrow="Problem Awareness"
             title="People Feel the Symptoms Before They Understand the Stressors"
           />

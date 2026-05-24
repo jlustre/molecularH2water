@@ -123,11 +123,12 @@ export function HiddenDriverSection() {
                       H2
                     </div>
                     <p className="mt-5 text-2xl font-black">
-                      Cellular Aging Visual
+                      Cellular Aging Awareness
                     </p>
                     <p className="mt-2 text-sm leading-6 text-slate-600">
-                      Placeholder for a face, cell, or before-and-after aging
-                      image.
+                      Oxidative stress is often discussed alongside visible
+                      aging, cellular pressure, energy changes, and slower
+                      recovery.
                     </p>
                   </div>
                 </div>
