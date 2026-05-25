@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AboutPage } from "./components/sections/AboutPage";
 import { HomePage } from "./components/sections/HomePage";
+import { ResourcesPage } from "./components/sections/ResourcesPage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
 
 function scrollToHashTarget() {
@@ -33,6 +34,7 @@ function App() {
     `${window.location.pathname}${window.location.hash}`,
   );
   const isAboutPage = window.location.pathname === "/about";
+  const isResourcesPage = window.location.pathname === "/resources";
   const isTechnologyPage = window.location.pathname === "/technology";
 
   useEffect(() => {
@@ -71,6 +73,7 @@ function App() {
       const supportedPath =
         nextUrl.pathname === "/" ||
         nextUrl.pathname === "/about" ||
+        nextUrl.pathname === "/resources" ||
         nextUrl.pathname === "/technology";
 
       if (!supportedPath) {
@@ -127,6 +130,10 @@ function App() {
 
   if (isAboutPage) {
     return <AboutPage />;
+  }
+
+  if (isResourcesPage) {
+    return <ResourcesPage />;
   }
 
   return <HomePage />;

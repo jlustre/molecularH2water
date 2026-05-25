@@ -5,7 +5,6 @@ import { ProblemSection } from "./ProblemSection";
 import { DrinkingWaterPathSection } from "./DrinkingWaterPathSection";
 import { EnemySection } from "./EnemySection";
 import { HeroSection } from "./HeroSection";
-import { RecommendedByExpertsSection } from "./RecommendedByExpertsSection";
 
 export function HomePage() {
   return (
@@ -16,7 +15,6 @@ export function HomePage() {
       <AntioxidantHeroSection />
       <DrinkingWaterPathSection />
       <BenefitsSection />
-      <RecommendedByExpertsSection />
       {/* <HiddenDriverSection />
       <TechnologySection />
       <ResourcesSection />

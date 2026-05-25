@@ -311,21 +311,21 @@ const resourcesPanel: MenuPanel = {
       links: [
         {
           description: "Expert voices and professional recommendations.",
-          href: "/#recommended-by-experts",
+          href: "/resources#recommended-by-experts",
           icon: Award,
           key: "recommended-by-experts",
           label: "Recommended By Experts",
         },
         {
           description: "Stories that explain why the presentation matters.",
-          href: "/#life-changing-impact",
+          href: "/resources#life-changing-impact",
           icon: Sparkles,
           key: "life-changing-impact",
           label: "Life Changing Impact",
         },
         {
           description: "Program information for machine ownership.",
-          href: "/#bonus-machine-program",
+          href: "/resources#bonus-machine-program",
           icon: Gift,
           key: "bonus-machine-program",
           label: "Bonus Machine Program",
@@ -340,21 +340,21 @@ const resourcesPanel: MenuPanel = {
       links: [
         {
           description: "Education around inflammation and wellness balance.",
-          href: "/#inflammation-reduction",
+          href: "/resources#inflammation-reduction",
           icon: Flame,
           key: "inflammation-reduction",
           label: "Inflammation Reduction",
         },
         {
           description: "Hydration support for training and recovery routines.",
-          href: "/#athletic-recovery",
+          href: "/resources#athletic-recovery",
           icon: Dumbbell,
           key: "athletic-recovery",
           label: "Athletic Recovery",
         },
         {
           description: "Energy and vitality as part of better daily habits.",
-          href: "/#have-more-energy",
+          href: "/resources#have-more-energy",
           icon: Zap,
           key: "have-more-energy",
           label: "Have More Energy",
@@ -369,21 +369,21 @@ const resourcesPanel: MenuPanel = {
       links: [
         {
           description: "Hydration and oxidative-stress education for digestion.",
-          href: "/#gut-health-support",
+          href: "/resources#gut-health-support",
           icon: HandHeart,
           key: "gut-health-support",
           label: "Gut Health Support",
         },
         {
           description: "Focus, clarity, and brain wellness education.",
-          href: "/#brain-health-support",
+          href: "/resources#brain-health-support",
           icon: Brain,
           key: "brain-health-support",
           label: "Brain Health Support",
         },
         {
           description: "Circulation and daily wellness support topics.",
-          href: "/#improved-circulation",
+          href: "/resources#improved-circulation",
           icon: Activity,
           key: "improved-circulation",
           label: "Improved Circulation",

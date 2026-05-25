@@ -68,6 +68,26 @@ export function BenefitsSection() {
               <div className="mx-5 mt-6 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-lg font-black leading-7 text-marine shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(245,158,11,0.2)] sm:mx-7 lg:mx-8">
                 The goal is simple: to inspire you to move from drinking ordinary water to purposefully hydrating with only the best hydrogen-rich water. 
               </div>
+
+              <div className="mx-5 mt-5 flex flex-col gap-3 pb-7 sm:mx-7 sm:flex-row lg:mx-8">
+                <a
+                  className="group inline-flex flex-1 items-center justify-center gap-3 rounded-full border-2 border-cyan-200 bg-slate-950 px-5 py-3 text-center shadow-[0_18px_42px_rgba(15,23,42,0.35)] ring-2 ring-cyan-100/80 transition duration-300 hover:-translate-y-0.5 hover:border-aqua hover:bg-marine hover:shadow-[0_22px_52px_rgba(14,165,233,0.28)]"
+                  href="/technology#hydrogen-water-machine"
+                >
+                  <span className="text-sm font-black uppercase tracking-[0.12em] text-white">
+                    Explore The H2 Machine
+                  </span>
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-aqua text-sm font-black text-marine transition duration-300 group-hover:bg-white">
+                    H₂
+                  </span>
+                </a>
+                <a
+                  className="inline-flex flex-1 items-center justify-center rounded-full border border-cyan-300 bg-cyan-50 px-5 py-3 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-aqua hover:bg-aqua/20"
+                  href="/resources#recommended-by-experts"
+                >
+                  See Expert Recommendations
+                </a>
+              </div>
             </div>
           </div>
         </div>

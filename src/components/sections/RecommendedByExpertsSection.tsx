@@ -194,16 +194,16 @@ export function RecommendedByExpertsSection() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-[2.25rem] border border-cyan-300/30 bg-white/8 p-6 shadow-[0_28px_90px_rgba(14,165,233,0.14)] backdrop-blur sm:p-8">
+        <div className="mt-12 rounded-[2.25rem] border border-cyan-200 bg-[radial-gradient(circle_at_12%_0%,rgba(34,211,238,0.2),transparent_30%),linear-gradient(135deg,#ffffff_0%,#ecfeff_54%,#dff7ff_100%)] p-6 text-marine shadow-[0_28px_90px_rgba(14,165,233,0.18)] sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <p className="inline-flex rounded-full border border-aqua/30 bg-aqua/12 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-aqua">
+              <p className="inline-flex rounded-full border border-lagoon/20 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-lagoon shadow-sm">
                 Benefits Of Molecular Hydrogen
               </p>
-              <h3 className="mt-4 text-3xl font-black leading-tight text-white sm:text-5xl">
+              <h3 className="mt-4 text-3xl font-black leading-tight text-marine sm:text-5xl">
                 A simple way to organize the expert message
               </h3>
-              <p className="mt-5 text-lg leading-8 text-cyan-50/78">
+              <p className="mt-5 text-lg leading-8 text-slate-700">
                 H2 is often discussed alongside gut health, energy, recovery,
                 oxidative stress, inflammation balance, free radical support,
                 cellular signaling, and ongoing research. Together, these themes
@@ -216,16 +216,16 @@ export function RecommendedByExpertsSection() {
             <div className="grid gap-3 sm:grid-cols-2">
               {benefitPoints.map((point) => (
                 <article
-                  className="group rounded-[1.35rem] border border-cyan-300/20 bg-slate-950/45 p-4 transition hover:-translate-y-1 hover:border-aqua/55 hover:bg-slate-900/70"
+                  className="group rounded-[1.35rem] border border-cyan-100 bg-white/85 p-4 shadow-sm transition hover:-translate-y-1 hover:border-lagoon/35 hover:bg-white hover:shadow-lift"
                   key={point.label}
                 >
                   <div className="flex gap-3">
-                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-aqua/12 text-aqua transition group-hover:bg-aqua group-hover:text-marine">
+                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-lagoon/10 text-lagoon transition group-hover:bg-lagoon group-hover:text-white">
                       <point.icon className="h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-black text-white">{point.label}</h4>
-                      <p className="mt-1 text-sm leading-6 text-cyan-50/72">
+                      <h4 className="font-black text-marine">{point.label}</h4>
+                      <p className="mt-1 text-sm leading-6 text-slate-600">
                         {point.text}
                       </p>
                     </div>

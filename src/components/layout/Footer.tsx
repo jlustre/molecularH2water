@@ -61,12 +61,18 @@ const footerGroups: FooterGroup[] = [
     icon: Sparkles,
     title: "Resources",
     links: [
-      { href: "/#recommended-by-experts", label: "Recommended By Experts" },
-      { href: "/#life-changing-impact", label: "Life Changing Impact" },
-      { href: "/#inflammation-reduction", label: "Inflammation Reduction" },
-      { href: "/#athletic-recovery", label: "Athletic Recovery" },
-      { href: "/#brain-health-support", label: "Brain Health Support" },
-      { href: "/#bonus-machine-program", label: "Bonus Machine Program" },
+      {
+        href: "/resources#recommended-by-experts",
+        label: "Recommended By Experts",
+      },
+      { href: "/resources#life-changing-impact", label: "Life Changing Impact" },
+      {
+        href: "/resources#inflammation-reduction",
+        label: "Inflammation Reduction",
+      },
+      { href: "/resources#athletic-recovery", label: "Athletic Recovery" },
+      { href: "/resources#brain-health-support", label: "Brain Health Support" },
+      { href: "/resources#bonus-machine-program", label: "Bonus Machine Program" },
     ],
   },
 ];
