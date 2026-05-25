@@ -2,6 +2,7 @@ import {
   BadgeCheck,
   Beaker,
   Droplets,
+  ExternalLink,
   FlaskConical,
   HeartPulse,
   Maximize2,
@@ -17,6 +18,10 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
+import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
+import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
+import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
+import experiment4Image from "../../../dist/assets/experiments/experiment4.jpg";
 import featuresImage from "../../../dist/assets/features.jpg";
 import fiveComponentsImage from "../../../dist/assets/fivecomponents.jpg";
 import howItWorksImage from "../../../dist/assets/howitworks.jpg";
@@ -44,6 +49,17 @@ type MachineFeatureVisual = {
   eyebrow: string;
   gradientClass: string;
   image: string;
+  title: string;
+};
+
+type ScientificExperiment = {
+  alt: string;
+  demonstrates: string[];
+  eyebrow: string;
+  image: string;
+  process: string[];
+  purpose: string;
+  summary: string;
   title: string;
 };
 
@@ -171,9 +187,102 @@ const machineFeatureVisuals: MachineFeatureVisual[] = [
   },
 ];
 
+const experimentVideoUrl = "https://vimeo.com/100902001";
+
+const scientificExperiments: ScientificExperiment[] = [
+  {
+    alt: "Iodine test showing selective antioxidants at work",
+    demonstrates: [
+      "Hydrogen-rich water may reduce the visible oxidative effect of iodine more effectively than ordinary water.",
+      "The demonstration supports the idea of molecular hydrogen as a selective antioxidant conversation.",
+      "A color-change test makes oxidative stress easier to explain because visitors can see the comparison directly.",
+    ],
+    eyebrow: "Experiment 01",
+    image: experiment1Image,
+    process: [
+      "Prepare one glass of pure water and one glass of freshly generated H2-rich water.",
+      "Add the same number of iodine drops to each glass.",
+      "Observe the color response in ordinary water compared with hydrogen-rich water.",
+      "Compare the final color after the iodine reacts with each water sample.",
+    ],
+    purpose:
+      "To show whether hydrogen-rich water can visibly reduce the oxidative color effect of iodine when compared with ordinary pure water.",
+    summary:
+      "The iodine test gives visitors a simple visual way to understand antioxidant response. If the hydrogen-rich water clears or reduces the iodine color more strongly, the presentation can explain how dissolved H2 is being discussed as a selective antioxidant support molecule.",
+    title: "Selective Antioxidants At Work",
+  },
+  {
+    alt: "Hydrogen concentration comparison between pure water and hydrogen water",
+    demonstrates: [
+      "Regular purified water should show little to no dissolved H2.",
+      "Fresh hydrogen-rich water should show a measurable hydrogen concentration reading.",
+      "The defining feature of hydrogen water is dissolved H2 concentration, not bottle style, taste, or pH alone.",
+    ],
+    eyebrow: "Experiment 02",
+    image: experiment2Image,
+    process: [
+      "Test a glass of purified or RO bottled water with a hydrogen water tester.",
+      "Generate a fresh glass of hydrogen-rich water from the machine.",
+      "Test the hydrogen-rich water with the same meter.",
+      "Compare the PPB readings between the two water samples.",
+    ],
+    purpose:
+      "To validate that the machine is adding measurable dissolved molecular hydrogen to water, while ordinary purified water contains little or none.",
+    summary:
+      "This experiment moves the conversation from opinion to measurement. By comparing PPB readings, visitors can see that hydrogen-rich water is different because it contains measurable dissolved molecular hydrogen.",
+    title: "Hydrogen Concentration Comparison",
+  },
+  {
+    alt: "ORP comparison measuring antioxidant environment in hydrogen water",
+    demonstrates: [
+      "Ordinary filtered, bottled, or tap water may show a positive or less reducing ORP reading.",
+      "Hydrogen-rich water commonly shows a lower negative ORP reading.",
+      "A negative ORP reading helps explain the reducing environment associated with freshly generated H2 water.",
+    ],
+    eyebrow: "Experiment 03",
+    image: experiment3Image,
+    process: [
+      "Measure the ORP of filtered, bottled, or tap water.",
+      "Generate a fresh glass of hydrogen-rich water.",
+      "Measure the ORP of the hydrogen-rich water using the same tester.",
+      "Compare whether the H2 water shows a stronger negative ORP reading.",
+    ],
+    purpose:
+      "To compare the oxidation-reduction potential of ordinary water with hydrogen-rich water and show how H2 water can create a more reducing environment.",
+    summary:
+      "The ORP test is a supporting demonstration. It does not replace the hydrogen concentration story, but it helps visitors see that freshly generated H2 water can carry a stronger reducing profile than ordinary water.",
+    title: "ORP Antioxidant Comparison",
+  },
+  {
+    alt: "Diffusion comparison of hydrogen water and filtered water using tea",
+    demonstrates: [
+      "Hydrogen-rich water may interact with tea leaves faster than ordinary filtered water under the same conditions.",
+      "The visual difference helps explain diffusion and the discussion around smaller water clusters.",
+      "The demonstration makes the absorption conversation easier to understand without making medical claims.",
+    ],
+    eyebrow: "Experiment 04",
+    image: experiment4Image,
+    process: [
+      "Prepare one glass of filtered water and one glass of freshly generated hydrogen-rich water.",
+      "Add the same amount of loose-leaf tea to both glasses.",
+      "Let both samples steep for the same amount of time.",
+      "Compare the color diffusion and extraction after the timer ends.",
+    ],
+    purpose:
+      "To visually compare how filtered water and hydrogen-rich water interact with tea over the same time period.",
+    summary:
+      "The tea diffusion test is a simple way to discuss how hydrogen-rich water may behave differently from ordinary filtered water. The goal is to make diffusion, interaction, and hydration quality easier to see and remember.",
+    title: "Diffusion And Absorption Demo",
+  },
+];
+
 export function TechnologyPage() {
   const [activeFeatureVisual, setActiveFeatureVisual] =
     useState<MachineFeatureVisual | null>(null);
+  const [activeExperiment, setActiveExperiment] =
+    useState<ScientificExperiment | null>(null);
+  const [activeExperimentVideo, setActiveExperimentVideo] =
+    useState<ScientificExperiment | null>(null);
 
   return (
     <PageLayout>
@@ -450,13 +559,300 @@ export function TechnologyPage() {
         </div>
       </section>
 
+      <section
+        className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
+        id="scientific-experiments"
+      >
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[4%] top-20 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="absolute right-[8%] top-28 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl text-center">
+            <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
+              Scientific Experiments
+            </p>
+            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-6xl">
+              Simple Demonstrations That Make{" "}
+              <span className="bg-gradient-to-r from-cyan-200 via-aqua to-blue-300 bg-clip-text text-transparent">
+                Hydrogen Water Science
+              </span>{" "}
+              Easier To Understand
+            </h2>
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-cyan-50/82">
+              These experiments help explain hydrogen-rich water through
+              visible comparisons: antioxidant response, hydrogen
+              concentration, ORP readings, and diffusion. They are designed for
+              education, conversation, and clearer presentation flow.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {scientificExperiments.map((experiment) => (
+              <ScientificExperimentCard
+                experiment={experiment}
+                key={experiment.title}
+                onOpen={() => setActiveExperiment(experiment)}
+                onVideoOpen={() => setActiveExperimentVideo(experiment)}
+              />
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
+            Visual experiments do not replace scientific research, but they make
+            the hydrogen water conversation easier for families to see,
+            remember, and discuss.
+          </div>
+        </div>
+      </section>
+
       {activeFeatureVisual ? (
         <MachineFeatureVisualModal
           onClose={() => setActiveFeatureVisual(null)}
           visual={activeFeatureVisual}
         />
       ) : null}
+
+      {activeExperiment ? (
+        <ScientificExperimentModal
+          experiment={activeExperiment}
+          onClose={() => setActiveExperiment(null)}
+          onVideoOpen={() => setActiveExperimentVideo(activeExperiment)}
+        />
+      ) : null}
+
+      {activeExperimentVideo ? (
+        <ExperimentVideoModal
+          experiment={activeExperimentVideo}
+          onClose={() => setActiveExperimentVideo(null)}
+        />
+      ) : null}
     </PageLayout>
+  );
+}
+
+function ScientificExperimentCard({
+  experiment,
+  onOpen,
+  onVideoOpen,
+}: {
+  experiment: ScientificExperiment;
+  onOpen: () => void;
+  onVideoOpen: () => void;
+}) {
+  return (
+    <article className="group overflow-hidden rounded-[2rem] border border-cyan-300/20 bg-white/[0.08] shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-cyan-300/45 hover:bg-white/[0.12]">
+      <figure className="bg-slate-950 p-px">
+        <img
+          alt={experiment.alt}
+          className="h-auto w-full object-contain object-center transition duration-500 group-hover:scale-[1.01]"
+          src={experiment.image}
+        />
+      </figure>
+
+      <div className="relative bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-5 pb-16 text-white sm:px-6">
+        <p className="text-xs font-black uppercase tracking-[.22em] text-aqua">
+          {experiment.eyebrow}
+        </p>
+        <h3 className="mt-2 text-2xl font-black leading-tight">
+          {experiment.title}
+        </h3>
+        <p className="mt-3 text-base leading-7 text-cyan-50/82">
+          {experiment.summary}
+        </p>
+
+        <div className="absolute bottom-5 right-5 flex flex-wrap justify-end gap-2">
+          <button
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[.1em] text-marine shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50 hover:shadow-lift"
+            onClick={onOpen}
+            type="button"
+          >
+            <Maximize2 className="h-3 w-3" />
+            View Details
+          </button>
+          <button
+            className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-amber-100 bg-amber-300 px-3 py-1.5 text-[0.68rem] font-black uppercase tracking-[.1em] text-slate-950 shadow-[0_10px_24px_rgba(251,191,36,0.25)] transition hover:-translate-y-0.5 hover:bg-white hover:text-marine hover:shadow-[0_14px_34px_rgba(251,191,36,0.38)]"
+            onClick={onVideoOpen}
+            type="button"
+          >
+            <ExternalLink className="h-3 w-3" />
+            View Video
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function ScientificExperimentModal({
+  experiment,
+  onClose,
+  onVideoOpen,
+}: {
+  experiment: ScientificExperiment;
+  onClose: () => void;
+  onVideoOpen: () => void;
+}) {
+  return (
+    <div className="fixed inset-0 z-[30000] bg-slate-950/85 px-4 py-6 backdrop-blur-sm sm:px-6">
+      <div className="mx-auto flex max-h-[92vh] max-w-6xl flex-col overflow-y-auto rounded-md border border-cyan-200/30 bg-white shadow-[0_35px_120px_rgba(0,0,0,0.45)]">
+        <div className="sticky top-0 z-[30001] flex items-center justify-between gap-4 bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-4 text-white">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+              {experiment.eyebrow}
+            </p>
+            <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+              {experiment.title}
+            </h2>
+          </div>
+          <button
+            aria-label="Close experiment details modal"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+            onClick={onClose}
+            type="button"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <figure className="bg-slate-950 p-px">
+          <img
+            alt={experiment.alt}
+            className="h-auto w-full object-contain object-center"
+            src={experiment.image}
+          />
+        </figure>
+
+        <div className="grid gap-5 bg-gradient-to-b from-white to-ice px-5 py-6 sm:px-8 sm:py-8">
+          <ExperimentInfoPanel
+            heading="Purpose"
+            items={[experiment.purpose]}
+            tone="blue"
+          />
+
+          <ExperimentInfoPanel
+            heading="Process"
+            items={experiment.process}
+            ordered
+            tone="white"
+          />
+
+          <ExperimentInfoPanel
+            heading="What This Demonstrates"
+            items={experiment.demonstrates}
+            tone="cyan"
+          />
+
+          <div className="rounded-2xl border border-amber-300 bg-amber-50 p-5 text-marine shadow-sm">
+            <p className="text-sm font-black uppercase tracking-[.22em] text-amber-700">
+              Experiment Summary
+            </p>
+            <p className="mt-3 text-lg font-semibold leading-8">
+              {experiment.summary}
+            </p>
+          </div>
+
+          <button
+            className="w-fit cursor-pointer rounded-full border border-amber-100 bg-amber-300 px-5 py-3 text-sm font-black uppercase tracking-[.12em] text-slate-950 shadow-[0_16px_36px_rgba(251,191,36,0.26)] transition hover:-translate-y-0.5 hover:bg-marine hover:text-white hover:shadow-lift"
+            onClick={onVideoOpen}
+            type="button"
+          >
+            Watch Experiment Video
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExperimentVideoModal({
+  experiment,
+  onClose,
+}: {
+  experiment: ScientificExperiment;
+  onClose: () => void;
+}) {
+  const videoId = experimentVideoUrl.replace("https://vimeo.com/", "");
+
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/90 px-4 py-8 backdrop-blur-sm sm:px-6"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-md border border-cyan-200/30 bg-slate-950 shadow-[0_35px_120px_rgba(0,0,0,0.55)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-4 text-white">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+              Experiment Video
+            </p>
+            <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+              {experiment.title}
+            </h2>
+          </div>
+          <button
+            aria-label="Close experiment video modal"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+            onClick={onClose}
+            type="button"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="aspect-video bg-black">
+          <iframe
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+            src={`https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`}
+            title={`${experiment.title} video`}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExperimentInfoPanel({
+  heading,
+  items,
+  ordered = false,
+  tone,
+}: {
+  heading: string;
+  items: string[];
+  ordered?: boolean;
+  tone: "blue" | "cyan" | "white";
+}) {
+  const wrapperClass =
+    tone === "blue"
+      ? "border-lagoon/30 bg-gradient-to-br from-marine to-lagoon text-white"
+      : tone === "cyan"
+        ? "border-cyan-200 bg-cyan-50 text-slate-800"
+        : "border-slate-200 bg-white text-slate-800";
+  const headingClass = tone === "blue" ? "text-aqua" : "text-lagoon";
+  const listClass = ordered ? "list-decimal" : "list-disc";
+
+  return (
+    <section className={`rounded-2xl border p-5 shadow-sm ${wrapperClass}`}>
+      <h3 className={`text-sm font-black uppercase tracking-[.22em] ${headingClass}`}>
+        {heading}
+      </h3>
+      <ol className={`mt-4 space-y-3 pl-5 ${listClass}`}>
+        {items.map((item) => (
+          <li className="text-base font-semibold leading-7" key={item}>
+            {item}
+          </li>
+        ))}
+      </ol>
+    </section>
   );
 }
 

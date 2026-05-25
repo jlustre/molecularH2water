@@ -105,3 +105,19 @@ a {
 .mobile-menu-heading:active {
   transform: scale(0.98);
 }
+
+.menu-popover {
+  animation: menu-pop 180ms ease-out both;
+}
+
+@keyframes menu-pop {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

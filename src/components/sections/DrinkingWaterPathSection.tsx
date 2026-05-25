@@ -12,7 +12,7 @@ import tapWaterImage from "../../../dist/assets/drinkingwater/tapwater.jpg";
 const waterOptions = [
   {
     title: "Tap Water",
-    eyebrow: "Common Starting Point",
+    eyebrow: "Must Be Filtered",
     image: tapWaterImage,
     summary:
       "Tap water is accessible and familiar, but quality can vary by location, plumbing, source, and treatment methods.",
@@ -24,7 +24,7 @@ const waterOptions = [
   },
   {
     title: "Bottled Water",
-    eyebrow: "Convenient Choice",
+    eyebrow: "Expensive Microplastics",
     image: bottledWaterImage,
     summary:
       "Bottled water offers convenience, but it can create cost, storage, plastic waste, and quality-comparison questions.",
@@ -36,7 +36,7 @@ const waterOptions = [
   },
   {
     title: "Carbon Filtration",
-    eyebrow: "Taste And Odor Support",
+    eyebrow: "Basic and Very Limited",
     image: carbonFiltrationImage,
     summary:
       "Carbon filtration can improve taste and reduce certain unwanted compounds, but it does not create molecular hydrogen.",
@@ -48,7 +48,7 @@ const waterOptions = [
   },
   {
     title: "Reverse Osmosis",
-    eyebrow: "Deep Filtration",
+    eyebrow: "Strips out the Minerals",
     image: reverseOsmosisImage,
     summary:
       "Reverse osmosis can remove many dissolved substances, but it may also reduce minerals and still does not add H2.",
@@ -60,7 +60,7 @@ const waterOptions = [
   },
   {
     title: "Alkaline Water",
-    eyebrow: "pH-Focused",
+    eyebrow: "Manipulate pH/Doesn't Separate Hydrogen",
     image: alkalineWaterImage,
     summary:
       "Alkaline water focuses mainly on pH. Hydrogen-rich water focuses on dissolved molecular hydrogen concentration.",
@@ -94,7 +94,7 @@ export function DrinkingWaterPathSection() {
               Types Of Drinking Water
             </p>
             <h2 className="mt-5 text-4xl font-black leading-tight text-marine sm:text-6xl">
-              Does Quality Of Water Matters?
+              Does Quality Of Water Matter?
             </h2>
             <p className="mt-6 text-xl font-black leading-8 text-slateblue">
               If your body depends on water every day, then the kind of water
@@ -165,7 +165,7 @@ export function DrinkingWaterPathSection() {
           {waterOptions.map((option) => {
             return (
               <article
-                className="group flex overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift md:flex-col"
+                className="group flex flex-col overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift"
                 key={option.title}
               >
                 <div className="overflow-hidden bg-slate-950 p-px">
@@ -220,7 +220,7 @@ export function DrinkingWaterPathSection() {
                 Molecular H2 Water
               </p>
               <h3 className="mt-5 max-w-3xl text-3xl font-black leading-tight text-marine sm:text-5xl">
-                The Upgrade Is Dissolved Hydrogen, Not Just Cleaner Water
+                The Upgrade Is Medical Grade Hydrogen, Not Just Cleaner Water
               </h3>
               <p className="mt-6 text-lg leading-8 text-slate-700">
                 After comparing tap water, bottled water, carbon filtration,
@@ -246,7 +246,7 @@ export function DrinkingWaterPathSection() {
                     Ordinary water choices explain the starting point.
                   </p>
                   <p className="relative mt-2 text-xl font-black leading-8 text-marine">
-                    Hydrogen-rich water explains the upgrade.
+                    Hydrogen-rich water is the game changer.
                   </p>
                 </div>
               </div>
@@ -282,20 +282,18 @@ export function DrinkingWaterPathSection() {
                 </article>
                 <article className="rounded-2xl border border-cyan-200 bg-white/85 p-4 shadow-sm backdrop-blur">
                   <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
-                    03 Drink Fresh
+                    03 Micro-Cluster
                   </p>
                   <p className="mt-2 font-semibold leading-7 text-slate-700">
-                    Hydrogen can dissipate over time, so the message is about
-                    freshly prepared hydrogen-rich water as part of a daily habit.
+                    Water molecules are grouped into smaller clusters, which may support improved hydration and easier cellular interaction.
                   </p>
                 </article>
                 <article className="rounded-2xl border border-cyan-200 bg-white/85 p-4 shadow-sm backdrop-blur">
                   <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
-                    04 Focus The Story
+                    04 Great Tasting Mineral-Rich Water
                   </p>
                   <p className="mt-2 font-semibold leading-7 text-slate-700">
-                    H2 water connects hydration back to oxidative stress,
-                    antioxidants, cellular access, and everyday wellness education.
+                    Clean, refreshing water enriched with beneficial minerals to support a smoother taste and a more enjoyable daily hydration experience.
                   </p>
                 </article>
               </div>

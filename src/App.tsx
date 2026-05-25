@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AboutPage } from "./components/sections/AboutPage";
 import { HomePage } from "./components/sections/HomePage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
 
@@ -31,6 +32,7 @@ function App() {
   const [locationKey, setLocationKey] = useState(
     `${window.location.pathname}${window.location.hash}`,
   );
+  const isAboutPage = window.location.pathname === "/about";
   const isTechnologyPage = window.location.pathname === "/technology";
 
   useEffect(() => {
@@ -67,7 +69,9 @@ function App() {
       }
 
       const supportedPath =
-        nextUrl.pathname === "/" || nextUrl.pathname === "/technology";
+        nextUrl.pathname === "/" ||
+        nextUrl.pathname === "/about" ||
+        nextUrl.pathname === "/technology";
 
       if (!supportedPath) {
         return;
@@ -119,6 +123,10 @@ function App() {
 
   if (isTechnologyPage) {
     return <TechnologyPage />;
+  }
+
+  if (isAboutPage) {
+    return <AboutPage />;
   }
 
   return <HomePage />;

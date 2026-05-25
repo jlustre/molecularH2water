@@ -2,391 +2,1017 @@ import { useState } from "react";
 import {
   Activity,
   Atom,
+  Award,
+  Brain,
+  CalendarCheck,
+  ChevronDown,
+  ChevronRight,
   Cpu,
   Droplets,
+  Dumbbell,
+  Flame,
+  Gift,
   Gauge,
   GlassWater,
+  HandHeart,
   HeartPulse,
+  HelpCircle,
+  Home,
+  Mail,
+  Menu,
+  Microscope,
   ShieldCheck,
   Sparkles,
+  UserCheck,
+  Users,
   Waves,
+  X,
   Zap,
   type LucideIcon,
 } from "lucide-react";
-import { navItems } from "../../data/siteContent";
 import { BrandMark } from "../ui/BrandMark";
 
-type DropdownLink = {
+type MenuLink = {
+  description: string;
   href: string;
   icon: LucideIcon;
   key: string;
   label: string;
 };
 
-const foundationLinks: DropdownLink[] = [
-  { href: "/#problem", icon: Activity, key: "problem", label: "The Problem" },
-  { href: "/#enemy", icon: Zap, key: "enemy", label: "The Enemy" },
-  { href: "/#hero", icon: ShieldCheck, key: "hero", label: "The Hero" },
+type MenuGroup = {
+  description: string;
+  icon: LucideIcon;
+  key: string;
+  links: MenuLink[];
+  title: string;
+};
+
+type MenuPanel = {
+  description: string;
+  groups: MenuGroup[];
+  icon: LucideIcon;
+  key: "foundations" | "home" | "resources" | "technology";
+  label: string;
+  title: string;
+};
+
+type LanguageCode = "en" | "es";
+
+type LanguageOption = {
+  code: LanguageCode;
+  label: string;
+  shortLabel: string;
+};
+
+let menuAudioContext: AudioContext | null = null;
+
+const languageStorageKey = "h2systems-language";
+const languageOptions: LanguageOption[] = [
   {
-    href: "/#ultimate-antioxidant",
-    icon: Sparkles,
-    key: "ultimate-antioxidant",
-    label: "Ultimate Antioxidant",
+    code: "en",
+    label: "English",
+    shortLabel: "EN",
   },
   {
-    href: "/#how-to-get-h2",
-    icon: GlassWater,
-    key: "how-to-get-h2",
-    label: "Types of Drinking Water",
-  },
-  {
-    href: "/#molecular-h2-water",
-    icon: Atom,
-    key: "molecular-h2-water",
-    label: "Molecular H2 Water",
-  },
-  {
-    href: "/#solution",
-    icon: HeartPulse,
-    key: "solution",
-    label: "The Solution",
+    code: "es",
+    label: "Spanish",
+    shortLabel: "ES",
   },
 ];
 
-const technologyLinks: DropdownLink[] = [
-  {
-    href: "/technology#hydrogen-water-machine",
-    icon: Droplets,
-    key: "hydrogen-water-machine",
-    label: "Hydrogen Water Machine",
-  },
-  {
-    href: "/technology#how-it-works",
-    icon: Gauge,
-    key: "how-it-works",
-    label: "How Does It Work",
-  },
-  {
-    href: "/technology#ionizer-vs-h2",
-    icon: Waves,
-    key: "ionizer-vs-h2",
-    label: "Ionizer Vs H2 Water Machine",
-  },
-  {
-    href: "/technology#machine-features",
-    icon: Cpu,
-    key: "machine-features",
-    label: "The Machine Features",
-  },
-];
+const homePanel: MenuPanel = {
+  description:
+    "Quick access to visitor information, common questions, contact options, and scheduling.",
+  icon: Home,
+  key: "home",
+  label: "Home",
+  title: "Start Here",
+  groups: [
+    {
+      description: "Essential links for new visitors and presentation guests.",
+      icon: Home,
+      key: "main-pages",
+      title: "Home",
+      links: [
+        {
+          description: "Return to the main homepage experience.",
+          href: "/#home",
+          icon: Home,
+          key: "home",
+          label: "Home",
+        },
+        {
+          description: "Learn the purpose, story, and mission behind H2Systems.",
+          href: "/about#who-we-are",
+          icon: Users,
+          key: "who-we-are",
+          label: "Who We Are",
+        },
+        {
+          description: "Find clear answers to common visitor questions.",
+          href: "/about#faq",
+          icon: HelpCircle,
+          key: "faq",
+          label: "FAQ",
+        },
+        {
+          description: "Send a question or request more information.",
+          href: "/about#contact",
+          icon: Mail,
+          key: "contact-us",
+          label: "Contact US",
+        },
+      ],
+    },
+    {
+      description: "Meet the people who explain the water story and schedule time.",
+      icon: UserCheck,
+      key: "people-scheduling",
+      title: "Career and Shows",
+      links: [
+        {
+          description: "Connect with someone trained to explain hydration options.",
+          href: "/about#hydration-specialist",
+          icon: Droplets,
+          key: "hydration-specialist",
+          label: "Become Hydration Specialist",
+        },
+        {
+          description: "Learn how advocates share the wellness education story.",
+          href: "/about#wellness-advocate",
+          icon: HandHeart,
+          key: "wellness-advocate",
+          label: "Become Wellness Advocate",
+        },
+        {
+          description: "Reserve time for a Water Awareness Show or presentation.",
+          href: "/about#schedule-water-awareness-show",
+          icon: CalendarCheck,
+          key: "schedule-water-awareness-show",
+          label: "Schedule/Attend Water Awareness Show",
+        },
+      ],
+    },
+  ],
+};
 
-function DropdownIcon({ icon: Icon }: { icon: LucideIcon }) {
+const foundationPanel: MenuPanel = {
+  description:
+    "Understand the problem, the hero, and why molecular hydrogen becomes the next logical step.",
+  icon: ShieldCheck,
+  key: "foundations",
+  label: "Foundations",
+  title: "Build the Wellness Story",
+  groups: [
+    {
+      description: "Start with the challenge people already feel.",
+      icon: Activity,
+      key: "problem-basics",
+      title: "Problem Awareness",
+      links: [
+        {
+          description: "The everyday symptoms that start the conversation.",
+          href: "/#problem",
+          icon: Activity,
+          key: "problem",
+          label: "The Problem",
+        },
+        {
+          description: "Free radicals as the invisible source of stress.",
+          href: "/#enemy",
+          icon: Zap,
+          key: "enemy",
+          label: "The Enemy",
+        },
+        {
+          description: "How antioxidants help the body defend itself.",
+          href: "/#hero",
+          icon: ShieldCheck,
+          key: "hero",
+          label: "The Hero",
+        },
+        {
+          description: "Why H2 is different from traditional antioxidants.",
+          href: "/#ultimate-antioxidant",
+          icon: Sparkles,
+          key: "ultimate-antioxidant",
+          label: "Ultimate Antioxidant",
+        },
+      ],
+    },
+    {
+      description: "Move from ordinary water choices to H2 water.",
+      icon: GlassWater,
+      key: "hydration-path",
+      title: "Hydration Path",
+      links: [
+        {
+          description: "Compare tap, bottled, filtered, RO, and alkaline water.",
+          href: "/#how-to-get-h2",
+          icon: GlassWater,
+          key: "how-to-get-h2",
+          label: "Types of Drinking Water",
+        },
+        {
+          description: "Explain the upgrade: dissolved molecular hydrogen.",
+          href: "/#molecular-h2-water",
+          icon: Atom,
+          key: "molecular-h2-water",
+          label: "Molecular H2 Water",
+        },
+        {
+          description: "Introduce the clean daily water habit families can adopt.",
+          href: "/#solution",
+          icon: HeartPulse,
+          key: "solution",
+          label: "The Solution",
+        },
+      ],
+    },
+  ],
+};
+
+const technologyPanel: MenuPanel = {
+  description:
+    "Show how the machine works, how it compares, and how the demonstrations make the science visible.",
+  icon: Cpu,
+  key: "technology",
+  label: "Technology",
+  title: "Explore the Machine",
+  groups: [
+    {
+      description: "The product and its operating story.",
+      icon: Droplets,
+      key: "machine-story",
+      title: "Machine Overview",
+      links: [
+        {
+          description: "Introduce the molecular hydrogen water machine.",
+          href: "/technology#hydrogen-water-machine",
+          icon: Droplets,
+          key: "hydrogen-water-machine",
+          label: "Hydrogen Water Machine",
+        },
+        {
+          description: "Follow water through the system step by step.",
+          href: "/technology#how-it-works",
+          icon: Gauge,
+          key: "how-it-works",
+          label: "How Does It Work",
+        },
+        {
+          description: "Highlight daily-use benefits and engineering quality.",
+          href: "/technology#machine-features",
+          icon: Cpu,
+          key: "machine-features",
+          label: "Machine Features",
+        },
+      ],
+    },
+    {
+      description: "Comparison and demonstration tools.",
+      icon: Microscope,
+      key: "proof-comparison",
+      title: "Proof & Comparison",
+      links: [
+        {
+          description: "Compare pH-focused ionizers with H2-focused machines.",
+          href: "/technology#ionizer-vs-h2",
+          icon: Waves,
+          key: "ionizer-vs-h2",
+          label: "Ionizer Vs H2 Machine",
+        },
+        {
+          description: "Show iodine, PPB, ORP, and diffusion demonstrations.",
+          href: "/technology#scientific-experiments",
+          icon: Microscope,
+          key: "scientific-experiments",
+          label: "Scientific Experiments",
+        },
+      ],
+    },
+  ],
+};
+
+const resourcesPanel: MenuPanel = {
+  description:
+    "Find audience-facing proof points, wellness outcomes, and program information that support the presentation.",
+  icon: Sparkles,
+  key: "resources",
+  label: "Resources",
+  title: "Support the Decision",
+  groups: [
+    {
+      description: "Credibility and offer context.",
+      icon: Award,
+      key: "expert-impact",
+      title: "Expert Guidance & Program",
+      links: [
+        {
+          description: "Expert voices and professional recommendations.",
+          href: "/#recommended-by-experts",
+          icon: Award,
+          key: "recommended-by-experts",
+          label: "Recommended By Experts",
+        },
+        {
+          description: "Stories that explain why the presentation matters.",
+          href: "/#life-changing-impact",
+          icon: Sparkles,
+          key: "life-changing-impact",
+          label: "Life Changing Impact",
+        },
+        {
+          description: "Program information for machine ownership.",
+          href: "/#bonus-machine-program",
+          icon: Gift,
+          key: "bonus-machine-program",
+          label: "Bonus Machine Program",
+        },
+      ],
+    },
+    {
+      description: "Daily energy, movement, and recovery benefits.",
+      icon: Flame,
+      key: "recovery-energy",
+      title: "Recovery & Energy",
+      links: [
+        {
+          description: "Education around inflammation and wellness balance.",
+          href: "/#inflammation-reduction",
+          icon: Flame,
+          key: "inflammation-reduction",
+          label: "Inflammation Reduction",
+        },
+        {
+          description: "Hydration support for training and recovery routines.",
+          href: "/#athletic-recovery",
+          icon: Dumbbell,
+          key: "athletic-recovery",
+          label: "Athletic Recovery",
+        },
+        {
+          description: "Energy and vitality as part of better daily habits.",
+          href: "/#have-more-energy",
+          icon: Zap,
+          key: "have-more-energy",
+          label: "Have More Energy",
+        },
+      ],
+    },
+    {
+      description: "Whole-body education topics for deeper learning.",
+      icon: HandHeart,
+      key: "whole-body-support",
+      title: "Whole-Body Support",
+      links: [
+        {
+          description: "Hydration and oxidative-stress education for digestion.",
+          href: "/#gut-health-support",
+          icon: HandHeart,
+          key: "gut-health-support",
+          label: "Gut Health Support",
+        },
+        {
+          description: "Focus, clarity, and brain wellness education.",
+          href: "/#brain-health-support",
+          icon: Brain,
+          key: "brain-health-support",
+          label: "Brain Health Support",
+        },
+        {
+          description: "Circulation and daily wellness support topics.",
+          href: "/#improved-circulation",
+          icon: Activity,
+          key: "improved-circulation",
+          label: "Improved Circulation",
+        },
+      ],
+    },
+  ],
+};
+
+const menuPanels = [homePanel, foundationPanel, technologyPanel, resourcesPanel];
+const mobilePanelStorageKey = "h2systems-open-mobile-panel";
+const menuGroupStorageKey = "h2systems-menu-group-state";
+
+function getStoredMobilePanel(): MenuPanel["key"] | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  try {
+    const storedPanel = window.localStorage.getItem(mobilePanelStorageKey);
+    const knownPanel = menuPanels.find((panel) => panel.key === storedPanel);
+    return knownPanel?.key ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function storeMobilePanel(key: MenuPanel["key"] | null) {
+  try {
+    if (key) {
+      window.localStorage.setItem(mobilePanelStorageKey, key);
+      return;
+    }
+
+    window.localStorage.removeItem(mobilePanelStorageKey);
+  } catch {
+    // Local storage can be unavailable in private or restricted browser modes.
+  }
+}
+
+function getStoredLanguage(): LanguageCode {
+  if (typeof window === "undefined") {
+    return "en";
+  }
+
+  try {
+    const storedLanguage = window.localStorage.getItem(languageStorageKey);
+    return storedLanguage === "es" ? "es" : "en";
+  } catch {
+    return "en";
+  }
+}
+
+function storeLanguage(code: LanguageCode) {
+  try {
+    window.localStorage.setItem(languageStorageKey, code);
+    document.documentElement.lang = code;
+  } catch {
+    // Local storage can be unavailable in private or restricted browser modes.
+  }
+}
+
+function getStoredMenuGroupState(panelKey: MenuPanel["key"]) {
+  if (typeof window === "undefined") {
+    return {};
+  }
+
+  try {
+    const storedState = window.localStorage.getItem(menuGroupStorageKey);
+    if (!storedState) {
+      return {};
+    }
+
+    const parsedState = JSON.parse(storedState) as Record<
+      string,
+      Record<string, boolean>
+    >;
+    return parsedState[panelKey] ?? {};
+  } catch {
+    return {};
+  }
+}
+
+function storeMenuGroupState(
+  panelKey: MenuPanel["key"],
+  groupKey: string,
+  open: boolean,
+) {
+  try {
+    const storedState = window.localStorage.getItem(menuGroupStorageKey);
+    const parsedState = storedState
+      ? (JSON.parse(storedState) as Record<string, Record<string, boolean>>)
+      : {};
+
+    parsedState[panelKey] = {
+      ...(parsedState[panelKey] ?? {}),
+      [groupKey]: open,
+    };
+
+    window.localStorage.setItem(menuGroupStorageKey, JSON.stringify(parsedState));
+  } catch {
+    // Local storage can be unavailable in private or restricted browser modes.
+  }
+}
+
+function playMenuClick() {
+  const AudioContextConstructor =
+    window.AudioContext ||
+    (window as Window & { webkitAudioContext?: typeof AudioContext })
+      .webkitAudioContext;
+
+  if (!AudioContextConstructor) {
+    return;
+  }
+
+  menuAudioContext ??= new AudioContextConstructor();
+
+  if (menuAudioContext.state === "suspended") {
+    void menuAudioContext.resume();
+  }
+
+  const oscillator = menuAudioContext.createOscillator();
+  const gain = menuAudioContext.createGain();
+  const now = menuAudioContext.currentTime;
+
+  oscillator.type = "sine";
+  oscillator.frequency.setValueAtTime(640, now);
+  oscillator.frequency.exponentialRampToValueAtTime(380, now + 0.055);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.045, now + 0.008);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+  oscillator.connect(gain);
+  gain.connect(menuAudioContext.destination);
+  oscillator.start(now);
+  oscillator.stop(now + 0.075);
+}
+
+function MenuIconBadge({ icon: Icon }: { icon: LucideIcon }) {
   return (
-    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white text-lagoon shadow-sm">
-      <Icon className="h-4 w-4" strokeWidth={2.4} />
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl border border-cyan-100 bg-white text-lagoon shadow-sm transition group-hover:scale-105 group-hover:text-marine">
+      <Icon className="h-5 w-5" strokeWidth={2.4} />
     </span>
+  );
+}
+
+function DropdownArrow({ open }: { open: boolean }) {
+  return (
+    <ChevronDown
+      className={`h-4 w-4 text-current opacity-80 transition duration-200 ${
+        open ? "rotate-180" : ""
+      }`}
+      strokeWidth={2.5}
+    />
+  );
+}
+
+function FlagBadge({ code }: { code: LanguageCode }) {
+  if (code === "es") {
+    return (
+      <span
+        aria-label="Mexico flag"
+        className="grid h-5 w-7 shrink-0 grid-cols-3 overflow-hidden rounded-[4px] border border-slate-200 shadow-sm"
+        role="img"
+      >
+        <span className="bg-[#006847]" />
+        <span className="relative bg-white">
+          <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c09300]" />
+        </span>
+        <span className="bg-[#ce1126]" />
+      </span>
+    );
+  }
+
+  return (
+    <span
+      aria-label="United States flag"
+      className="relative h-5 w-7 shrink-0 overflow-hidden rounded-[4px] border border-slate-200 bg-[repeating-linear-gradient(to_bottom,#b22234_0_7.69%,#fff_7.69%_15.38%)] shadow-sm"
+      role="img"
+    >
+      <span className="absolute left-0 top-0 h-[54%] w-[45%] bg-[#3c3b6e]" />
+    </span>
+  );
+}
+
+function LanguageSelector({
+  fullWidth = false,
+}: {
+  fullWidth?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const [language, setLanguage] = useState<LanguageCode>(() =>
+    getStoredLanguage(),
+  );
+  const selectedLanguage =
+    languageOptions.find((option) => option.code === language) ??
+    languageOptions[0];
+
+  const chooseLanguage = (option: LanguageOption) => {
+    playMenuClick();
+
+    if (option.code === "es") {
+      window.alert(
+        "The Spanish version of this site is still under construction and will be available soon.",
+      );
+      setLanguage("en");
+      storeLanguage("en");
+      setOpen(false);
+      return;
+    }
+
+    setLanguage(option.code);
+    storeLanguage(option.code);
+    setOpen(false);
+  };
+
+  return (
+    <div
+      className={`relative ${fullWidth ? "w-full" : ""}`}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setOpen(false);
+        }
+      }}
+    >
+      <button
+        aria-expanded={open}
+        aria-label="Select language"
+        className={`flex h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-cyan-200/70 bg-white px-4 text-sm font-black text-marine shadow-sm transition hover:-translate-y-0.5 hover:border-aqua hover:bg-ice focus:outline-none focus:ring-4 focus:ring-cyan-200/70 ${
+          fullWidth ? "w-full" : ""
+        }`}
+        onClick={() => {
+          playMenuClick();
+          setOpen((current) => !current);
+        }}
+        type="button"
+      >
+        <FlagBadge code={selectedLanguage.code} />
+        <span>{selectedLanguage.shortLabel}</span>
+        <DropdownArrow open={open} />
+      </button>
+
+      {open && (
+        <div
+          className={`menu-popover absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-cyan-100 bg-white p-1.5 shadow-[0_18px_55px_rgba(7,59,76,0.18)] ${
+            fullWidth ? "left-0 right-0" : "w-44"
+          }`}
+        >
+          {languageOptions.map((option) => (
+            <button
+              className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-black transition hover:bg-ice hover:text-lagoon ${
+                option.code === language ? "bg-ice text-lagoon" : "text-marine"
+              }`}
+              key={option.code}
+              onClick={() => chooseLanguage(option)}
+              type="button"
+            >
+              <FlagBadge code={option.code} />
+              <span>{option.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
 export function TopNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeMobileItem, setActiveMobileItem] = useState<string | null>(null);
-  const [openDropdown, setOpenDropdown] = useState<
-    "foundations" | "technology" | null
-  >(null);
+  const [openPanel, setOpenPanel] = useState<MenuPanel["key"] | null>(null);
+  const [openMobilePanel, setOpenMobilePanel] = useState<
+    MenuPanel["key"] | null
+  >(() => getStoredMobilePanel());
 
-  const mobileItemClass = (key: string, extra = "") =>
-    `mobile-menu-link rounded-2xl px-4 py-3 font-bold transition ${
-      activeMobileItem === key
-        ? "bg-marine text-white"
-        : "text-slate-700"
-    } ${extra}`;
+  const closeMenus = () => {
+    setOpenPanel(null);
+    setMobileOpen(false);
+  };
 
-  const mobileSubItemClass = (key: string) =>
-    `mobile-menu-link flex items-center gap-3 rounded-xl px-4 py-2 transition ${
-      activeMobileItem === key
-        ? "bg-marine text-white"
-        : "text-slate-700"
-    }`;
-
-  const mobileHeadingClass = (key: string) =>
-    `mobile-menu-heading rounded-2xl px-4 py-3 font-bold transition ${
-      activeMobileItem === key
-        ? "bg-marine text-white"
-        : "text-marine"
-    }`;
-
-  const mobileActiveStyle = (key: string) =>
-    activeMobileItem === key
-      ? { backgroundColor: "#073b4c", color: "#ffffff" }
-      : undefined;
-
-  const mobileInteractionProps = (key: string) => ({
-    onFocus: () => setActiveMobileItem(key),
-    onMouseEnter: () => setActiveMobileItem(key),
-    onMouseLeave: () => setActiveMobileItem(null),
-    onPointerDown: () => setActiveMobileItem(key),
-    onPointerEnter: () => setActiveMobileItem(key),
-    style: mobileActiveStyle(key),
-  });
-
-  const renderDesktopDropdownLink = (link: DropdownLink) => (
-    <a
-      className="flex items-center gap-3 whitespace-nowrap px-5 py-2 text-base text-slate-700 transition hover:bg-amber-100 hover:text-marine"
-      href={link.href}
-      key={link.href}
-      onClick={() => setOpenDropdown(null)}
-    >
-      <DropdownIcon icon={link.icon} />
-      <span>{link.label}</span>
-    </a>
-  );
-
-  const renderMobileDropdownLink = (link: DropdownLink) => {
-    const mobileKey = `mobile-${link.key}`;
-
-    return (
-      <a
-        className={mobileSubItemClass(mobileKey)}
-        href={link.href}
-        key={link.href}
-        onClick={() => setMobileOpen(false)}
-        {...mobileInteractionProps(mobileKey)}
-      >
-        <DropdownIcon icon={link.icon} />
-        <span>{link.label}</span>
-      </a>
-    );
+  const toggleMobilePanel = (key: MenuPanel["key"]) => {
+    playMenuClick();
+    setOpenMobilePanel((current) => {
+      const nextPanel = current === key ? null : key;
+      storeMobilePanel(nextPanel);
+      return nextPanel;
+    });
   };
 
   return (
     <>
       <header
-        className="sticky top-0 border-b border-slate-100 bg-white/95 backdrop-blur-xl"
+        className="sticky top-0 border-b border-cyan-100/80 bg-white/90 shadow-[0_12px_45px_rgba(7,59,76,0.08)] backdrop-blur-2xl"
         style={{ zIndex: 10000 }}
       >
         <nav
           aria-label="Main navigation"
           className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8"
         >
-          <a aria-label="H2Systems Home" href="/#home">
+          <a
+            aria-label="H2Systems Home"
+            href="/#home"
+            onClick={playMenuClick}
+            title="Go to Home"
+          >
             <BrandMark />
           </a>
 
-          <div className="hidden rounded-full border border-slate-200 bg-white p-1 shadow-sm lg:flex">
-            {navItems.map((item) => {
-              if (item.label === "The Foundations") {
-                return (
-                  <div
-                    className="relative group"
-                    key={item.href}
-                    onBlur={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget)) {
-                        setOpenDropdown(null);
-                      }
-                    }}
-                    onMouseEnter={() => setOpenDropdown("foundations")}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
-                    <button
-                      aria-expanded={openDropdown === "foundations"}
-                      className="flex items-center gap-1 rounded-full px-5 py-2 text-base font-bold text-slate-700 hover:bg-ice hover:text-marine"
-                      onClick={() =>
-                        setOpenDropdown((current) =>
-                          current === "foundations" ? null : "foundations",
-                        )
-                      }
-                      onFocus={() => setOpenDropdown("foundations")}
-                      type="button"
-                    >
-                      The Foundations
-                      <svg width="16" height="16" fill="none" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </button>
-                    <div
-                      className={`absolute left-0 top-full z-50 min-w-[300px] pt-2 ${
-                        openDropdown === "foundations"
-                          ? "block"
-                          : "hidden group-hover:block group-focus-within:block"
-                      }`}
-                    >
-                      <div className="rounded-xl border border-amber-200 bg-amber-50 py-2 shadow-lg">
-                        {foundationLinks.map(renderDesktopDropdownLink)}
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-              if (item.label === "The Technology") {
-                return (
-                  <div
-                    className="relative group"
-                    key={item.href}
-                    onBlur={(event) => {
-                      if (!event.currentTarget.contains(event.relatedTarget)) {
-                        setOpenDropdown(null);
-                      }
-                    }}
-                    onMouseEnter={() => setOpenDropdown("technology")}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
-                    <button
-                      aria-expanded={openDropdown === "technology"}
-                      className="flex items-center gap-1 rounded-full px-5 py-2 text-base font-bold text-slate-700 hover:bg-ice hover:text-marine"
-                      onClick={() =>
-                        setOpenDropdown((current) =>
-                          current === "technology" ? null : "technology",
-                        )
-                      }
-                      onFocus={() => setOpenDropdown("technology")}
-                      type="button"
-                    >
-                      The Technology
-                      <svg width="16" height="16" fill="none" viewBox="0 0 20 20"><path d="M6 8l4 4 4-4" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </button>
-                    <div
-                      className={`absolute left-0 top-full z-50 min-w-[300px] pt-2 ${
-                        openDropdown === "technology"
-                          ? "block"
-                          : "hidden group-hover:block group-focus-within:block"
-                      }`}
-                    >
-                      <div className="rounded-xl border border-amber-200 bg-amber-50 py-2 shadow-lg">
-                        {technologyLinks.map(renderDesktopDropdownLink)}
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <a
-                  className="rounded-full px-5 py-2 text-base font-bold text-slate-700 hover:bg-ice hover:text-marine"
-                  href={item.href}
-                  key={item.href}
+          <div className="hidden items-center rounded-full border border-cyan-200/30 bg-marine/95 p-1.5 shadow-[0_12px_35px_rgba(7,59,76,0.22)] lg:flex">
+            {menuPanels.map((panel) => (
+              <div
+                className="relative"
+                key={panel.key}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setOpenPanel(null);
+                  }
+                }}
+                onMouseEnter={() => setOpenPanel(panel.key)}
+                onMouseLeave={() => setOpenPanel(null)}
+              >
+                <button
+                  aria-expanded={openPanel === panel.key}
+                  className={`group flex items-center gap-2 rounded-full px-4 py-2 text-base font-black transition ${
+                    openPanel === panel.key
+                      ? "bg-white text-marine shadow-[0_12px_30px_rgba(6,214,160,0.18)]"
+                      : "text-white hover:bg-white/12 hover:text-aqua"
+                  }`}
+                  onClick={() => {
+                    playMenuClick();
+                    setOpenPanel((current) =>
+                      current === panel.key ? null : panel.key,
+                    );
+                  }}
+                  onFocus={() => setOpenPanel(panel.key)}
+                  type="button"
                 >
-                  {item.label}
-                </a>
-              );
-            })}
+                  <panel.icon
+                    className={`h-4 w-4 ${
+                      openPanel === panel.key ? "text-lagoon" : "text-aqua"
+                    }`}
+                    strokeWidth={2.5}
+                  />
+                  {panel.label}
+                  <DropdownArrow open={openPanel === panel.key} />
+                </button>
+
+                <DesktopMegaMenu
+                  closeMenus={closeMenus}
+                  open={openPanel === panel.key}
+                  panel={panel}
+                />
+              </div>
+            ))}
           </div>
 
-          <a
-            className="hidden items-center rounded-full border border-cyan-200/70 bg-gradient-to-r from-lagoon via-cyan-500 to-aqua px-6 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(17,138,178,0.28)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(6,214,160,0.32)] focus:outline-none focus:ring-4 focus:ring-cyan-200/70 lg:inline-flex"
-            href="/#cta"
-          >
-            Attend Presentation
-          </a>
+          <div className="mx-3 hidden items-center lg:flex">
+            <LanguageSelector />
+          </div>
 
           <button
             aria-expanded={mobileOpen}
             aria-label="Toggle mobile menu"
-            className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 text-marine lg:hidden"
-            onClick={() => setMobileOpen((current) => !current)}
+            className="grid h-11 w-11 place-items-center rounded-full border border-cyan-200 bg-white text-marine shadow-sm transition hover:bg-ice lg:hidden"
+            onClick={() => {
+              playMenuClick();
+              setMobileOpen((current) => !current);
+            }}
             type="button"
           >
-            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </nav>
-
       </header>
 
       {mobileOpen && (
         <div
-          className="fixed inset-x-0 bottom-0 top-[65px] h-[calc(100dvh-65px)] overflow-y-scroll overscroll-contain border-t border-amber-200 bg-white px-4 py-4 shadow-[0_24px_70px_rgba(15,23,42,0.18)] sm:top-[73px] sm:h-[calc(100dvh-73px)] sm:px-6 lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[65px] h-[calc(100dvh-65px)] overflow-y-auto overscroll-contain border-t border-cyan-100 bg-white/95 px-4 py-4 shadow-[0_24px_70px_rgba(15,23,42,0.18)] backdrop-blur-xl sm:top-[73px] sm:h-[calc(100dvh-73px)] sm:px-6 lg:hidden"
           style={{ zIndex: 9999 }}
         >
-            <div className="mx-auto grid max-w-7xl gap-2 rounded-2xl border border-amber-300 bg-amber-50 p-3 shadow-lg">
-              {navItems.map((item) => {
-                if (item.label === "The Foundations") {
-                  return (
-                    <div key={item.href} className="mb-2">
-                      <div
-                        className={mobileHeadingClass("mobile-foundations")}
-                        {...mobileInteractionProps("mobile-foundations")}
-                      >
-                        The Foundations
-                      </div>
-                      <div className="ml-4 mt-1 flex flex-col gap-1 rounded-2xl bg-amber-50 p-2">
-                        {foundationLinks.map(renderMobileDropdownLink)}
-                      </div>
-                    </div>
-                  );
-                }
-                if (item.label === "The Technology") {
-                  return (
-                    <div key={item.href} className="mb-2">
-                      <div
-                        className={mobileHeadingClass("mobile-technology")}
-                        {...mobileInteractionProps("mobile-technology")}
-                      >
-                        The Technology
-                      </div>
-                      <div className="ml-4 mt-1 flex flex-col gap-1 rounded-2xl bg-amber-50 p-2">
-                        {technologyLinks.map(renderMobileDropdownLink)}
-                      </div>
-                    </div>
-                  );
-                }
-                const mobileKey = `mobile-${item.label}`;
-                return (
-                  <a
-                    className={mobileItemClass(mobileKey)}
-                    href={item.href}
-                    key={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    {...mobileInteractionProps(mobileKey)}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
-              <a
-                className="mt-2 rounded-full border border-cyan-200/70 bg-gradient-to-r from-lagoon via-cyan-500 to-aqua px-5 py-3 text-center font-black text-white shadow-[0_12px_30px_rgba(17,138,178,0.28)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(6,214,160,0.32)] focus:outline-none focus:ring-4 focus:ring-cyan-200/70"
-                href="/#cta"
-                onClick={() => setMobileOpen(false)}
-              >
-                Attend Presentation
-              </a>
+          <div className="mx-auto grid max-w-3xl gap-3">
+            {menuPanels.map((panel) => (
+              <MobileMenuPanel
+                key={panel.key}
+                onLinkClick={closeMenus}
+                onToggle={() => toggleMobilePanel(panel.key)}
+                open={openMobilePanel === panel.key}
+                panel={panel}
+              />
+            ))}
+
+            <div className="mx-3">
+              <LanguageSelector fullWidth />
             </div>
           </div>
-        )}
+        </div>
+      )}
     </>
   );
 }
 
-function MenuIcon() {
+function DesktopMegaMenu({
+  closeMenus,
+  open,
+  panel,
+}: {
+  closeMenus: () => void;
+  open: boolean;
+  panel: MenuPanel;
+}) {
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
+    getStoredMenuGroupState(panel.key),
+  );
+
+  const toggleGroup = (key: string) => {
+    playMenuClick();
+    setOpenGroups((current) => {
+      const nextOpen = !current[key];
+      storeMenuGroupState(panel.key, key, nextOpen);
+      return {
+        ...current,
+        [key]: nextOpen,
+      };
+    });
+  };
+
+  if (!open) {
+    return null;
+  }
+
   return (
-    <svg
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
+    <div
+      className={`menu-popover absolute left-1/2 top-full z-50 pt-3 ${
+        panel.key === "resources"
+          ? "w-[900px] -translate-x-[72%]"
+          : "w-[780px] -translate-x-1/2"
+      }`}
     >
-      <path
-        d="M4 6h16M4 12h16M4 18h16"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
-    </svg>
+      <div className="overflow-hidden rounded-[1.75rem] border border-cyan-100 bg-white shadow-[0_28px_90px_rgba(7,59,76,0.18)]">
+        <div className="relative overflow-hidden bg-gradient-to-r from-marine via-lagoon to-marine p-6 text-white">
+          <div className="pointer-events-none absolute -right-14 -top-16 h-40 w-40 rounded-full bg-aqua/25 blur-3xl" />
+          <div className="relative flex items-start gap-4">
+            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/12 text-aqua shadow-sm">
+              <panel.icon className="h-7 w-7" strokeWidth={2.4} />
+            </div>
+            <div>
+              <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+                {panel.label}
+              </p>
+              <h2 className="mt-2 text-2xl font-black">{panel.title}</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-cyan-50/85">
+                {panel.description}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`grid gap-4 bg-gradient-to-b from-white to-ice p-4 ${
+            panel.groups.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+          }`}
+        >
+          {panel.groups.map((group) => (
+            <div
+              className="relative rounded-2xl border border-cyan-100 bg-white p-4 shadow-sm"
+              key={group.key}
+            >
+              <div className="flex items-start gap-3 pr-12">
+                <div className="flex min-w-0 flex-1 items-start gap-3">
+                  <MenuIconBadge icon={group.icon} />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-black text-marine">{group.title}</h3>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">
+                      {group.description}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  aria-label={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
+                  className="absolute right-2.5 top-2.5 grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-cyan-100 bg-ice text-marine shadow-sm transition hover:bg-marine hover:text-white active:scale-[0.98]"
+                  onClick={() => toggleGroup(group.key)}
+                  title={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
+                  type="button"
+                >
+                  <DropdownArrow open={openGroups[group.key] ?? false} />
+                </button>
+              </div>
+
+              {openGroups[group.key] && (
+                <div className="menu-popover mt-4 grid gap-2">
+                  {group.links.map((link) => (
+                    <MenuLinkCard
+                      closeMenus={closeMenus}
+                      key={link.key}
+                      link={link}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
-function CloseIcon() {
+function MenuLinkCard({
+  closeMenus,
+  link,
+}: {
+  closeMenus: () => void;
+  link: MenuLink;
+}) {
   return (
-    <svg
-      className="h-6 w-6"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
+    <a
+      className="group flex w-full min-w-0 cursor-pointer items-start gap-3 rounded-2xl border border-transparent px-3 py-3 transition hover:-translate-y-0.5 hover:border-cyan-100 hover:bg-ice hover:shadow-sm active:scale-[0.98] active:bg-marine active:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
+      href={link.href}
+      onClick={() => {
+        playMenuClick();
+        closeMenus();
+      }}
     >
-      <path
-        d="M6 18L18 6M6 6l12 12"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
-    </svg>
+      <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-cyan-50 text-lagoon transition group-hover:bg-marine group-hover:text-aqua">
+        <link.icon className="h-4.5 w-4.5" strokeWidth={2.5} />
+      </span>
+      <span className="block min-w-0 flex-1">
+        <span className="flex min-w-0 items-center gap-2 font-black leading-5 text-marine transition group-active:text-white">
+          {link.label}
+          <ChevronRight className="h-3.5 w-3.5 shrink-0 text-lagoon transition group-hover:translate-x-0.5" />
+        </span>
+        <span className="mt-1 block text-xs leading-5 text-slate-500 transition group-active:text-cyan-50">
+          {link.description}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+function MobileMenuPanel({
+  onLinkClick,
+  onToggle,
+  open,
+  panel,
+}: {
+  onLinkClick: () => void;
+  onToggle: () => void;
+  open: boolean;
+  panel: MenuPanel;
+}) {
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
+    getStoredMenuGroupState(panel.key),
+  );
+
+  const toggleGroup = (key: string) => {
+    playMenuClick();
+    setOpenGroups((current) => {
+      const nextOpen = !current[key];
+      storeMenuGroupState(panel.key, key, nextOpen);
+      return {
+        ...current,
+        [key]: nextOpen,
+      };
+    });
+  };
+
+  return (
+    <section className="overflow-hidden rounded-3xl border border-cyan-100 bg-white shadow-sm">
+      <button
+        className="group flex w-full cursor-pointer items-center justify-between gap-4 bg-gradient-to-r from-marine via-lagoon to-marine px-4 py-4 text-left text-white transition hover:from-lagoon hover:via-marine hover:to-lagoon active:scale-[0.99]"
+        onClick={onToggle}
+        type="button"
+      >
+        <span className="flex items-center gap-3">
+          <MenuIconBadge icon={panel.icon} />
+          <span>
+            <span className="block font-black text-white">{panel.label}</span>
+            <span className="mt-1 block text-xs leading-5 text-cyan-50/85">
+              {panel.title}
+            </span>
+          </span>
+        </span>
+        <span className="flex shrink-0 items-center gap-2 rounded-full border border-white/20 bg-white/12 px-3 py-2 text-xs font-black uppercase tracking-[.16em] text-cyan-50 shadow-sm transition group-hover:bg-white group-hover:text-marine">
+          {open ? "Collapse" : "Expand"}
+          <DropdownArrow open={open} />
+        </span>
+      </button>
+
+      {open && (
+        <div className="menu-popover grid gap-3 border-t border-cyan-100 bg-ice/55 p-3">
+          {panel.groups.map((group) => (
+            <div
+              className="relative rounded-2xl border border-cyan-100 bg-white p-3"
+              key={group.key}
+            >
+              <div className="flex items-center gap-3 px-2 py-2 pr-12">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <MenuIconBadge icon={group.icon} />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-black text-marine">{group.title}</h3>
+                    <p className="text-xs leading-5 text-slate-500">
+                      {group.description}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  aria-label={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
+                  className="absolute right-2.5 top-2.5 grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-cyan-100 bg-ice text-marine shadow-sm transition hover:bg-marine hover:text-white active:scale-[0.98]"
+                  onClick={() => toggleGroup(group.key)}
+                  title={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
+                  type="button"
+                >
+                  <DropdownArrow open={openGroups[group.key] ?? false} />
+                </button>
+              </div>
+
+              {openGroups[group.key] && (
+                <div className="menu-popover mt-2 grid gap-1">
+                  {group.links.map((link) => (
+                    <MenuLinkCard
+                      closeMenus={onLinkClick}
+                      key={link.key}
+                      link={link}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }

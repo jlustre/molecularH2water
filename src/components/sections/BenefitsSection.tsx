@@ -26,13 +26,10 @@ export function BenefitsSection() {
 
               <div className="relative flex min-h-[620px] flex-col justify-end p-7 pt-72 sm:p-9 sm:pt-80 lg:p-12 lg:pt-96">
                 <h2 className="mt-6 max-w-xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-                  A Better Daily Water Habit for Families
+                  The BEST Daily Water Habit for you and your Family
                 </h2>
                 <p className="mt-5 max-w-xl text-lg leading-8 text-cyan-50/85">
-                  The solution is not framed as a medical claim. It is a simple
-                  wellness conversation about better hydration, cellular access,
-                  responsible education, and giving families a clear reason to
-                  learn more.
+                  This is a responsible wellness conversation designed to help you better understand hydration, cellular health, and why so many people are seeking smarter solutions for long-term vitality.
                 </p>
               </div>
             </div>
@@ -69,8 +66,7 @@ export function BenefitsSection() {
               </div>
 
               <div className="mx-5 mt-6 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-lg font-black leading-7 text-marine shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(245,158,11,0.2)] sm:mx-7 lg:mx-8">
-                The goal is simple: move the conversation from ordinary
-                hydration to purposeful, hydrogen-rich hydration.
+                The goal is simple: to inspire you to move from drinking ordinary water to purposefully hydrating with only the best hydrogen-rich water. 
               </div>
             </div>
           </div>

@@ -55,7 +55,7 @@ const antioxidantRoles = [
 const antioxidantLimitations = [
   {
     title: "Size and access",
-    text: "Some antioxidants are larger molecules. Their size can influence where they travel and how easily they reach certain cellular spaces.",
+    text: "All other antioxidants are larger molecules, which can limit their ability to reach certain areas of the body, including the joints, extremities, mitochondria, and brain.",
   },
   {
     title: "Water-soluble or fat-soluble limits",
@@ -71,7 +71,7 @@ const antioxidantLimitations = [
   },
   {
     title: "May not target the deepest stress",
-    text: "Some antioxidants may not efficiently reach mitochondria, nuclei, or other areas where oxidative pressure can be especially important.",
+    text: "Some antioxidants do not efficiently reach the mitochondria, the nucleus, or cross the blood-brain barrier. These are the critical areas that can build up oxidative stress.",
   },
   {
     title: "Lifestyle can overwhelm support",
@@ -114,10 +114,7 @@ export function AntioxidantHeroSection() {
               cells and tissues.
             </p>
             <p className="mt-4 text-lg leading-8 text-slate-600">
-              In a healthy wellness routine, antioxidants support balance. They
-              work alongside hydration, sleep, nutrition, movement, and recovery
-              habits to help the body maintain a healthier environment for
-              cellular function.
+              In a healthy wellness routine, antioxidants support balance. Molecular Hydrogen goes beyond traditional antioxidants by supporting the body at a deeper cellular level.
             </p>
             
           </div>
@@ -131,7 +128,7 @@ export function AntioxidantHeroSection() {
           </figure>
         </div>
 
-        <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {antioxidantRoles.map((item) => (
             <article
               className="group overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift"
@@ -191,7 +188,7 @@ export function AntioxidantHeroSection() {
               </p>
             </div>
 
-            <div className="relative mt-5 grid gap-2.5 md:grid-cols-2">
+            <div className="relative mt-4 grid gap-3 md:grid-cols-2">
               {antioxidantLimitations.map((item, index) => (
                 <article
                   className="group rounded-2xl border border-white/80 bg-white/85 p-3 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:border-cyan-200 hover:shadow-lift"
@@ -205,7 +202,7 @@ export function AntioxidantHeroSection() {
                       <h4 className="text-base font-black leading-5 text-marine">
                         {item.title}
                       </h4>
-                      <p className="mt-2 text-lg leading-8 text-slate-600">
+                      <p className="mt-1.5 text-lg leading-6 text-slate-600">
                         {item.text}
                       </p>
                     </div>
@@ -233,20 +230,13 @@ export function AntioxidantHeroSection() {
                 </div>
                 <div className="min-w-0">
                   <p className="mt-5 text-2xl font-black leading-9 text-marine sm:text-3xl sm:leading-10">
-                    This is where molecular hydrogen becomes worth discussing.
+                    This is where molecular hydrogen becomes the Super Hero!
                   </p>
                   <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
-                    If oxidative stress is the enemy and antioxidants are the
-                    hero, molecular hydrogen introduces the next part of the
-                    story. H2 is not simply another antioxidant ingredient to
-                    place beside vitamins or plant compounds. Its value begins
-                    with how small it is, how easily it can move, and why that
-                    matters when the conversation shifts from general antioxidant
-                    support to cellular-level access.
+                    If oxidative stress is the enemy and antioxidants are the hero, molecular hydrogen becomes the next part of the story. H2 is not simply another antioxidant to place beside vitamins or plant compounds. Its true value as a Super Hero begins with its small size, its ease of movement, and how deeply it penetrates to attack and defend cells from the most harmful free radicals. 
                   </p>
                   <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
-                    Traditional antioxidants can be valuable, but many are shaped
-                    by practical limits:
+                    Traditional antioxidants can be valuable, but many have practical limits:
                   </p>
                   <ul className="mt-3 grid gap-2 text-lg font-semibold leading-7 text-slate-700">
                     <li className="flex gap-3">
@@ -255,7 +245,11 @@ export function AntioxidantHeroSection() {
                     </li>
                     <li className="flex gap-3">
                       <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
-                      Tissue access and where they can travel
+                      Tissue access and travel range
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
+                      Can interfere with normal cellular function
                     </li>
                     <li className="flex gap-3">
                       <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
@@ -263,7 +257,7 @@ export function AntioxidantHeroSection() {
                     </li>
                     <li className="flex gap-3">
                       <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-amber-500" />
-                      The body&apos;s changing oxidative load
+                      Can become oxidizers themselves
                     </li>
                   </ul>
                   <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
@@ -321,8 +315,7 @@ export function AntioxidantHeroSection() {
                       01 Small Size
                     </p>
                     <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
-                      H2 is tiny, so it can be discussed as a molecule with
-                      unusual mobility compared with many larger antioxidants.
+                      All other antioxidants are larger molecules, which can limit their ability to reach certain areas of the body, including the joints, extremities, mitochondria, and brain.
                     </p>
                   </article>
                   <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
@@ -339,8 +332,7 @@ export function AntioxidantHeroSection() {
                       03 Selective Support
                     </p>
                     <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
-                      H2 is commonly taught as selective, helping frame balance
-                      without suggesting the body should eliminate all radicals.
+                      H2 is known as selective because it only attacks and neutralizes the most harmful reactive species without interfering with the body's natural oxidation/reduction process.
                     </p>
                   </article>
                   <article className="rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm backdrop-blur">
@@ -348,16 +340,13 @@ export function AntioxidantHeroSection() {
                       04 Daily Hydration
                     </p>
                     <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
-                      Hydrogen-rich water turns the science into a simple daily
-                      habit people can understand, remember, and share.
+                      Hydrogen-rich water turns science into a simple daily habit that can profoundly impact your health. By drinking H2-infused water, you can support your body&apos;s natural defense system against oxidative stress and promote cellular balance every day.
                     </p>
                   </article>
                 </div>
 
                 <p className="mt-5 rounded-2xl border border-cyan-200 bg-white/80 p-4 text-lg font-black leading-8 text-marine shadow-sm">
-                  The message is simple: H2 brings the antioxidant conversation
-                  closer to the cell, where oxidative stress, protection, and
-                  recovery become easier to understand.
+                  The message is simple: If water is essential for life, shouldn’t the water you drink be designed to help you thrive, not just survive?.
                 </p>
               </div>
             </div>

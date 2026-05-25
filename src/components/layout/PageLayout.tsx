@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Footer } from "./Footer";
+import { GoToTopButton } from "./GoToTopButton";
 import { TopNav } from "./TopNav";
 
 type PageLayoutProps = {
@@ -12,6 +13,7 @@ export function PageLayout({ children }: PageLayoutProps) {
       <TopNav />
       <main>{children}</main>
       <Footer />
+      <GoToTopButton />
     </div>
   );
 }
