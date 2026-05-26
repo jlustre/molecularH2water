@@ -268,6 +268,13 @@ const technologyPanel: MenuPanel = {
           key: "machine-features",
           label: "Machine Features",
         },
+        {
+          description: "Review owner rewards, community education, and support.",
+          href: "/technology#programs-protocols",
+          icon: Gift,
+          key: "programs-protocols",
+          label: "Programs & Protocols",
+        },
       ],
     },
     {

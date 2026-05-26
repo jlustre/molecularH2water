@@ -1,4 +1,5 @@
-import { HandHeart, Users, Sparkles, Globe2, TrendingUp, Share2, UserCheck } from "lucide-react";
+import { CalendarClock, HandHeart, Users, Sparkles, Globe2, TrendingUp, Share2, UserCheck } from "lucide-react";
+import wellnessAdvocateImage from "../../../assets/images/wellness_advocate.jpg";
 
 const wellnessAdvocateBenefits = [
   {
@@ -72,21 +73,20 @@ export function AboutWellnessAdvocateSection() {
                   <h3 className="mt-6 text-3xl font-black tracking-tight sm:text-4xl">A Simple Way To Make A Meaningful Introduction</h3>
                   <p className="mt-5 text-lg leading-8 text-cyan-50/84">You do not have to be a presenter, product expert, or salesperson to begin. Your role is to share the story, connect curious people to the education, and let the system support the next conversation.</p>
                 </div>
-                <div className="my-8 overflow-hidden rounded-[2.25rem] border border-cyan-200/25 bg-white/10 p-5 shadow-[0_24px_70px_rgba(2,8,23,0.24)] backdrop-blur">
-                  <div className="grid min-h-[250px] place-items-center rounded-[1.75rem] border border-dashed border-cyan-100/45 bg-white/10 p-8 text-center">
-                    <div>
-                      <div className="mx-auto grid h-24 w-24 place-items-center rounded-[2rem] bg-aqua text-marine shadow-clean">
-                        <Users className="h-12 w-12" />
-                      </div>
-                      <p className="mt-6 text-2xl font-black">Image Placeholder</p>
-                      <p className="mx-auto mt-3 max-w-sm text-sm leading-6 text-cyan-50/78">Use a warm relationship-focused image: a friend making an introduction, a small wellness conversation, or a simple Zoom call about hydrogen water.</p>
-                    </div>
-                  </div>
+                <div className="my-8 overflow-hidden rounded-[2.25rem] border border-cyan-200/25 bg-white/10 p-2 shadow-[0_24px_70px_rgba(2,8,23,0.24)] backdrop-blur">
+                  <img
+                    alt="Wellness Advocate sharing hydrogen water education"
+                    className="h-auto w-full rounded-[1.85rem] object-contain"
+                    src={wellnessAdvocateImage}
+                  />
                 </div>
                 <div className="rounded-[1.75rem] border border-amber-200/70 bg-amber-50 p-5 text-marine shadow-[0_18px_45px_rgba(251,191,36,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-clean">
                   <p className="text-xl font-black">Ready to learn more?</p>
                   <p className="mt-2 leading-7 text-slate-700">Schedule a brief 15-minute Zoom appointment and see if becoming a Wellness Advocate is a fit for you.</p>
-                  <a className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-marine px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-white shadow-clean transition hover:-translate-y-0.5 hover:bg-lagoon sm:w-auto" href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom">Schedule 15-Minute Zoom</a>
+                  <a className="group mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:w-auto" href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom">
+                    <CalendarClock className="h-5 w-5 group-hover:text-white transition-colors duration-200" />
+                    <span className="group-hover:text-white transition-colors duration-200">Schedule 15-Minute Zoom</span>
+                  </a>
                 </div>
               </div>
             </div>

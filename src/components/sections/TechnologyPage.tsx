@@ -4,6 +4,7 @@ import {
   Droplets,
   ExternalLink,
   FlaskConical,
+  Gift,
   HeartPulse,
   Maximize2,
   Microscope,
@@ -27,6 +28,7 @@ import fiveComponentsImage from "../../../dist/assets/fivecomponents.jpg";
 import howItWorksImage from "../../../dist/assets/howitworks.jpg";
 import machineBackImage from "../../../dist/assets/thehero/themachine_back.jpg";
 import machineImage from "../../../dist/assets/thehero/themachine.jpg";
+import ownershipPrivilegesImage from "../../../dist/assets/ownership_privileges.jpg";
 import taiwaneseTechImage from "../../../dist/assets/taiwanesetech.jpg";
 
 type MachineFeature = {
@@ -61,6 +63,14 @@ type ScientificExperiment = {
   purpose: string;
   summary: string;
   title: string;
+};
+
+type ProgramProtocolItem = {
+  category: "PROGRAMS" | "PROTOCOLS";
+  icon: LucideIcon;
+  text: string;
+  title: string;
+  withRegisterButton?: boolean;
 };
 
 const machineFeatures: MachineFeature[] = [
@@ -184,6 +194,41 @@ const machineFeatureVisuals: MachineFeatureVisual[] = [
     gradientClass: "from-slateblue via-marine to-lagoon",
     image: taiwaneseTechImage,
     title: "Backed by Taiwanese Engineering",
+  },
+];
+
+const programProtocolItems: ProgramProtocolItem[] = [
+  {
+    category: "PROGRAMS",
+    icon: Gift,
+    title: "Referral Incentive",
+    text: "If you are loving the product and enjoying the benefits of better hydration, doesn’t it make sense to share it with the people you care about most? By simply sharing your experience with friends, family, clients, and associates, you may qualify to earn referral bonuses, rewards, and exclusive incentives. Helping others discover better hydration can become rewarding in more ways than one.",
+  },
+  {
+    category: "PROGRAMS",
+    icon: BadgeCheck,
+    title: "Free Machine Challenge",
+    text: "In addition to earning hydrogen-related products and rewards, you may also qualify to earn an additional hydrogen machine through our Free Machine Challenge. The program is designed to be simple, achievable, and results-driven, with ongoing team support throughout the process. Our success rate with those who actively participate is very strong. Be sure to schedule a Hydration Conversation with one of our team members to explore the details and see if the program makes sense for you.",
+    withRegisterButton: true,
+  },
+  {
+    category: "PROGRAMS",
+    icon: Target,
+    title: "Business Advantages",
+    text: "More people than ever are looking for flexible and enjoyable ways to create additional income streams while making a positive impact. For those accepted as a Wellness Advocate or Hydration Specialist with Happy Hydration Systems, the opportunity opens the door to exciting personal growth, meaningful connections, and performance-based rewards. As an independent contractor, you may also benefit from potential business-related tax advantages. Most importantly, you become part of a supportive, purpose-driven community committed to education, wellness, and helping people live healthier lives. If this sparks your curiosity, be sure to register and learn more.",
+    withRegisterButton: true,
+  },
+  {
+    category: "PROTOCOLS",
+    icon: Microscope,
+    title: "Education",
+    text: "If you are already interested in molecular hydrogen and advanced hydration, doesn’t it make sense to continue learning from the latest conversations surrounding wellness, healthy cooking, nutrition, lifestyle habits, and cellular health? As part of our community, you gain access to ongoing educational resources designed to support long-term lifestyle improvement and greater wellness awareness. It is just one of the many added benefits of being part of our Happy Owners Club.",
+  },
+  {
+    category: "PROTOCOLS",
+    icon: HeartPulse,
+    title: "Community",
+    text: "True wellness is even more powerful when shared with like-minded people. As part of our community, you may receive access to our private members Facebook group, educational YouTube channel, exclusive virtual trainings, and special local events. Our goal is to create a positive environment focused on education, encouragement, connection, and healthy living. Reach out to your Sales Consultant to learn more about how you can become more connected and involved.",
   },
 ];
 
@@ -559,6 +604,100 @@ export function TechnologyPage() {
 
       <section
         className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
+        id="programs-protocols"
+      >
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[6%] top-20 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="absolute right-[8%] top-28 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl text-center">
+            <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
+              Programs & Protocols
+            </p>
+            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-6xl">
+              Added Value For{" "}
+              <span className="bg-gradient-to-r from-cyan-200 via-aqua to-blue-300 bg-clip-text text-transparent">
+                Machine Owners
+              </span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-cyan-50/82">
+              As an owner of The Machine, you gain access to additional
+              opportunities, rewards, and lifestyle-enhancing programs designed
+              to help you get even more value from your experience. Here are
+              just a few…
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_.95fr]">
+            <div className="rounded-[2rem] border border-cyan-300/20 bg-white/[0.08] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur sm:p-6">
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[.25em] text-aqua">
+                    PROGRAMS
+                  </p>
+                  <h3 className="mt-2 text-3xl font-black">
+                    Rewards, Referrals, And Business Pathways
+                  </h3>
+                </div>
+                <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl border border-aqua/40 bg-aqua/15 text-aqua sm:grid">
+                  <Gift className="h-7 w-7" />
+                </div>
+              </div>
+
+              <div className="grid gap-5">
+                {programProtocolItems
+                  .filter((item) => item.category === "PROGRAMS")
+                  .map((item) => (
+                    <ProgramProtocolCard item={item} key={item.title} />
+                  ))}
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-cyan-200/80 bg-gradient-to-b from-white to-ice p-5 text-marine shadow-clean sm:p-6">
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[.25em] text-lagoon">
+                    PROTOCOLS
+                  </p>
+                  <h3 className="mt-2 text-3xl font-black">
+                    Education And Community Support
+                  </h3>
+                </div>
+                <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-marine text-aqua shadow-clean sm:grid">
+                  <HeartPulse className="h-7 w-7" />
+                </div>
+              </div>
+
+              <div className="grid gap-5">
+                {programProtocolItems
+                  .filter((item) => item.category === "PROTOCOLS")
+                  .map((item) => (
+                    <ProgramProtocolCard item={item} key={item.title} light />
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          <figure className="mt-10 overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-white/[0.08] shadow-[0_28px_90px_rgba(34,211,238,0.18)] backdrop-blur">
+            <img
+              alt="Ownership privileges for H2Systems machine owners"
+              className="h-auto w-full object-contain object-center"
+              src={ownershipPrivilegesImage}
+            />
+          </figure>
+
+          <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
+            Programs create added value. Protocols help keep the wellness
+            conversation active, connected, and supported over time.
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
         id="scientific-experiments"
       >
         <div className="pointer-events-none absolute inset-0">
@@ -628,6 +767,73 @@ export function TechnologyPage() {
         />
       ) : null}
     </PageLayout>
+  );
+}
+
+function ProgramProtocolCard({
+  item,
+  light = false,
+}: {
+  item: ProgramProtocolItem;
+  light?: boolean;
+}) {
+  const Icon = item.icon;
+
+  return (
+    <article
+      className={`group rounded-[1.65rem] border p-5 transition duration-300 hover:-translate-y-1 ${
+        light
+          ? "border-cyan-100 bg-white text-marine shadow-sm hover:border-lagoon/35 hover:bg-cyan-50 hover:shadow-clean"
+          : "border-cyan-300/15 bg-white/[0.08] text-white shadow-[0_18px_55px_rgba(0,0,0,0.2)] backdrop-blur hover:border-cyan-300/40 hover:bg-white/[0.12]"
+      }`}
+    >
+      <div className="flex gap-4">
+        <div
+          className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl transition group-hover:scale-105 ${
+            light
+              ? "bg-cyan-50 text-lagoon group-hover:bg-marine group-hover:text-aqua"
+              : "border border-aqua/40 bg-aqua/15 text-aqua group-hover:bg-aqua group-hover:text-marine"
+          }`}
+        >
+          <Icon className="h-6 w-6" />
+        </div>
+        <div>
+          <p
+            className={`text-xs font-black uppercase tracking-[.2em] ${
+              light ? "text-lagoon" : "text-aqua"
+            }`}
+          >
+            {item.category}
+          </p>
+          <h4
+            className={`mt-2 text-2xl font-black leading-tight ${
+              light ? "text-marine" : "text-white"
+            }`}
+          >
+            {item.title}
+          </h4>
+          <p
+            className={`mt-3 text-base font-semibold leading-7 ${
+              light ? "text-slate-700" : "text-cyan-50/82"
+            }`}
+          >
+            {item.text}
+          </p>
+          {item.withRegisterButton ? (
+            <a
+              className={`mt-5 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-black uppercase tracking-[.12em] transition hover:-translate-y-0.5 border-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-aqua ${
+                light
+                  ? "border-marine bg-white text-marine shadow-clean hover:bg-marine hover:text-white"
+                  : "border-aqua bg-aqua text-white shadow-clean hover:bg-marine hover:text-white"
+              }`}
+              href="mailto:info@example.com?subject=Programs%20And%20Protocols%20Registration"
+            >
+              <span className="transition-colors duration-200">Register To Learn More</span>
+            </a>
+          ) : null}
+        </div>
+      </div>
+    </article>
   );
 }
 

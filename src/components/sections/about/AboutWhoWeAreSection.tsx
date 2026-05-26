@@ -1,32 +1,43 @@
-import { Droplets, Award, TrendingUp, Sparkles, Globe2, Quote, HandHeart, Home, Users } from "lucide-react";
+import {
+  Award,
+  Droplets,
+  Globe2,
+  HandHeart,
+  Home,
+  Quote,
+  ShieldCheck,
+  TrendingUp,
+  type LucideIcon,
+} from "lucide-react";
+import whoWeAreImage from "../../../assets/images/whoweare.jpg";
 
-const beliefCards = [
+const foundationCards = [
   {
-    title: "H2S - Happy Hydration Systems",
-    text: "We represent a wellness education company focused on helping people improve everyday health through something simple, familiar, and powerful: better hydration.",
+    title: "H2S Happy Hydration Systems",
+    text: "We are a team of dedicated professionals committed to educating & supporting people on their journey to their best life ever!",
     icon: Droplets,
   },
   {
-    title: "30+ Years In Wellness",
-    text: "Our team brings more than three decades of health and wellness experience, with over $100 million in global sales across the industry.",
+    title: "30+ Years in Wellness",
+    text: "We bring over three decades of health & wellness experience, achieving more than $100 million in global sales across the industry. Our foundation for growth has always been serving our customers who become our future friends.",
     icon: Award,
   },
   {
-    title: "Built On Trust Over Time",
-    text: "That kind of track record reflects consistency, education, relationships, and a long-term commitment to real people and practical wellness conversations.",
-    icon: TrendingUp,
+    title: "Built on Trust Over Time",
+    text: "Our success and growth are founded on values of greatness and principles of faith, family, finances, fun and fulfillment.",
+    icon: ShieldCheck,
   },
 ];
 
-const missionVisionCards = [
+const purposeCards = [
   {
-    title: "Our Mission",
-    text: "To help improve lives through hydrogen education, better hydration awareness, and a clear pathway for families to understand molecular H2 water.",
+    title: "Mission",
+    text: "To Heal the World with Hydrogen...one conversation at a time.",
     icon: HandHeart,
   },
   {
-    title: "Our Vision",
-    text: "To see homes across the U.S. benefit from molecular hydrogen as part of everyday wellness, one informed household at a time.",
+    title: "Vision",
+    text: "To have one in three households across the nation using and benefiting from molecular hydrogen by 2030",
     icon: Home,
   },
 ];
@@ -34,143 +45,220 @@ const missionVisionCards = [
 export function AboutWhoWeAreSection() {
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-white py-24"
+      className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-pearl py-24"
       id="who-we-are"
     >
-      <div className="pointer-events-none absolute left-[-10%] top-16 h-72 w-72 rounded-full bg-lagoon/10 blur-3xl" />
-      <div className="pointer-events-none absolute right-[-8%] top-1/3 h-80 w-80 rounded-full bg-aqua/12 blur-3xl" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-[2.75rem] bg-marine shadow-clean">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(6,214,160,0.18),transparent_28%),radial-gradient(circle_at_90%_10%,rgba(17,138,178,0.28),transparent_32%),linear-gradient(135deg,#062b38_0%,#073B4C_48%,#0a5f7a_100%)]" />
-          <div className="pointer-events-none absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:42px_42px]" />
+      <div className="pointer-events-none absolute -left-28 top-16 h-80 w-80 rounded-full bg-aqua/12 blur-3xl" />
+      <div className="pointer-events-none absolute -right-28 top-1/3 h-96 w-96 rounded-full bg-lagoon/14 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-20 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-200/18 blur-3xl" />
 
-          <div className="relative px-5 py-10 sm:px-8 lg:px-10 lg:py-12">
-            <div className="mx-auto max-w-4xl text-center">
-              <p className="inline-flex rounded-full border border-cyan-200/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.28em] text-aqua backdrop-blur">
-                Who We Are
-              </p>
-              <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-white sm:text-6xl">
-                We are a team of dedicated professionals committed to educating & supporting people on their journey to their best life ever!
-              </h2>
-              <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-cyan-50/85">
-                We represent H2S, Happy Hydration Systems, a company dedicated to helping people understand how something as simple as water can become part of a stronger daily wellness story.
-              </p>
-            </div>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="inline-flex rounded-full border border-lagoon/20 bg-white px-5 py-2 text-sm font-black uppercase tracking-[.28em] text-lagoon shadow-sm">
+            Who We are
+          </p>
+          <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight text-marine sm:text-6xl">
+            H2S Happy Hydration Systems
+          </h2>
+          <p className="mx-auto mt-6 max-w-3xl text-xl font-semibold leading-9 text-slate-700">
+            We are a team of dedicated professionals committed to educating &
+            supporting people on their journey to their best life ever!
+          </p>
+        </div>
 
-            <div className="mt-12 grid gap-6 lg:grid-cols-[.9fr_1.1fr] lg:items-stretch">
-              <div className="grid gap-5">
-                {beliefCards.map((card) => (
-                  <div
-                    className="group rounded-[1.75rem] border border-cyan-200/20 bg-white/10 p-6 text-white shadow-[0_18px_50px_rgba(2,8,23,0.18)] backdrop-blur transition hover:-translate-y-1 hover:border-aqua/50 hover:bg-white/15"
-                    key={card.title}
-                  >
-                    <div className="flex gap-4">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-aqua/40 bg-aqua/15 text-aqua transition group-hover:scale-105">
-                        <card.icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-black">{card.title}</h3>
-                        <p className="mt-2 leading-7 text-cyan-50/82">{card.text}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+        <div className="mt-12 overflow-hidden rounded-[3rem] border border-cyan-100 bg-white shadow-clean">
+          <div className="relative overflow-hidden bg-marine">
+            <img
+              alt="H2S Happy Hydration Systems team and wellness education"
+              className="h-auto w-full object-contain"
+              src={whoWeAreImage}
+            />
+          </div>
 
-                <div className="rounded-[1.75rem] border border-amber-200/70 bg-amber-50 p-6 text-marine shadow-[0_18px_45px_rgba(251,191,36,0.18)] transition hover:-translate-y-1 hover:shadow-clean">
-                  <div className="flex gap-4">
-                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-amber-200/75 text-marine">
-                      <Sparkles className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-black">Health Starts At The Cellular Level</h3>
-                      <p className="mt-2 leading-7 text-slate-700">
-                        More people are realizing that daily wellness begins deeper than symptoms. Cellular hydration, oxidative stress awareness, and water quality are becoming part of a bigger shift in how families think about health.
-                      </p>
-                    </div>
-                  </div>
+          <div className="grid lg:grid-cols-[.9fr_1.1fr]">
+            <div className="relative overflow-hidden bg-marine p-6 text-white sm:p-8 lg:p-10">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(6,214,160,0.24),transparent_32%),radial-gradient(circle_at_88%_82%,rgba(17,138,178,0.34),transparent_36%),linear-gradient(135deg,#031822_0%,#073B4C_54%,#0a5f7a_100%)]" />
+              <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:40px_40px]" />
+
+              <div className="relative flex h-full min-h-[560px] flex-col justify-between gap-8">
+                <div>
+                  <p className="text-sm font-black uppercase tracking-[.25em] text-aqua">
+                    Mission & Vision
+                  </p>
+                  <h3 className="mt-4 max-w-xl text-4xl font-black leading-tight tracking-tight sm:text-5xl">
+                    The purpose behind every conversation.
+                  </h3>
+                  <p className="mt-5 max-w-xl text-lg leading-8 text-cyan-50/84">
+                    Our mission and vision give the movement its direction:
+                    serve families, teach the hydrogen story, and help more
+                    homes discover smarter hydration.
+                  </p>
                 </div>
-              </div>
 
-              <div className="flex flex-col gap-5">
-                {missionVisionCards.map((card) => (
-                  <div
-                    className="relative flex-1 overflow-hidden rounded-[2rem] border border-cyan-200/35 bg-white/10 p-7 text-white shadow-[0_24px_65px_rgba(2,8,23,0.2)] backdrop-blur transition hover:-translate-y-1 hover:border-aqua/60 hover:bg-white/15"
-                    key={card.title}
-                  >
-                    <div className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-aqua/20 blur-3xl" />
-                    <div className="relative flex flex-col gap-5 sm:flex-row sm:items-start">
-                      <div className="grid h-16 w-16 shrink-0 place-items-center rounded-[1.35rem] border border-aqua/40 bg-aqua/15 text-aqua">
-                        <card.icon className="h-8 w-8" />
-                      </div>
-                      <div>
-                        <div className="flex items-start gap-3">
-                          <Quote className="mt-1 h-9 w-9 shrink-0 text-aqua/80" />
-                          <h3 className="text-3xl font-black tracking-tight sm:text-4xl">{card.title}</h3>
-                        </div>
-                        <p className="mt-4 text-lg leading-8 text-cyan-50/86">{card.text}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="rounded-[2rem] border border-white/15 bg-white p-7 text-marine shadow-clean">
-                  <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                    <div className="grid h-16 w-16 shrink-0 place-items-center rounded-[1.35rem] bg-marine text-aqua">
-                      <Globe2 className="h-8 w-8" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-black">A Bigger Wellness Shift</h3>
-                      <p className="mt-3 leading-7 text-slate-700">
-                        Water is no longer just about thirst. It is part of the conversation around energy, recovery, cellular function, and the daily choices that help people feel and function better over time.
-                      </p>
-                    </div>
-                  </div>
+                <div className="grid gap-4">
+                  {purposeCards.map((card) => (
+                    <PurposeCard card={card} key={card.title} />
+                  ))}
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 rounded-[2.25rem] border border-cyan-200/25 bg-slate-950/35 shadow-[0_24px_70px_rgba(2,8,23,0.22)] backdrop-blur">
-              <div className="grid gap-0 lg:grid-cols-[1fr_.42fr]">
-                <div className="p-6 sm:p-8">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <p className="text-sm font-black uppercase tracking-[.25em] text-aqua">3 Objectives Today</p>
-                      <h3 className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">Learn, Share, And Help More Homes Experience Better Hydration</h3>
-                    </div>
-                    <div className="rounded-full border border-aqua/40 bg-aqua/15 px-4 py-2 text-sm font-black text-aqua">Water Awareness Show</div>
-                  </div>
-
-                  {/* Presentation objectives and community card will be modularized in another section */}
-                </div>
-                <div className="relative min-h-[300px] overflow-hidden bg-gradient-to-br from-lagoon via-marine to-slate-950">
-                  <div className="absolute inset-0 opacity-45 [background-image:radial-gradient(circle_at_35%_20%,rgba(255,255,255,.55)_1px,transparent_2px),radial-gradient(circle_at_75%_60%,rgba(6,214,160,.35)_1px,transparent_2px)] [background-size:28px_28px,42px_42px]" />
-                  <div className="absolute -right-20 top-8 h-56 w-56 rounded-full border border-cyan-200/35 bg-cyan-200/10 blur-sm" />
-                  <div className="relative flex h-full min-h-[300px] flex-col justify-end p-6">
-                    <div className="mx-auto mb-5 grid h-44 w-32 place-items-center rounded-b-[2.5rem] rounded-t-xl border border-cyan-100/70 bg-white/15 shadow-[0_24px_70px_rgba(6,214,160,0.22)] backdrop-blur">
-                      <Droplets className="h-16 w-16 text-aqua" />
-                    </div>
-                    <div className="rounded-[1.5rem] border border-white/15 bg-white/12 p-5 text-center text-white backdrop-blur">
-                      <p className="text-2xl font-black">Better Water Starts With Better Awareness</p>
-                      <p className="mt-2 text-sm leading-6 text-cyan-50/82">The goal is not pressure. The goal is a clear conversation families can understand and share.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 rounded-[2rem] border border-cyan-200/25 bg-white/10 p-6 text-center text-white backdrop-blur">
-              <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-[auto_1fr] sm:items-center sm:text-left">
-                <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-aqua text-marine sm:mx-0">
-                  <Users className="h-7 w-7" />
-                </div>
-                <p className="text-xl font-black leading-8">
-                  With that foundation in mind, the next question becomes personal: why does hydration quality matter, and what could molecular hydrogen mean for your everyday wellness routine?
+            <div className="p-6 sm:p-8 lg:p-10">
+              <div className="mb-6">
+                <p className="text-sm font-black uppercase tracking-[.25em] text-lagoon">
+                  Our Foundation
                 </p>
+                <h3 className="mt-3 text-3xl font-black leading-tight text-marine sm:text-4xl">
+                  Experience, trust, and service-first values.
+                </h3>
               </div>
+
+              <div className="grid gap-5">
+                {foundationCards.map((card) => (
+                  <FoundationCard card={card} key={card.title} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-cyan-100 bg-gradient-to-b from-white to-ice p-6 sm:p-8 lg:p-10">
+            <div className="grid gap-5 lg:grid-cols-2">
+              <article className="rounded-[2rem] border border-amber-200/80 bg-amber-50 p-6 text-marine shadow-[0_18px_45px_rgba(251,191,36,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-clean">
+                <div className="flex gap-4">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-amber-200 text-marine">
+                    <TrendingUp className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black">
+                      Join us on this Epic Journey
+                    </h3>
+                    <div className="mt-3 space-y-3 text-base font-semibold leading-7 text-slate-700">
+                      <p>
+                        As global awareness grows, we feel a responsibility to
+                        educate, inspire, and share this information with as
+                        many families as possible.
+                      </p>
+                      <p>
+                        Join our movement to help people discover a smarter
+                        approach to hydration and cellular wellness. This is an
+                        opportunity of a lifetime!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article className="rounded-[2rem] border border-cyan-100 bg-ice p-6 text-marine shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:bg-white hover:shadow-clean">
+                <div className="flex gap-4">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-marine text-aqua">
+                    <Globe2 className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black">
+                      A Bigger Wellness Shift
+                    </h3>
+                    <div className="mt-3 space-y-3 text-base font-semibold leading-7 text-slate-700">
+                      <p>
+                        The conversation around hydration, cellular wellness,
+                        and healthy living is transforming.
+                      </p>
+                      <p>
+                        Molecular hydrogen is no longer a hidden secret in the
+                        wellness world.
+                      </p>
+                      <p>
+                        Momentum is building globally as more people discover
+                        its potential role in hydration, recovery, and cellular
+                        support.
+                      </p>
+                      <p>
+                        Once you see the research and understand the
+                        possibilities, you can never look at water the same way
+                        again.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
             </div>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function FoundationCard({
+  card,
+  isDark = false,
+}: {
+  card: { icon: LucideIcon; text: string; title: string };
+  isDark?: boolean;
+}) {
+  const Icon = card.icon;
+
+  return (
+    <article
+      className={`group rounded-[1.75rem] p-6 transition duration-300 hover:-translate-y-1 ${
+        isDark
+          ? "border border-cyan-200/25 bg-white/10 text-white shadow-[0_18px_50px_rgba(2,8,23,0.2)] backdrop-blur hover:border-aqua/55 hover:bg-white/15"
+          : "border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-blue-50 shadow-sm hover:border-lagoon/45 hover:from-white hover:to-cyan-50 hover:shadow-clean"
+      }`}
+    >
+      <div className="flex gap-4">
+        <div
+          className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl transition ${
+            isDark
+              ? "border border-aqua/40 bg-aqua/15 text-aqua group-hover:bg-aqua group-hover:text-marine"
+              : "border border-cyan-200 bg-white text-lagoon shadow-sm group-hover:bg-marine group-hover:text-aqua"
+          }`}
+        >
+          <Icon className="h-6 w-6" />
+        </div>
+        <div>
+          <h3
+            className={`text-xl font-black ${
+              isDark ? "text-white" : "text-marine"
+            }`}
+          >
+            {card.title}
+          </h3>
+          <p
+            className={`mt-2 text-base font-semibold leading-7 ${
+              isDark ? "text-cyan-50/84" : "text-slate-700"
+            }`}
+          >
+            {card.text}
+          </p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function PurposeCard({
+  card,
+}: {
+  card: { icon: LucideIcon; text: string; title: string };
+}) {
+  const Icon = card.icon;
+
+  return (
+    <article className="rounded-[1.75rem] border border-cyan-200/25 bg-white/10 p-6 text-white shadow-[0_18px_50px_rgba(2,8,23,0.2)] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-aqua/55 hover:bg-white/15">
+      <div className="flex gap-4">
+        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-aqua/40 bg-aqua/15 text-aqua">
+          <Icon className="h-6 w-6" />
+        </div>
+        <div>
+          <div className="flex items-center gap-2">
+            <Quote className="h-5 w-5 text-aqua" />
+            <h3 className="text-2xl font-black">{card.title}</h3>
+          </div>
+          <p className="mt-3 text-lg font-semibold leading-8 text-cyan-50/86">
+            {card.text}
+          </p>
+        </div>
+      </div>
+    </article>
   );
 }

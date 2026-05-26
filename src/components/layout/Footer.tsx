@@ -42,6 +42,7 @@ const footerGroups: FooterGroup[] = [
       { href: "/technology#hydrogen-water-machine", label: "H2 Machine" },
       { href: "/technology#how-it-works", label: "How It Works" },
       { href: "/technology#machine-features", label: "Features" },
+      { href: "/technology#programs-protocols", label: "Programs" },
       { href: "/technology#ionizer-vs-h2", label: "Ionizer Vs H2" },
       { href: "/technology#scientific-experiments", label: "Experiments" },
     ],

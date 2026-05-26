@@ -99,10 +99,11 @@ export function AboutHydrationSpecialistSection() {
                     </div>
                   </div>
                   <a
-                    className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-marine px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-white shadow-clean transition hover:-translate-y-0.5 hover:bg-lagoon sm:w-auto"
+                    className="group mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:w-auto"
                     href="mailto:info@example.com?subject=Hydration%20Specialist%20Zoom%20Call"
                   >
-                    Schedule Zoom Call
+                    <CalendarClock className="h-5 w-5 group-hover:text-white transition-colors duration-200" />
+                    <span className="group-hover:text-white transition-colors duration-200">Schedule Zoom Call</span>
                   </a>
                 </div>
               </div>
