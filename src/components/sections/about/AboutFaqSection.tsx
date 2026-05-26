@@ -16,11 +16,11 @@ export function AboutFaqSection() {
           <h2 className="mt-3 text-4xl font-black tracking-tight text-marine sm:text-6xl">Frequently Asked Questions</h2>
         </div>
         <div className="grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
-          <div className="overflow-hidden rounded-[2.25rem] bg-marine text-white shadow-clean lg:min-h-[1080px]">
+          <div className="overflow-hidden rounded-[2rem] bg-marine text-white shadow-clean sm:rounded-[2.25rem] lg:min-h-[1080px]">
             <div className="relative">
               <img
                 alt="Hydrogen water educator explaining FAQ topics"
-                className="h-80 w-full object-cover sm:h-[440px] lg:h-[740px]"
+                className="h-[430px] w-full object-cover object-[center_12%] sm:h-[560px] lg:h-[740px]"
                 src={edwinExplainingImage}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-marine via-marine/25 to-transparent" />

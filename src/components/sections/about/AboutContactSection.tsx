@@ -43,16 +43,16 @@ export function AboutContactSection() {
           </p>
         </div>
 
-        <div className="relative mt-12 overflow-hidden rounded-[3rem] border border-cyan-100 bg-white shadow-clean">
-          <div className="grid lg:grid-cols-[.95fr_1.05fr]">
-            <div className="relative overflow-hidden bg-marine text-white">
+        <div className="relative mt-12 max-w-full overflow-hidden rounded-[2rem] border border-cyan-100 bg-white shadow-clean sm:rounded-[3rem]">
+          <div className="grid min-w-0 lg:grid-cols-[.95fr_1.05fr]">
+            <div className="relative min-w-0 overflow-hidden bg-marine text-white">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(6,214,160,0.22),transparent_30%),radial-gradient(circle_at_90%_75%,rgba(17,138,178,0.34),transparent_36%),linear-gradient(135deg,#031822_0%,#073B4C_54%,#0a5f7a_100%)]" />
               <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:38px_38px]" />
-              <div className="relative flex h-full min-h-[640px] flex-col p-6 sm:p-8 lg:p-10">
-                <div className="overflow-hidden rounded-[2rem] border border-cyan-200/25 bg-white/10 p-2 shadow-[0_24px_70px_rgba(2,8,23,0.22)] backdrop-blur">
+              <div className="relative flex min-h-0 flex-col p-4 sm:p-8 lg:min-h-[640px] lg:p-10">
+                <div className="max-w-full overflow-hidden rounded-[1.5rem] border border-cyan-200/25 bg-white/10 p-1.5 shadow-[0_24px_70px_rgba(2,8,23,0.22)] backdrop-blur sm:rounded-[2rem] sm:p-2">
                   <img
                     alt="Contact H2Systems for water awareness information"
-                    className="h-auto w-full rounded-[1.65rem] object-contain"
+                    className="h-auto w-full max-w-full rounded-[1.25rem] object-contain sm:rounded-[1.65rem]"
                     src={contactImage}
                   />
                 </div>
@@ -75,8 +75,8 @@ export function AboutContactSection() {
               </div>
             </div>
 
-            <div className="bg-white p-6 sm:p-8 lg:p-10">
-              <div className="rounded-[2rem] border border-cyan-100 bg-ice p-6 shadow-sm">
+            <div className="min-w-0 bg-white p-4 sm:p-8 lg:p-10">
+              <div className="max-w-full rounded-[1.5rem] border border-cyan-100 bg-ice p-4 shadow-sm sm:rounded-[2rem] sm:p-6">
                 <h3 className="text-3xl font-black tracking-tight text-marine">
                   Start Here
                 </h3>
@@ -85,19 +85,19 @@ export function AboutContactSection() {
                   the right next step.
                 </p>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <input className="rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Name" />
-                  <input className="rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Email" />
-                  <input className="rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="Phone" />
-                  <select className="rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
+                <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
+                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Name" />
+                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Email" />
+                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="Phone" />
+                  <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
                     <option>I'm interested in...</option>
                     <option>Attending a Water Awareness Show</option>
                     <option>Becoming a Hydration Specialist</option>
                     <option>Becoming a Wellness Advocate</option>
                     <option>Learning about the H2 water machine</option>
                   </select>
-                  <textarea className="min-h-44 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="How can we help?" />
-                  <a className="group mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2" href="mailto:info@example.com">
+                  <textarea className="min-h-44 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="How can we help?" />
+                  <a className="group mt-5 inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]" href="mailto:info@example.com">
                     <Send className="h-5 w-5 group-hover:text-white transition-colors duration-200" />
                     <span className="group-hover:text-white transition-colors duration-200">Send Message</span>
                   </a>
