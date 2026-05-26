@@ -86,7 +86,7 @@ const homePanel: MenuPanel = {
     "Quick access to visitor information, common questions, contact options, and scheduling.",
   icon: Home,
   key: "home",
-  label: "Home",
+  label: "About",
   title: "Start Here",
   groups: [
     {
@@ -100,7 +100,7 @@ const homePanel: MenuPanel = {
           href: "/#home",
           icon: Home,
           key: "home",
-          label: "Home",
+          label: "Homepage",
         },
         {
           description: "Learn the purpose, story, and mission behind H2Systems.",
@@ -823,64 +823,33 @@ function DesktopMegaMenu({
     <div
       className={`menu-popover absolute left-1/2 top-full z-50 pt-3 ${
         panel.key === "resources"
-          ? "w-[900px] -translate-x-[72%]"
-          : "w-[780px] -translate-x-1/2"
+          ? "w-80 -translate-x-[78%]"
+          : "w-72 -translate-x-1/2"
       }`}
     >
-      <div className="overflow-hidden rounded-[1.75rem] border border-cyan-100 bg-white shadow-[0_28px_90px_rgba(7,59,76,0.18)]">
-        <div className="relative overflow-hidden bg-gradient-to-r from-marine via-lagoon to-marine p-6 text-white">
-          <div className="pointer-events-none absolute -right-14 -top-16 h-40 w-40 rounded-full bg-aqua/25 blur-3xl" />
-          <div className="relative flex items-start gap-4">
-            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/12 text-aqua shadow-sm">
-              <panel.icon className="h-7 w-7" strokeWidth={2.4} />
-            </div>
-            <div>
-              <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
-                {panel.label}
-              </p>
-              <h2 className="mt-2 text-2xl font-black">{panel.title}</h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-cyan-50/85">
-                {panel.description}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className={`grid gap-4 bg-gradient-to-b from-white to-ice p-4 ${
-            panel.groups.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
-          }`}
-        >
+      <div className="max-h-[min(680px,calc(100dvh-88px))] overflow-y-auto overscroll-contain rounded-2xl border border-cyan-100 bg-white p-2 shadow-[0_22px_70px_rgba(7,59,76,0.16)]">
+        <div className="grid gap-1">
           {panel.groups.map((group) => (
-            <div
-              className="relative rounded-2xl border border-cyan-100 bg-white p-4 shadow-sm"
-              key={group.key}
-            >
-              <div className="flex items-start gap-3 pr-12">
-                <div className="flex min-w-0 flex-1 items-start gap-3">
-                  <MenuIconBadge icon={group.icon} />
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-black text-marine">{group.title}</h3>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      {group.description}
-                    </p>
-                  </div>
-                </div>
-                <button
-                  aria-label={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
-                  className="absolute right-2.5 top-2.5 grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-cyan-100 bg-ice text-marine shadow-sm transition hover:bg-marine hover:text-white active:scale-[0.98]"
-                  onClick={() => toggleGroup(group.key)}
-                  title={`${openGroups[group.key] ? "Collapse" : "Expand"} ${group.title}`}
-                  type="button"
-                >
-                  <DropdownArrow open={openGroups[group.key] ?? false} />
-                </button>
-              </div>
+            <div className="border-b border-cyan-100/70 last:border-b-0" key={group.key}>
+              <button
+                aria-expanded={openGroups[group.key] ?? false}
+                className="group flex w-full cursor-pointer items-center gap-2 px-3 py-2.5 text-left text-sm font-black text-marine transition hover:bg-ice hover:text-lagoon active:bg-marine active:text-white"
+                onClick={() => toggleGroup(group.key)}
+                title={group.title}
+                type="button"
+              >
+                <group.icon
+                  className="h-4 w-4 shrink-0 text-lagoon transition group-active:text-aqua"
+                  strokeWidth={2.5}
+                />
+                <span className="min-w-0 flex-1 truncate">{group.title}</span>
+                <DropdownArrow open={openGroups[group.key] ?? false} />
+              </button>
 
               {openGroups[group.key] && (
-                <div className="menu-popover mt-4 grid gap-2">
+                <div className="menu-popover grid pb-1">
                   {group.links.map((link) => (
-                    <MenuLinkCard
+                    <DesktopMenuLink
                       closeMenus={closeMenus}
                       key={link.key}
                       link={link}
@@ -893,6 +862,33 @@ function DesktopMegaMenu({
         </div>
       </div>
     </div>
+  );
+}
+
+function DesktopMenuLink({
+  closeMenus,
+  link,
+}: {
+  closeMenus: () => void;
+  link: MenuLink;
+}) {
+  return (
+    <a
+      className="group flex w-full min-w-0 cursor-pointer items-center gap-2 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:bg-ice hover:text-lagoon active:bg-marine active:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
+      href={link.href}
+      onClick={() => {
+        playMenuClick();
+        closeMenus();
+      }}
+      title={link.label}
+    >
+      <link.icon
+        className="h-4 w-4 shrink-0 text-lagoon transition group-active:text-aqua"
+        strokeWidth={2.4}
+      />
+      <span className="min-w-0 flex-1 truncate">{link.label}</span>
+      <ChevronRight className="h-3.5 w-3.5 shrink-0 text-cyan-700/60 transition group-hover:translate-x-0.5 group-active:text-aqua" />
+    </a>
   );
 }
 

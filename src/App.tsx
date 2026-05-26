@@ -19,7 +19,7 @@ function scrollToHashTarget() {
     return;
   }
 
-  const navOffset = 92;
+  const navOffset = 40;
   const targetTop =
     target.getBoundingClientRect().top + window.scrollY - navOffset;
 
