@@ -17,17 +17,17 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useState } from "react";
-import { PageLayout } from "../layout/PageLayout";
-import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
-import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
-import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
-import experiment4Image from "../../../dist/assets/experiments/experiment4.jpg";
-import featuresImage from "../../../dist/assets/features.jpg";
-import fiveComponentsImage from "../../../dist/assets/fivecomponents.jpg";
-import howItWorksImage from "../../../dist/assets/howitworks.jpg";
-import machineBackImage from "../../../dist/assets/thehero/themachine_back.jpg";
-import machineImage from "../../../dist/assets/thehero/themachine.jpg";
-import taiwaneseTechImage from "../../../dist/assets/taiwanesetech.jpg";
+import { PageLayout } from "../../layout/PageLayout";
+import experiment1Image from "../../../assets/images/experiments/experiment1.jpg";
+import experiment2Image from "../../../assets/images/experiments/experiment2.jpg";
+import experiment3Image from "../../../assets/images/experiments/experiment3.jpg";
+import experiment4Image from "../../../assets/images/experiments/experiment4.jpg";
+import featuresImage from "../../../assets/images/technology/features.jpg";
+import fiveComponentsImage from "../../../assets/images/technology/fivecomponents.jpg";
+import howItWorksImage from "../../../assets/images/technology/howitworks.jpg";
+import machineBackImage from "../../../assets/images/technology/themachine_back.jpg";
+import machineImage from "../../../assets/images/technology/themachine.jpg";
+import taiwaneseTechImage from "../../../assets/images/technology/taiwanesetech.jpg";
 
 type MachineFeature = {
   description: string;
@@ -66,39 +66,45 @@ type ScientificExperiment = {
 const machineFeatures: MachineFeature[] = [
   {
     description:
-      "Advanced filtration helps reduce chlorine, lead, and unwanted impurities so the water starts cleaner, fresher, and easier to trust.",
+      "advanced filtration helps reduce chlorine, lead, and unwanted impurities so your water tastes cleaner, fresher, and more enjoyable to drink.",
     icon: Droplets,
-    title: "Supports Energy",
+    title: "Clean & Refreshing",
   },
   {
     description:
-      "Designed to infuse water with 1500+ PPB of molecular hydrogen, delivering hydrogen-rich hydration for daily wellness support.",
+      "Solid titanium plates with a durable platinum coating (not low-grade electroplating), combined with an advanced specialty membrane and low-temperature efficiency technology, create the foundation for superior performance.",
+    icon: Droplets,
+    title: "Quality Components",
+  },
+  {
+    description:
+      "Precision-engineered PEM membrane technology and low-temperature optimization work together to deliver exceptional hydrogen output with minimal contact time.",
     icon: FlaskConical,
-    title: "Powerful Hydrogen Infusion",
+    title: "High Performancen",
   },
   {
     description:
-      "Premium solid titanium electrodes and a durable internal design help support consistent performance you can rely on every day.",
+      "Intelligent auto-cleaning technology and premium-quality internal components work together to support maximum durability and lasting reliability.",
     icon: ShieldCheck,
-    title: "Built For Daily Life",
+    title: "Build to Last",
   },
   {
     description:
-      "An automatic cleaning cycle helps keep the machine fresh and performing at its best with less maintenance effort.",
+      "smart touch screen and intuitive design, making it easy and convenient for both children and adults to use every day.",
     icon: RefreshCcw,
-    title: "Self-Cleaning & Easy",
+    title: "Simple Daily Use",
   },
   {
     description:
-      "Molecular hydrogen is extremely small, allowing it to move through water and reach areas ordinary antioxidants may not access as easily.",
+      "whether installed above or below the counter, our team is here to guide and support you through every step of the setup process.",
     icon: Target,
-    title: "Deep Cellular Support",
+    title: "Installation Support",
   },
   {
     description:
-      "The system is designed to produce clean hydrogen-rich water without ozone or harsh byproducts, keeping the focus on refreshing hydration.",
+      "Built with a commitment to quality and supported by internationally recognized standards including CE, ISO, and JWMA certifications.",
     icon: Waves,
-    title: "Pure & Safe Water",
+    title: "Tested & Certified",
   },
   {
     description:
@@ -299,7 +305,7 @@ export function TechnologyPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
             <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
-              Clean, Powerful, Ready In Seconds
+              Clean, Powerful, Created In Seconds (Not Minutes)
             </p>
             <h1 className="mt-7 text-4xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl">
               Introducing The{" "}
@@ -308,9 +314,7 @@ export function TechnologyPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-xl leading-9 text-cyan-50/85">
-              More than water. It is a daily hydration upgrade designed to
-              deliver clean, hydrogen-rich water with a simple wellness story
-              people can understand.
+              More than water. It is a lifestyle upgrade designed to deliver clean, ultra hydrating, mineral rich, hydrogen infused water.
             </p>
           </div>
 
@@ -432,10 +436,7 @@ export function TechnologyPage() {
               <span className="text-cyan-300">V/S</span> Hydrogen Water Machine
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-cyan-50/80">
-              Both machines use water technology, but they tell very different
-              stories. Alkaline ionizers focus mainly on pH, while hydrogen
-              water machines focus on dissolved H2 as the active wellness
-              conversation.
+              At first glance the technologies may appear similar, but the science behind them is very different. Alkaline ionizers emphasize pH balance, while hydrogen water systems prioritize molecular hydrogen generation and cellular support.
             </p>
           </div>
 
@@ -494,9 +495,7 @@ export function TechnologyPage() {
                 <h3 className="text-2xl font-black">The Simple Difference</h3>
               </div>
               <p className="mt-4 text-lg leading-8 text-cyan-50/78">
-                A water ionizer changes the water's pH. A hydrogen water
-                machine is designed to add dissolved molecular hydrogen. That
-                difference matters because pH and H2 are not the same thing.
+                A traditional water ionizer primarily adjusts the water’s pH, while a hydrogen water machine is specifically engineered to generate dissolved molecular hydrogen (H₂). That distinction matters because pH and molecular hydrogen are not the same thing.  While limited research supports alkalinity or higher pH alone as a major driver of wellness benefits, molecular hydrogen has become the focus of rapidly growing scientific interest. Thousands of studies now show how H₂ may support cellular health, oxidative balance, energy production, recovery, and overall metabolic functioning.
               </p>
             </div>
 
@@ -508,10 +507,7 @@ export function TechnologyPage() {
                 <h3 className="text-2xl font-black">Choose The H2 Story</h3>
               </div>
               <p className="mt-4 text-lg font-semibold leading-8">
-                For this presentation, the strongest educational message is not
-                "higher pH." It is the presence of dissolved H2, the smallest
-                molecule in nature, and why hydrogen-rich water deserves its own
-                clear explanation.
+                The most powerful conversation is no longer about higher pH — it’s about dissolved molecular hydrogen (H₂) and why hydrogen-rich water is rapidly becoming the center of attention in advanced hydration. As the smallest and one of nature's most bioavailable molecules, molecular hydrogen is generating extraordinary interest for its potential to support next level wellness.
               </p>
             </div>
           </div>
@@ -536,7 +532,9 @@ export function TechnologyPage() {
               Built Around Performance, Quality, and Everyday Use
             </h2>
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              The below cards summarize why "The Machine" delivers exceptional quality, performance and reliability at an affordable price.
+              These feature cards explain what the machine offers at home and
+              why its engineering foundation matters for daily hydrogen-rich
+              hydration.
             </p>
           </div>
 

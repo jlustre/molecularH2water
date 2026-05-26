@@ -538,7 +538,7 @@ export function AboutPage() {
                 </p>
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                   <a
-                    className="rounded-full bg-white px-8 py-4 text-center font-black text-marine shadow-xl transition hover:-translate-y-0.5"
+                    className="rounded-full bg-teal-600 px-8 py-4 text-center font-black text-marine shadow-xl transition hover:-translate-y-0.5"
                     href="mailto:info@example.com"
                   >
                     Request A Show

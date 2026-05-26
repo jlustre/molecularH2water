@@ -62,17 +62,17 @@ const impactPillars = [
   {
     icon: Users,
     label: "Real People",
-    text: "Every story begins with someone looking for a simple way to feel better, think clearer, recover faster, or support daily wellness.",
+    text: "Every journey begins with someone searching for a simple, natural way to feel better, think more clearly, recover faster, and support their everyday wellness and vitality.",
   },
   {
     icon: Sparkles,
     label: "Real Experiences",
-    text: "These experiences show how consistent hydration habits, paired with everyday nutrition, movement, and rest, may support meaningful changes over time.",
+    text: "These experiences reflect how consistent hydration habits — combined with proper nutrition, movement, sleep, and healthy lifestyle choices — can significantly improve overall wellness, energy, recovery, and quality of life over time.",
   },
   {
     icon: HeartPulse,
     label: "Real Possibilities",
-    text: "Hydrogen-rich water is not presented as a cure. It is an invitation to ask what better cellular hydration could mean for your energy, recovery, and quality of life.",
+    text: "Hydrogen-rich water is not presented as a cure or medical treatment. It is an invitation for you to feel how better hydration, cellular support, and healthy lifestyle habits can have a positive impact on your quality of life.",
   },
 ];
 
@@ -204,13 +204,10 @@ export function LifeChangingImpactSection() {
             </div>
             <div>
               <h3 className="text-2xl font-black">
-                Individual Results Can Vary
+                Indvidual Results May Vary
               </h3>
               <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
-                These stories are shared as wellness experiences, not medical
-                promises. The best way to understand hydrogen water is to learn
-                the science, try a consistent routine, and pay attention to how
-                your own body responds over time.
+                These real stories are shared as personal wellness experiences, not medical claims or promises. One of the best ways to understand hydrogen-rich water is to learn the foundational science, develop a consistent hydration routine, and observe how your own body responds over time. For some people, the changes may feel subtle at first, while for others they may feel more powerful shifts, depending on individual lifestyle factors, hydration status, and overall biological condition. Give it a try — you drink water every single day, so why not choose the very best hydration possible.
               </p>
             </div>
           </div>

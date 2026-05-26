@@ -130,32 +130,32 @@ const benefitPoints: BenefitPoint[] = [
   {
     icon: Zap,
     label: "Supports Energy",
-    text: "Hydrogen education often connects H2 with energy production, metabolic balance, and a better daily hydration routine.",
+    text: "Helps optimize cellular energy production so you feel more energized, focused, and productive throughout the day.",
   },
   {
     icon: ShieldCheck,
     label: "Reduces Oxidative Pressure",
-    text: "H2 is commonly taught as a selective antioxidant that helps address harmful free radicals without blocking useful cellular signaling.",
+    text: "Helps neutralize harmful oxidative stress that contributes to fatigue, accelerated aging, and cellular wear over time.",
   },
   {
     icon: Activity,
     label: "Supports Inflammation Balance",
-    text: "Expert educators connect hydrogen water with inflammation markers, recovery, and whole-body wellness education.",
+    text: "Promotes a healthier inflammatory response to support joint comfort, mobility, recovery, and overall wellness.",
   },
   {
     icon: Brain,
-    label: "Reaches Deeply",
-    text: "Because H2 is extremely small, it is easier to explain how it can diffuse into areas traditional antioxidants may not reach as easily.",
+    label: "Penetrates Deeply",
+    text: "As the smallest molecule in nature, molecular hydrogen rapidly diffuses throughout the body, including the cells, mitochondria, and brain.",
   },
   {
     icon: HeartPulse,
     label: "Supports Recovery",
-    text: "The message connects hydration quality with energy, gut health, recovery, and resilience after daily stress.",
+    text: "Helps the body recover faster from physical stress, exercise, travel, and the demands of modern living.",
   },
   {
     icon: BookOpenCheck,
     label: "Backed By Ongoing Research",
-    text: "Molecular hydrogen continues to attract published studies, new discoveries, and growing interest from wellness-focused audiences.",
+    text: "Thousands of studies continue to explore the growing role of molecular hydrogen in cellular health, wellness, recovery, and healthy aging.",
   },
 ];
 
@@ -198,10 +198,10 @@ export function RecommendedByExpertsSection() {
           <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
               <p className="inline-flex rounded-full border border-lagoon/20 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-lagoon shadow-sm">
-                Benefits Of Molecular Hydrogen
+                RESOURCES/BENEFITS OF MOLECULAR HYDROGEN
               </p>
               <h3 className="mt-4 text-3xl font-black leading-tight text-marine sm:text-5xl">
-                A simple way to organize the expert message
+                A Simple Way To Organize The Experts Message
               </h3>
               <p className="mt-5 text-lg leading-8 text-slate-700">
                 H2 is often discussed alongside gut health, energy, recovery,
@@ -243,15 +243,10 @@ export function RecommendedByExpertsSection() {
             </div>
             <div>
               <h3 className="text-2xl font-black">
-                The Takeaway
+                Key Takeaway
               </h3>
               <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
-                The growing interest from researchers, physicians, and wellness
-                educators points to the same larger message: molecular hydrogen
-                gives families a simple way to talk about water quality,
-                oxidative stress, and cellular-level wellness. The goal is to
-                educate clearly, keep claims responsible, and help people ask
-                better questions about what they drink every day.
+                The growing interest from researchers, physicians, wellness professionals, and health-conscious families all points toward the same larger message: molecular hydrogen offers a simple, modern approach to supporting water quality, oxidative balance, and cellular wellness. If water is something your family consumes every single day, doesn’t it make sense to choose the very best hydration possible.
               </p>
             </div>
           </div>
