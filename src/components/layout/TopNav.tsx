@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Activity,
   Atom,
   Award,
-  Brain,
   CalendarCheck,
   ChevronDown,
   ChevronRight,
   Cpu,
   Droplets,
-  Dumbbell,
-  Flame,
+  FileText,
   Gift,
   Gauge,
   GlassWater,
@@ -25,9 +23,11 @@ import {
   Sparkles,
   UserCheck,
   Users,
+  Video,
   Waves,
   X,
   Zap,
+  Youtube,
   type LucideIcon,
 } from "lucide-react";
 import { BrandMark } from "../ui/BrandMark";
@@ -136,21 +136,21 @@ const homePanel: MenuPanel = {
           href: "/about#hydration-specialist",
           icon: Droplets,
           key: "hydration-specialist",
-          label: "Become Hydration Specialist",
+          label: "Hydration Specialist",
         },
         {
           description: "Learn how advocates share the wellness education story.",
           href: "/about#wellness-advocate",
           icon: HandHeart,
           key: "wellness-advocate",
-          label: "Become Wellness Advocate",
+          label: "Wellness Advocate",
         },
         {
           description: "Reserve time for a Water Awareness Show or presentation.",
           href: "/about#schedule-water-awareness-show",
           icon: CalendarCheck,
           key: "schedule-water-awareness-show",
-          label: "Schedule/Attend Water Awareness Show",
+          label: "Water Awareness Show",
         },
       ],
     },
@@ -184,6 +184,13 @@ const foundationPanel: MenuPanel = {
           icon: Zap,
           key: "enemy",
           label: "The Enemy",
+        },
+        {
+          description: "How oxidative stress may affect cells and wellness.",
+          href: "/#health-impact",
+          icon: HeartPulse,
+          key: "health-impact",
+          label: "The Health Impact",
         },
         {
           description: "How antioxidants help the body defend itself.",
@@ -297,6 +304,14 @@ const technologyPanel: MenuPanel = {
           key: "scientific-experiments",
           label: "Scientific Experiments",
         },
+        {
+          description:
+            "Compare other ways people try to get molecular hydrogen.",
+          href: "/technology#other-sources-of-h2",
+          icon: Atom,
+          key: "other-sources-of-h2",
+          label: "Other Sources Of H2",
+        },
       ],
     },
   ],
@@ -331,6 +346,13 @@ const resourcesPanel: MenuPanel = {
           label: "Life Changing Impact",
         },
         {
+          description: "Research themes around H2 and cellular wellness.",
+          href: "/resources#what-research-show",
+          icon: Microscope,
+          key: "what-research-show",
+          label: "What Research Show",
+        },
+        {
           description: "Program information for machine ownership.",
           href: "/resources#bonus-machine-program",
           icon: Gift,
@@ -340,60 +362,38 @@ const resourcesPanel: MenuPanel = {
       ],
     },
     {
-      description: "Daily energy, movement, and recovery benefits.",
-      icon: Flame,
-      key: "recovery-energy",
-      title: "Recovery & Energy",
+      description: "Downloadable and watchable education resources.",
+      icon: Video,
+      key: "media-resources",
+      title: "Media Resources",
       links: [
         {
-          description: "Education around inflammation and wellness balance.",
-          href: "/resources#inflammation-reduction",
-          icon: Flame,
-          key: "inflammation-reduction",
-          label: "Inflammation Reduction",
+          description: "PDFs, handouts, forms, and education materials.",
+          href: "/resources#documents",
+          icon: FileText,
+          key: "documents",
+          label: "Documents",
         },
         {
-          description: "Hydration support for training and recovery routines.",
-          href: "/resources#athletic-recovery",
-          icon: Dumbbell,
-          key: "athletic-recovery",
-          label: "Athletic Recovery",
+          description: "Short videos that explain the hydrogen water story.",
+          href: "/resources#videos",
+          icon: Video,
+          key: "videos",
+          label: "Videos",
         },
         {
-          description: "Energy and vitality as part of better daily habits.",
-          href: "/resources#have-more-energy",
-          icon: Zap,
-          key: "have-more-energy",
-          label: "Have More Energy",
-        },
-      ],
-    },
-    {
-      description: "Whole-body education topics for deeper learning.",
-      icon: HandHeart,
-      key: "whole-body-support",
-      title: "Whole-Body Support",
-      links: [
-        {
-          description: "Hydration and oxidative-stress education for digestion.",
-          href: "/resources#gut-health-support",
-          icon: HandHeart,
-          key: "gut-health-support",
-          label: "Gut Health Support",
+          description: "Long-form presentations and training sessions.",
+          href: "/resources#recorded-webinars",
+          icon: CalendarCheck,
+          key: "recorded-webinars",
+          label: "Recorded Webinars",
         },
         {
-          description: "Focus, clarity, and brain wellness education.",
-          href: "/resources#brain-health-support",
-          icon: Brain,
-          key: "brain-health-support",
-          label: "Brain Health Support",
-        },
-        {
-          description: "Circulation and daily wellness support topics.",
-          href: "/resources#improved-circulation",
-          icon: Activity,
-          key: "improved-circulation",
-          label: "Improved Circulation",
+          description: "Curated YouTube and Vimeo links for easy sharing.",
+          href: "/resources#youtube-vimeo-links",
+          icon: Youtube,
+          key: "youtube-vimeo-links",
+          label: "YouTube/Vimeo Links",
         },
       ],
     },
@@ -403,6 +403,12 @@ const resourcesPanel: MenuPanel = {
 const menuPanels = [homePanel, foundationPanel, technologyPanel, resourcesPanel];
 const mobilePanelStorageKey = "h2systems-open-mobile-panel";
 const menuGroupStorageKey = "h2systems-menu-group-state";
+const underConstructionResourceKeys = new Set([
+  "documents",
+  "videos",
+  "recorded-webinars",
+  "youtube-vimeo-links",
+]);
 
 function getStoredMobilePanel(): MenuPanel["key"] | null {
   if (typeof window === "undefined") {
@@ -660,6 +666,8 @@ function LanguageSelector({
 export function TopNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openPanel, setOpenPanel] = useState<MenuPanel["key"] | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const noticeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [openMobilePanel, setOpenMobilePanel] = useState<
     MenuPanel["key"] | null
   >(() => getStoredMobilePanel());
@@ -676,6 +684,20 @@ export function TopNav() {
       storeMobilePanel(nextPanel);
       return nextPanel;
     });
+  };
+
+  const showUnderConstructionNotice = (link: MenuLink) => {
+    setNotice(
+      `${link.label} is still under construction and will be available soon.`,
+    );
+
+    if (noticeTimeoutRef.current) {
+      window.clearTimeout(noticeTimeoutRef.current);
+    }
+
+    noticeTimeoutRef.current = window.setTimeout(() => {
+      setNotice(null);
+    }, 3600);
   };
 
   return (
@@ -738,6 +760,7 @@ export function TopNav() {
 
                 <DesktopMegaMenu
                   closeMenus={closeMenus}
+                  onUnderConstruction={showUnderConstructionNotice}
                   open={openPanel === panel.key}
                   panel={panel}
                 />
@@ -774,6 +797,7 @@ export function TopNav() {
               <MobileMenuPanel
                 key={panel.key}
                 onLinkClick={closeMenus}
+                onUnderConstruction={showUnderConstructionNotice}
                 onToggle={() => toggleMobilePanel(panel.key)}
                 open={openMobilePanel === panel.key}
                 panel={panel}
@@ -786,16 +810,27 @@ export function TopNav() {
           </div>
         </div>
       )}
+
+      {notice && (
+        <div
+          aria-live="polite"
+          className="fixed left-1/2 top-24 z-[22000] w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 rounded-2xl border border-amber-300 bg-amber-50 px-5 py-4 text-center font-bold leading-6 text-marine shadow-[0_22px_70px_rgba(7,59,76,0.18)]"
+        >
+          {notice}
+        </div>
+      )}
     </>
   );
 }
 
 function DesktopMegaMenu({
   closeMenus,
+  onUnderConstruction,
   open,
   panel,
 }: {
   closeMenus: () => void;
+  onUnderConstruction: (link: MenuLink) => void;
   open: boolean;
   panel: MenuPanel;
 }) {
@@ -853,6 +888,7 @@ function DesktopMegaMenu({
                       closeMenus={closeMenus}
                       key={link.key}
                       link={link}
+                      onUnderConstruction={onUnderConstruction}
                     />
                   ))}
                 </div>
@@ -868,16 +904,22 @@ function DesktopMegaMenu({
 function DesktopMenuLink({
   closeMenus,
   link,
+  onUnderConstruction,
 }: {
   closeMenus: () => void;
   link: MenuLink;
+  onUnderConstruction: (link: MenuLink) => void;
 }) {
   return (
     <a
       className="group flex w-full min-w-0 cursor-pointer items-center gap-2 px-6 py-2 text-sm font-semibold text-slate-700 transition hover:bg-ice hover:text-lagoon active:bg-marine active:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
       href={link.href}
-      onClick={() => {
+      onClick={(event) => {
         playMenuClick();
+        if (underConstructionResourceKeys.has(link.key)) {
+          event.preventDefault();
+          onUnderConstruction(link);
+        }
         closeMenus();
       }}
       title={link.label}
@@ -895,16 +937,22 @@ function DesktopMenuLink({
 function MenuLinkCard({
   closeMenus,
   link,
+  onUnderConstruction,
 }: {
   closeMenus: () => void;
   link: MenuLink;
+  onUnderConstruction: (link: MenuLink) => void;
 }) {
   return (
     <a
       className="group flex w-full min-w-0 cursor-pointer items-start gap-3 rounded-2xl border border-transparent px-3 py-3 transition hover:-translate-y-0.5 hover:border-cyan-100 hover:bg-ice hover:shadow-sm active:scale-[0.98] active:bg-marine active:text-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
       href={link.href}
-      onClick={() => {
+      onClick={(event) => {
         playMenuClick();
+        if (underConstructionResourceKeys.has(link.key)) {
+          event.preventDefault();
+          onUnderConstruction(link);
+        }
         closeMenus();
       }}
     >
@@ -926,11 +974,13 @@ function MenuLinkCard({
 
 function MobileMenuPanel({
   onLinkClick,
+  onUnderConstruction,
   onToggle,
   open,
   panel,
 }: {
   onLinkClick: () => void;
+  onUnderConstruction: (link: MenuLink) => void;
   onToggle: () => void;
   open: boolean;
   panel: MenuPanel;
@@ -1008,6 +1058,7 @@ function MobileMenuPanel({
                       closeMenus={onLinkClick}
                       key={link.key}
                       link={link}
+                      onUnderConstruction={onUnderConstruction}
                     />
                   ))}
                 </div>

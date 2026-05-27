@@ -4,6 +4,7 @@ import { BenefitsSection } from "./BenefitsSection";
 import { ProblemSection } from "./ProblemSection";
 import { DrinkingWaterPathSection } from "./DrinkingWaterPathSection";
 import { EnemySection } from "./EnemySection";
+import { HealthImpactSection } from "./HealthImpactSection";
 import { HeroSection } from "./HeroSection";
 
 export function HomePage() {
@@ -12,6 +13,7 @@ export function HomePage() {
       <HeroSection />
       <ProblemSection />
       <EnemySection />
+      <HealthImpactSection />
       <AntioxidantHeroSection />
       <DrinkingWaterPathSection />
       <BenefitsSection />

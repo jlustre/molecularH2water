@@ -28,6 +28,12 @@ import fiveComponentsImage from "../../../dist/assets/fivecomponents.jpg";
 import howItWorksImage from "../../../dist/assets/howitworks.jpg";
 import machineBackImage from "../../../dist/assets/thehero/themachine_back.jpg";
 import machineImage from "../../../dist/assets/thehero/themachine.jpg";
+import alkalineMachinesImage from "../../../dist/assets/otherh2sources/alkaline_machines.jpg";
+import hydrogenBottlesImage from "../../../dist/assets/otherh2sources/hydrogen_bottlespng.jpg";
+import hydrogenTabletsImage from "../../../dist/assets/otherh2sources/hydrogen_tablets.jpg";
+import otherH2OptionsImage from "../../../dist/assets/otherh2options.jpg";
+import otherMethodsImage from "../../../dist/assets/otherh2sources/other2sources.jpg";
+import onlyH2MachinesImage from "../../../dist/assets/otherh2sources/onlyh2machines.jpg";
 import ownershipPrivilegesImage from "../../../dist/assets/ownership_privileges.jpg";
 import taiwaneseTechImage from "../../../dist/assets/taiwanesetech.jpg";
 
@@ -63,6 +69,15 @@ type ScientificExperiment = {
   purpose: string;
   summary: string;
   title: string;
+};
+
+type OtherH2Option = {
+  alt: string;
+  details: string[];
+  icon: LucideIcon;
+  image: string;
+  title: string;
+  summary: string;
 };
 
 type ProgramProtocolItem = {
@@ -234,6 +249,61 @@ const programProtocolItems: ProgramProtocolItem[] = [
 
 const experimentVideoUrl = "https://vimeo.com/100902001";
 
+const otherH2Options: OtherH2Option[] = [
+  {
+    alt: "Hydrogen tablets as another source of H2 water",
+    details: [
+      "Hydrogen tablets are usually dropped into water shortly before drinking. The appeal is convenience: they are portable, simple, and do not require a countertop machine.",
+      "The limitation is consistency. Hydrogen concentration can vary by tablet quality, water amount, timing, temperature, and how long the water sits before it is consumed.",
+      "They can be useful for travel or occasional use, but they do not create the same daily home-hydration experience as a dedicated hydrogen water machine.",
+    ],
+    icon: FlaskConical,
+    image: hydrogenTabletsImage,
+    summary:
+      "Portable tablets can introduce H2 into water, but freshness, timing, and consistency become important parts of the conversation.",
+    title: "Hydrogen Tablets",
+  },
+  {
+    alt: "Portable hydrogen bottles as another source of H2 water",
+    details: [
+      "Hydrogen bottles are small devices that generate hydrogen-rich water in a single serving. They are popular because they are compact and easy to carry.",
+      "Because they are smaller, output and capacity can be limited. The user may need to wait for each cycle, recharge the unit, clean it regularly, and drink soon after generation.",
+      "This option can support an on-the-go routine, but families often prefer a home system when they want larger volume, easier sharing, and a more consistent presentation story.",
+    ],
+    icon: Droplets,
+    image: hydrogenBottlesImage,
+    summary:
+      "Portable bottles make H2 water accessible away from home, but capacity and generation strength can vary by device.",
+    title: "Hydrogen Bottles",
+  },
+  {
+    alt: "Alkaline machines compared with molecular hydrogen water machines",
+    details: [
+      "Alkaline machines are often discussed in the same conversation as hydrogen water because many people first hear about water technology through pH-focused systems.",
+      "The important distinction is that alkalinity and dissolved molecular hydrogen are not the same thing. A machine can raise pH without making H2 the main active story.",
+      "For this presentation, the comparison should stay clear: alkaline machines focus mainly on pH, while a molecular hydrogen water machine focuses on dissolved H2 concentration.",
+    ],
+    icon: Scale,
+    image: alkalineMachinesImage,
+    summary:
+      "Alkaline machines focus mainly on pH, so they should be explained separately from true dissolved molecular hydrogen concentration.",
+    title: "Alkaline Machines",
+  },
+  {
+    alt: "Other molecular hydrogen methods and products",
+    details: [
+      "Other H2 methods may include specialty products, spa-style uses, topical formats, or devices designed for narrow use cases.",
+      "Some of these options can be interesting, but visitors should understand the difference between occasional wellness products and a daily drinking-water routine.",
+      "The strongest public education message is still simple: fresh hydrogen-rich water connects molecular hydrogen to something families already do every day.",
+    ],
+    icon: HeartPulse,
+    image: otherMethodsImage,
+    summary:
+      "Other H2 methods may exist, but they should be compared by purpose, consistency, convenience, and daily practicality.",
+    title: "Others",
+  },
+];
+
 const scientificExperiments: ScientificExperiment[] = [
   {
     alt: "Iodine test showing selective antioxidants at work",
@@ -328,6 +398,8 @@ export function TechnologyPage() {
     useState<ScientificExperiment | null>(null);
   const [activeExperimentVideo, setActiveExperimentVideo] =
     useState<ScientificExperiment | null>(null);
+  const [activeOtherH2Option, setActiveOtherH2Option] =
+    useState<OtherH2Option | null>(null);
 
   return (
     <PageLayout>
@@ -745,6 +817,78 @@ export function TechnologyPage() {
         </div>
       </section>
 
+      <section
+        className="relative overflow-hidden bg-[radial-gradient(circle_at_12%_8%,rgba(14,165,233,0.18),transparent_30%),radial-gradient(circle_at_90%_40%,rgba(6,214,160,0.12),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f1feff_58%,#ffffff_100%)] py-20 text-slate-800 sm:py-24"
+        id="other-sources-of-h2"
+      >
+        <div className="pointer-events-none absolute left-0 top-24 h-px w-full bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
+        <div className="pointer-events-none absolute -right-28 top-24 h-80 w-80 rounded-full border border-cyan-200 bg-cyan-100/30 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 bottom-20 h-96 w-96 rounded-full border border-blue-200 bg-blue-100/30 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[.25em] text-lagoon">
+                Other Sources Of H2
+              </p>
+              <h2 className="mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-marine sm:text-6xl">
+                How Else Can People Get Molecular Hydrogen?
+              </h2>
+              <p className="mt-6 text-xl font-black leading-8 text-slateblue">
+                The goal is not just to find H2. The goal is to understand
+                freshness, consistency, convenience, and how each option fits
+                into real daily life.
+              </p>
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                Molecular hydrogen can be introduced in several ways, including
+                tablets, portable bottles, inhalation systems, baths, and
+                dedicated hydrogen water machines. Each option has a different
+                purpose, cost, routine, and level of convenience.
+              </p>
+              <p className="mt-4 text-lg leading-8 text-slate-600">
+                The best choice is the one that makes molecular hydrogen fresh,
+                measurable, easy to use, and simple enough to enjoy every day.
+                When H2 water becomes part of a consistent hydration routine,
+                the science becomes easier to understand and easier to live.
+              </p>
+            </div>
+
+            <figure className="overflow-hidden rounded-xl border border-cyan-200/50 bg-slate-950 p-1 shadow-clean">
+              <img
+                alt="Other sources and options for getting molecular hydrogen"
+                className="h-auto w-full rounded-lg object-contain object-center"
+                src={otherH2OptionsImage}
+              />
+            </figure>
+          </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {otherH2Options.map((option) => (
+              <OtherH2OptionCard
+                key={option.title}
+                onOpen={() => setActiveOtherH2Option(option)}
+                option={option}
+              />
+            ))}
+          </div>
+
+          <div className="mt-10 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
+            Other H2 options may have a place, but a dedicated hydrogen water
+            machine makes the daily routine clearer, fresher, and easier to
+            trust: clean water, measurable H2, and hydrogen-rich hydration your
+            family can prepare and enjoy at home every day.
+          </div>
+
+          <figure className="mt-8 overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
+            <img
+              alt="Only H2 machines are designed to deliver fresh molecular hydrogen water"
+              className="h-auto w-full object-contain object-center"
+              src={onlyH2MachinesImage}
+            />
+          </figure>
+        </div>
+      </section>
+
       {activeFeatureVisual ? (
         <MachineFeatureVisualModal
           onClose={() => setActiveFeatureVisual(null)}
@@ -766,7 +910,121 @@ export function TechnologyPage() {
           onClose={() => setActiveExperimentVideo(null)}
         />
       ) : null}
+
+      {activeOtherH2Option ? (
+        <OtherH2OptionModal
+          onClose={() => setActiveOtherH2Option(null)}
+          option={activeOtherH2Option}
+        />
+      ) : null}
     </PageLayout>
+  );
+}
+
+function OtherH2OptionCard({
+  onOpen,
+  option,
+}: {
+  onOpen: () => void;
+  option: OtherH2Option;
+}) {
+  return (
+    <article className="group overflow-hidden rounded-sm border border-lagoon/10 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-lagoon/30 hover:shadow-lift">
+      <figure className="aspect-video overflow-hidden bg-slate-950 p-px">
+        <img
+          alt={option.alt}
+          className="h-full w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]"
+          src={option.image}
+        />
+      </figure>
+      <div className="p-4">
+        <h3 className="text-xl font-black text-marine">{option.title}</h3>
+        <p className="mt-2 text-sm leading-6 text-slate-600">
+          {option.summary}
+        </p>
+        <button
+          className="mt-3 cursor-pointer rounded-full bg-marine px-4 py-2 text-xs font-black text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-lagoon"
+          onClick={onOpen}
+          type="button"
+        >
+          View Details
+        </button>
+      </div>
+    </article>
+  );
+}
+
+function OtherH2OptionModal({
+  onClose,
+  option,
+}: {
+  onClose: () => void;
+  option: OtherH2Option;
+}) {
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[30000] overflow-y-auto bg-slate-950/70 px-4 py-8 backdrop-blur-sm sm:py-12"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-[900px] overflow-hidden rounded-md bg-white shadow-[0_30px_100px_rgba(2,6,23,0.35)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="max-h-[88vh] overflow-y-auto">
+          <div className="bg-slate-950 p-px">
+            <img
+              alt={option.alt}
+              className="h-auto w-full rounded-sm object-contain object-center"
+              src={option.image}
+            />
+          </div>
+
+          <div className="bg-[radial-gradient(circle_at_14%_0%,rgba(6,214,160,0.16),transparent_34%),radial-gradient(circle_at_86%_20%,rgba(14,165,233,0.18),transparent_34%),linear-gradient(135deg,#ffffff_0%,#eefcff_48%,#dff8ff_100%)] p-6 text-marine sm:p-8">
+            <div className="flex items-start justify-between gap-5">
+              <div>
+                <p className="inline-flex rounded-full border border-lagoon/20 bg-white/80 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-lagoon shadow-sm">
+                  Other Sources Of H2
+                </p>
+                <h2 className="mt-4 text-3xl font-black leading-tight text-marine sm:text-4xl">
+                  {option.title}
+                </h2>
+              </div>
+              <button
+                aria-label="Close modal"
+                className="grid h-11 w-11 shrink-0 cursor-pointer place-items-center rounded-full border border-cyan-200 bg-white/80 text-2xl font-bold text-marine shadow-sm transition hover:bg-ice"
+                onClick={onClose}
+                type="button"
+              >
+                <X className="h-6 w-6" />
+              </button>
+            </div>
+            <p className="mt-5 max-w-3xl text-lg font-semibold leading-8 text-slate-700">
+              {option.summary}
+            </p>
+          </div>
+
+          <div className="p-6 sm:p-8 lg:p-10">
+            <div className="grid gap-4 md:grid-cols-3">
+              {option.details.map((detail, index) => (
+                <article
+                  className="rounded-2xl bg-ice p-5 leading-8 text-slate-700"
+                  key={detail}
+                >
+                  <p className="text-xs font-black uppercase tracking-[.2em] text-lagoon">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <p className="mt-2 font-semibold leading-7 text-slate-700">
+                    {detail}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
