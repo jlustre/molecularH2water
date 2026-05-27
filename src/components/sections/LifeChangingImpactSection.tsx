@@ -204,7 +204,7 @@ export function LifeChangingImpactSection() {
             </div>
             <div>
               <h3 className="text-2xl font-black">
-                Indvidual Results May Vary
+                Individual Results May Vary
               </h3>
               <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
                 These real stories are shared as personal wellness experiences, not medical claims or promises. One of the best ways to understand hydrogen-rich water is to learn the foundational science, develop a consistent hydration routine, and observe how your own body responds over time. For some people, the changes may feel subtle at first, while for others they may feel more powerful shifts, depending on individual lifestyle factors, hydration status, and overall biological condition. Give it a try — you drink water every single day, so why not choose the very best hydration possible.
