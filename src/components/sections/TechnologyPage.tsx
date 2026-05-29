@@ -835,9 +835,7 @@ export function TechnologyPage() {
                 How Else Can People Get Molecular Hydrogen?
               </h2>
               <p className="mt-6 text-xl font-black leading-8 text-slateblue">
-                The goal is not just to find H2. The goal is to understand
-                freshness, consistency, convenience, and how each option fits
-                into real daily life.
+                The goal is not simply to consume molecular hydrogen - it is to understand which solutions deliver the best freshness, consistency, concentration & convenience to support your long term wellness goals.
               </p>
               <p className="mt-5 text-lg leading-8 text-slate-600">
                 Molecular hydrogen can be introduced in several ways, including
@@ -873,10 +871,7 @@ export function TechnologyPage() {
           </div>
 
           <div className="mt-10 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
-            Other H2 options may have a place, but a dedicated hydrogen water
-            machine makes the daily routine clearer, fresher, and easier to
-            trust: clean water, measurable H2, and hydrogen-rich hydration your
-            family can prepare and enjoy at home every day.
+            While other hydrogen options may offer occasional support, a dedicated hydrogen water machine provides a more practical, cost-effective, and consistent way to enjoy cleaner, fresher, high-potency molecular hydrogen every day.  The Machine becomes the better choice providing the highest quality water at the lowest cost per serving over time.
           </div>
 
           <figure className="mt-8 overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
