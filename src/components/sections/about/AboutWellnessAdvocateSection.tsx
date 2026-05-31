@@ -1,4 +1,19 @@
-import { CalendarClock, HandHeart, Users, Sparkles, Globe2, TrendingUp, Share2, UserCheck } from "lucide-react";
+import {
+  CalendarClock,
+  Globe2,
+  HandHeart,
+  Mail,
+  Phone,
+  Send,
+  Share2,
+  Sparkles,
+  TrendingUp,
+  UserCheck,
+  Users,
+  X,
+} from "lucide-react";
+import { useState } from "react";
+import contactImage from "../../../assets/images/contact_us.jpg";
 import wellnessAdvocateImage from "../../../assets/images/wellness_advocate.jpg";
 
 const wellnessAdvocateBenefits = [
@@ -35,6 +50,8 @@ const wellnessAdvocateBenefits = [
 ];
 
 export function AboutWellnessAdvocateSection() {
+  const [zoomModalOpen, setZoomModalOpen] = useState(false);
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-pearl to-ice py-24" id="wellness-advocate">
       <div className="pointer-events-none absolute left-[-10%] top-24 h-80 w-80 rounded-full bg-aqua/12 blur-3xl" />
@@ -83,16 +100,164 @@ export function AboutWellnessAdvocateSection() {
                 <div className="rounded-[1.75rem] border border-amber-200/70 bg-amber-50 p-5 text-marine shadow-[0_18px_45px_rgba(251,191,36,0.18)] transition duration-300 hover:-translate-y-1 hover:shadow-clean">
                   <p className="text-xl font-black">Ready to learn more?</p>
                   <p className="mt-2 leading-7 text-slate-700">Schedule a brief 15-minute Zoom appointment and see if becoming a Wellness Advocate is a fit for you.</p>
-                  <a className="group mt-5 inline-flex w-full items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:w-auto" href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom">
+                  <button
+                    className="group mt-5 inline-flex w-full cursor-pointer items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-6 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:w-auto"
+                    onClick={() => setZoomModalOpen(true)}
+                    type="button"
+                  >
                     <CalendarClock className="h-5 w-5 group-hover:text-white transition-colors duration-200" />
                     <span className="group-hover:text-white transition-colors duration-200">Schedule 15-Minute Zoom</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {zoomModalOpen ? (
+        <WellnessAdvocateZoomModal onClose={() => setZoomModalOpen(false)} />
+      ) : null}
     </section>
+  );
+}
+
+function WellnessAdvocateZoomModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/72 px-4 py-8 pt-24 backdrop-blur-sm sm:px-6 sm:pt-28"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-cyan-200/40 bg-white shadow-[0_35px_120px_rgba(2,6,23,0.42)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="max-h-[88vh] overflow-y-auto">
+          <div className="grid lg:grid-cols-[1.05fr_.95fr]">
+            <div className="bg-[radial-gradient(circle_at_14%_0%,rgba(6,214,160,0.22),transparent_32%),linear-gradient(135deg,#073B4C_0%,#0B6B7C_52%,#081f2d_100%)] p-6 text-white sm:p-8 lg:p-10">
+              <button
+                aria-label="Close Wellness Advocate Zoom modal"
+                className="ml-auto grid h-10 w-10 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+                onClick={onClose}
+                type="button"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <p className="mt-8 inline-flex rounded-full border border-cyan-200/25 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-aqua">
+                Wellness Advocate
+              </p>
+              <h2 className="mt-5 text-4xl font-black leading-tight sm:text-5xl">
+                Schedule A 15-Minute Zoom
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-cyan-50/82">
+                Share your preferred time, who referred you, and what you want
+                to learn so the right person can help you explore the Wellness
+                Advocate path.
+              </p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <article className="rounded-[1.4rem] border border-cyan-200/18 bg-white/10 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.14)]">
+                  <CalendarClock className="h-6 w-6 text-aqua" />
+                  <h3 className="mt-3 text-lg font-black">Quick And Simple</h3>
+                  <p className="mt-2 text-sm leading-6 text-cyan-50/76">
+                    A short Zoom helps you understand the role without pressure.
+                  </p>
+                </article>
+                <article className="rounded-[1.4rem] border border-cyan-200/18 bg-white/10 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.14)]">
+                  <HandHeart className="h-6 w-6 text-aqua" />
+                  <h3 className="mt-3 text-lg font-black">Share With Purpose</h3>
+                  <p className="mt-2 text-sm leading-6 text-cyan-50/76">
+                    Learn how simple introductions can support people you care
+                    about.
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <div className="bg-[linear-gradient(180deg,#ffffff_0%,#ecfeff_100%)] p-6 sm:p-8 lg:p-10">
+              <figure className="mb-6 overflow-hidden rounded-[1.5rem] border border-cyan-100 bg-marine p-1.5 shadow-[0_18px_50px_rgba(7,59,76,0.16)] sm:rounded-[2rem]">
+                <img
+                  alt="Contact H2Systems to schedule a Wellness Advocate Zoom"
+                  className="h-auto w-full rounded-[1.15rem] object-contain sm:rounded-[1.6rem]"
+                  src={contactImage}
+                />
+              </figure>
+
+              <form className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
+                  placeholder="Name"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
+                  placeholder="Phone"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Email"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Referrer Name (optional)"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Preferred Day or Time"
+                />
+                <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
+                  <option>I want to learn about becoming a Wellness Advocate</option>
+                  <option>I want to share with friends or family</option>
+                  <option>I want to understand referral income</option>
+                  <option>I have questions before scheduling</option>
+                </select>
+                <textarea
+                  className="min-h-28 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Tell us anything helpful before the Zoom."
+                />
+                <a
+                  className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
+                  href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom"
+                >
+                  <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
+                  <span className="transition-colors duration-200 group-hover:text-white">
+                    Send Zoom Request
+                  </span>
+                </a>
+              </form>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-[1.25fr_.75fr]">
+                <a
+                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
+                  href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom"
+                >
+                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <p className="mt-2 text-sm font-black text-marine">Email Us</p>
+                  <p className="text-xs font-semibold text-slate-500">
+                    info@example.com
+                  </p>
+                </a>
+                <a
+                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
+                  href="tel:0000000000"
+                >
+                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
+                    <Phone className="h-5 w-5" />
+                  </span>
+                  <p className="mt-2 text-sm font-black text-marine">Call Us</p>
+                  <p className="text-xs font-semibold text-slate-500">
+                    (000) 000-0000
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

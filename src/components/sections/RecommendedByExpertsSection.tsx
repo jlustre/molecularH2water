@@ -7,13 +7,16 @@ import {
   CheckCircle2,
   HeartPulse,
   Microscope,
+  PlayCircle,
   Quote,
   ShieldCheck,
   Sparkles,
   Stethoscope,
+  X,
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import { useState } from "react";
 import andrewHubermanImage from "../../../dist/assets/theexperts/andrew_huberman.jpg";
 import josephMercolaImage from "../../../dist/assets/theexperts/joseph_mercola.jpg";
 import nicholasPerriconeImage from "../../../dist/assets/theexperts/nicholas_perricone.jpg";
@@ -159,7 +162,11 @@ const benefitPoints: BenefitPoint[] = [
   },
 ];
 
+const mercolaVideoEmbedUrl =
+  "https://player.vimeo.com/video/1180657495?autoplay=1&title=0&byline=0&portrait=0";
+
 export function RecommendedByExpertsSection() {
+  const [mercolaVideoOpen, setMercolaVideoOpen] = useState(false);
   const orderedExperts = [...expertProfiles.slice(1), expertProfiles[0]];
 
   return (
@@ -190,7 +197,15 @@ export function RecommendedByExpertsSection() {
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {orderedExperts.map((expert) => (
-            <ExpertCard expert={expert} key={expert.name} />
+            <ExpertCard
+              expert={expert}
+              key={expert.name}
+              onVideoOpen={
+                expert.name === "Dr. Joseph Mercola"
+                  ? () => setMercolaVideoOpen(true)
+                  : undefined
+              }
+            />
           ))}
         </div>
 
@@ -252,11 +267,21 @@ export function RecommendedByExpertsSection() {
           </div>
         </div>
       </div>
+
+      {mercolaVideoOpen ? (
+        <MercolaVideoModal onClose={() => setMercolaVideoOpen(false)} />
+      ) : null}
     </section>
   );
 }
 
-function ExpertCard({ expert }: { expert: ExpertProfile }) {
+function ExpertCard({
+  expert,
+  onVideoOpen,
+}: {
+  expert: ExpertProfile;
+  onVideoOpen?: () => void;
+}) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-cyan-300/20 bg-white/8 shadow-[0_18px_55px_rgba(14,165,233,0.1)] backdrop-blur transition hover:-translate-y-1 hover:border-aqua/55 hover:bg-white/12">
       <div className="relative overflow-hidden border-b border-cyan-300/20 bg-slate-950">
@@ -269,6 +294,16 @@ function ExpertCard({ expert }: { expert: ExpertProfile }) {
         <div className="absolute bottom-4 left-4 grid h-12 w-12 place-items-center rounded-2xl border border-cyan-200/40 bg-slate-950/75 text-aqua shadow-[0_14px_35px_rgba(14,165,233,0.18)] backdrop-blur transition group-hover:bg-aqua group-hover:text-marine">
           <expert.icon className="h-6 w-6" />
         </div>
+        {onVideoOpen ? (
+          <button
+            className="absolute bottom-4 right-4 inline-flex cursor-pointer items-center gap-2 rounded-full border border-amber-100 bg-amber-300 px-4 py-2 text-xs font-black uppercase tracking-[.12em] text-slate-950 shadow-[0_16px_38px_rgba(251,191,36,0.28)] transition hover:-translate-y-0.5 hover:bg-white hover:text-marine"
+            onClick={onVideoOpen}
+            type="button"
+          >
+            <PlayCircle className="h-4 w-4" />
+            Watch Video
+          </button>
+        ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-6">
@@ -302,5 +337,50 @@ function ExpertCard({ expert }: { expert: ExpertProfile }) {
         </ul>
       </div>
     </article>
+  );
+}
+
+function MercolaVideoModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/90 px-4 py-8 backdrop-blur-sm sm:px-6"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-md border border-cyan-200/30 bg-slate-950 shadow-[0_35px_120px_rgba(0,0,0,0.55)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-4 text-white">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+              Expert Video
+            </p>
+            <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+              Dr. Joseph Mercola On Molecular Hydrogen
+            </h2>
+          </div>
+          <button
+            aria-label="Close Dr. Mercola video modal"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+            onClick={onClose}
+            type="button"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="aspect-video bg-black">
+          <iframe
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+            src={mercolaVideoEmbedUrl}
+            title="Dr. Joseph Mercola molecular hydrogen video"
+          />
+        </div>
+      </div>
+    </div>
   );
 }

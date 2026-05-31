@@ -249,8 +249,6 @@ const programProtocolItems: ProgramProtocolItem[] = [
   },
 ];
 
-const placeholderExperimentVideoUrl = "https://vimeo.com/100902001";
-
 function getVimeoEmbedUrl(videoUrl: string) {
   const videoId = videoUrl.replace("https://vimeo.com/", "").split(/[/?#]/)[0];
 
@@ -376,8 +374,8 @@ const scientificExperiments: ScientificExperiment[] = [
       "To compare the oxidation-reduction potential of ordinary water with hydrogen-rich water and show how H2 water can create a more reducing environment.",
     summary:
       "The ORP test is a supporting demonstration. It does not replace the hydrogen concentration story, but it helps visitors see that freshly generated H2 water can carry a stronger reducing profile than ordinary water.",
-    title: "ORP Antioxidant Comparison",
-    videoUrl: placeholderExperimentVideoUrl,
+    title: "Oxidation Reduction Test",
+    videoUrl: "https://vimeo.com/1197101298",
   },
   {
     alt: "Diffusion comparison of hydrogen water and filtered water using tea",
@@ -398,8 +396,8 @@ const scientificExperiments: ScientificExperiment[] = [
       "To visually compare how filtered water and hydrogen-rich water interact with tea over the same time period.",
     summary:
       "The tea diffusion test is a simple way to discuss how hydrogen-rich water may behave differently from ordinary filtered water. The goal is to make diffusion, interaction, and hydration quality easier to see and remember.",
-    title: "Diffusion And Absorption Demo",
-    videoUrl: placeholderExperimentVideoUrl,
+    title: "Microcluster / Absorbancy Test",
+    videoUrl: "https://vimeo.com/1197101472",
   },
 ];
 

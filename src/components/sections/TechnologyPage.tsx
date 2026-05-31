@@ -257,8 +257,6 @@ const programProtocolItems: ProgramProtocolItem[] = [
   },
 ];
 
-const placeholderExperimentVideoUrl = "https://vimeo.com/100902001";
-
 function getVimeoEmbedUrl(videoUrl: string) {
   const videoId = videoUrl.replace("https://vimeo.com/", "").split(/[/?#]/)[0];
 
@@ -384,8 +382,8 @@ const scientificExperiments: ScientificExperiment[] = [
       "To compare the oxidation-reduction potential of ordinary water with hydrogen-rich water and show how H2 water can create a more reducing environment.",
     summary:
       "The ORP test is a supporting demonstration. It does not replace the hydrogen concentration story, but it helps visitors see that freshly generated H2 water can carry a stronger reducing profile than ordinary water.",
-    title: "ORP Antioxidant Comparison",
-    videoUrl: placeholderExperimentVideoUrl,
+    title: "Oxidation Reduction Test",
+    videoUrl: "https://vimeo.com/1197101298",
   },
   {
     alt: "Diffusion comparison of hydrogen water and filtered water using tea",
@@ -406,8 +404,8 @@ const scientificExperiments: ScientificExperiment[] = [
       "To visually compare how filtered water and hydrogen-rich water interact with tea over the same time period.",
     summary:
       "The tea diffusion test is a simple way to discuss how hydrogen-rich water may behave differently from ordinary filtered water. The goal is to make diffusion, interaction, and hydration quality easier to see and remember.",
-    title: "Diffusion And Absorption Demo",
-    videoUrl: placeholderExperimentVideoUrl,
+    title: "Microcluster / Absorbancy Test",
+    videoUrl: "https://vimeo.com/1197101472",
   },
 ];
 
@@ -734,13 +732,23 @@ export function TechnologyPage() {
                   className="h-auto w-full object-contain object-center"
                   src={machineImage}
                 />
-                <div className="absolute bottom-4 right-4 rounded-2xl border border-amber-200 bg-amber-300 px-5 py-3 text-right text-slate-950 shadow-[0_18px_46px_rgba(251,191,36,0.25)] sm:bottom-6 sm:right-6">
-                  <p className="text-xs font-black uppercase tracking-[.2em]">
-                    Price
-                  </p>
-                  <p className="mt-1 text-2xl font-black leading-none sm:text-3xl">
-                    $4,895
-                  </p>
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-3 sm:inset-x-6 sm:bottom-6">
+                  <div className="rounded-2xl border-2 border-amber-300 bg-amber-50/95 px-3 py-2.5 text-left text-slate-950 shadow-[0_18px_42px_rgba(15,23,42,0.24)] backdrop-blur sm:px-5 sm:py-3">
+                    <p className="text-[0.62rem] font-black uppercase tracking-[.18em] text-amber-700 sm:text-xs">
+                      Regular Price
+                    </p>
+                    <p className="mt-1 text-xl font-black leading-none text-marine line-through decoration-amber-500 decoration-2 sm:text-2xl">
+                      $5,495
+                    </p>
+                  </div>
+                  <div className="rounded-2xl border border-amber-200 bg-amber-300 px-3 py-2.5 text-right text-slate-950 shadow-[0_18px_46px_rgba(251,191,36,0.25)] sm:px-5 sm:py-3">
+                    <p className="text-[0.62rem] font-black uppercase tracking-[.18em] sm:text-xs">
+                      Sale Price
+                    </p>
+                    <p className="mt-1 text-2xl font-black leading-none sm:text-3xl">
+                      $4,895
+                    </p>
+                  </div>
                 </div>
               </figure>
               <div className="p-6 sm:p-8">

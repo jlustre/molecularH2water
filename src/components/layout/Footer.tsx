@@ -6,6 +6,7 @@ import {
   Mail,
   Phone,
   ShieldCheck,
+  ShoppingCart,
   Sparkles,
   Users,
   type LucideIcon,
@@ -21,6 +22,13 @@ type FooterGroup = {
   icon: LucideIcon;
   links: FooterLink[];
   title: string;
+};
+
+type QuickContact = {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+  variant?: "teal";
 };
 
 type GuideLink = {
@@ -157,7 +165,7 @@ const guideLinks: GuideLink[] = [
   },
 ];
 
-const quickContacts = [
+const quickContacts: QuickContact[] = [
   {
     href: "mailto:info@example.com",
     icon: Mail,
@@ -172,6 +180,12 @@ const quickContacts = [
     href: "/about#schedule-water-awareness-show",
     icon: CalendarCheck,
     label: "Schedule A Show",
+  },
+  {
+    href: "/technology#investment",
+    icon: ShoppingCart,
+    label: "How To Purchase The Machine",
+    variant: "teal",
   },
 ];
 
@@ -275,11 +289,19 @@ export function Footer() {
             <div className="mt-5 flex flex-wrap justify-center gap-2">
               {quickContacts.map((item) => (
                 <a
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-3.5 py-2 text-sm font-bold text-cyan-50/82 transition hover:border-aqua/40 hover:bg-white/14 hover:text-white"
+                  className={`inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-bold transition hover:-translate-y-0.5 ${
+                    item.variant === "teal"
+                      ? "border border-aqua/40 bg-lagoon text-white shadow-[0_12px_30px_rgba(6,214,160,0.2)] hover:bg-aqua hover:text-marine"
+                      : "border border-white/10 bg-white/8 text-cyan-50/82 hover:border-aqua/40 hover:bg-white/14 hover:text-white"
+                  }`}
                   href={item.href}
                   key={item.label}
                 >
-                  <item.icon className="h-4 w-4 text-aqua" />
+                  <item.icon
+                    className={`h-4 w-4 ${
+                      item.variant === "teal" ? "text-white" : "text-aqua"
+                    }`}
+                  />
                   {item.label}
                 </a>
               ))}

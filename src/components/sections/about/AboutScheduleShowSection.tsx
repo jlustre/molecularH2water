@@ -1,11 +1,18 @@
 import {
   CalendarCheck,
   CircleHelp,
+  Mail,
   MonitorPlay,
+  Phone,
+  PlayCircle,
+  Send,
   Sparkles,
   Users,
+  X,
   type LucideIcon,
 } from "lucide-react";
+import { useState } from "react";
+import contactImage from "../../../assets/images/contact_us.jpg";
 import h2PresentationImage from "../../../assets/images/h2presentation.jpg";
 
 const scheduleSteps = [
@@ -26,7 +33,13 @@ const scheduleSteps = [
   },
 ];
 
+const waterAwarenessVideoEmbedUrl =
+  "https://www.youtube.com/embed/a5j54zUWs_c?autoplay=1&rel=0";
+
 export function AboutScheduleShowSection() {
+  const [attendModalOpen, setAttendModalOpen] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <section
       className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-pearl py-24"
@@ -77,18 +90,22 @@ export function AboutScheduleShowSection() {
                       their own home, family, and wellness goals.
                     </p>
                     <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-                      <a
-                        className="group inline-flex flex-1 items-center justify-center rounded-full border-2 border-aqua bg-white px-7 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-marine shadow-clean transition hover:-translate-y-0.5 hover:bg-aqua"
-                        href="mailto:info@example.com?subject=Schedule%20Water%20Awareness%20Show"
+                      <button
+                        className="group inline-flex flex-1 items-center justify-center rounded-full border-2 border-amber-100 bg-amber-300 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-slate-950 shadow-[0_16px_38px_rgba(251,191,36,0.28)] transition hover:-translate-y-0.5 hover:bg-white hover:text-marine"
+                        onClick={() => setVideoOpen(true)}
+                        type="button"
                       >
-                        <span className="transition-colors duration-200 text-marine group-hover:text-white">Request A Show</span>
-                      </a>
-                      <a
+                        <PlayCircle className="mr-2 h-5 w-5" />
+                        <span>Watch Video</span>
+                      </button>
+                      <button
                         className="group inline-flex flex-1 items-center justify-center rounded-full border-2 border-marine bg-white/10 px-7 py-4 text-center text-sm font-black uppercase tracking-[0.12em] text-white shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-white hover:text-marine"
-                        href="/technology#hydrogen-water-machine"
+                        onClick={() => setAttendModalOpen(true)}
+                        type="button"
                       >
-                        <span className="transition-colors duration-200 group-hover:text-marine">See The Machine</span>
-                      </a>
+                        <CalendarCheck className="mr-2 h-5 w-5" />
+                        <span className="transition-colors duration-200 group-hover:text-marine">Attend A Live Presentation</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -131,6 +148,14 @@ export function AboutScheduleShowSection() {
           </div>
         </div>
       </div>
+
+      {videoOpen ? (
+        <WaterAwarenessVideoModal onClose={() => setVideoOpen(false)} />
+      ) : null}
+
+      {attendModalOpen ? (
+        <AttendLiveShowModal onClose={() => setAttendModalOpen(false)} />
+      ) : null}
     </section>
   );
 }
@@ -161,5 +186,191 @@ function ScheduleStepCard({
         </div>
       </div>
     </article>
+  );
+}
+
+function WaterAwarenessVideoModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/90 px-4 py-8 backdrop-blur-sm sm:px-6"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-md border border-cyan-200/30 bg-slate-950 shadow-[0_35px_120px_rgba(0,0,0,0.55)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-4 text-white">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+              Water Awareness Show
+            </p>
+            <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+              Watch The Water Awareness Presentation
+            </h2>
+          </div>
+          <button
+            aria-label="Close Water Awareness Show video modal"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+            onClick={onClose}
+            type="button"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <div className="aspect-video bg-black">
+          <iframe
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+            src={waterAwarenessVideoEmbedUrl}
+            title="Water Awareness Show video"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AttendLiveShowModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/72 px-4 py-8 pt-24 backdrop-blur-sm sm:px-6 sm:pt-28"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-[2rem] border border-cyan-200/40 bg-white shadow-[0_35px_120px_rgba(2,6,23,0.42)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="max-h-[88vh] overflow-y-auto">
+          <div className="grid lg:grid-cols-[1.05fr_.95fr]">
+            <div className="bg-[radial-gradient(circle_at_14%_0%,rgba(6,214,160,0.22),transparent_32%),linear-gradient(135deg,#073B4C_0%,#0B6B7C_52%,#081f2d_100%)] p-6 text-white sm:p-8 lg:p-10">
+              <button
+                aria-label="Close attend live show modal"
+                className="ml-auto grid h-10 w-10 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+                onClick={onClose}
+                type="button"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              <p className="mt-8 inline-flex rounded-full border border-cyan-200/25 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-aqua">
+                Attend A Live Show
+              </p>
+              <h2 className="mt-5 text-4xl font-black leading-tight sm:text-5xl">
+                Schedule Your Water Awareness Seat
+              </h2>
+              <p className="mt-5 text-lg leading-8 text-cyan-50/82">
+                Let us know when you would like to attend, whether you are
+                coming alone or inviting guests, and who referred you so the
+                right person can follow up.
+              </p>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <article className="rounded-[1.4rem] border border-cyan-200/18 bg-white/10 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.14)]">
+                  <CalendarCheck className="h-6 w-6 text-aqua" />
+                  <h3 className="mt-3 text-lg font-black">Pick A Show Time</h3>
+                  <p className="mt-2 text-sm leading-6 text-cyan-50/76">
+                    Share your preferred day or window and we will help confirm
+                    the best live option.
+                  </p>
+                </article>
+                <article className="rounded-[1.4rem] border border-cyan-200/18 bg-white/10 p-4 shadow-[0_18px_42px_rgba(0,0,0,0.14)]">
+                  <Users className="h-6 w-6 text-aqua" />
+                  <h3 className="mt-3 text-lg font-black">Bring Guests</h3>
+                  <p className="mt-2 text-sm leading-6 text-cyan-50/76">
+                    Tell us if family, friends, or a small group may be joining
+                    the presentation.
+                  </p>
+                </article>
+              </div>
+            </div>
+
+            <div className="bg-[linear-gradient(180deg,#ffffff_0%,#ecfeff_100%)] p-6 sm:p-8 lg:p-10">
+              <figure className="mb-6 overflow-hidden rounded-[1.5rem] border border-cyan-100 bg-marine p-1.5 shadow-[0_18px_50px_rgba(7,59,76,0.16)] sm:rounded-[2rem]">
+                <img
+                  alt="Contact H2Systems to attend a live Water Awareness Show"
+                  className="h-auto w-full rounded-[1.15rem] object-contain sm:rounded-[1.6rem]"
+                  src={contactImage}
+                />
+              </figure>
+
+              <form className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
+                  placeholder="Name"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
+                  placeholder="Phone"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Email"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Referrer Name (optional)"
+                />
+                <input
+                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Preferred Day or Time"
+                />
+                <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
+                  <option>I want to attend a live Water Awareness Show</option>
+                  <option>I want to bring a guest</option>
+                  <option>I want to host a small group</option>
+                  <option>I have questions before attending</option>
+                </select>
+                <textarea
+                  className="min-h-28 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
+                  placeholder="Tell us anything helpful about your schedule, guests, or questions."
+                />
+                <a
+                  className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
+                  href="mailto:info@example.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
+                >
+                  <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
+                  <span className="transition-colors duration-200 group-hover:text-white">
+                    Send Attendance Request
+                  </span>
+                </a>
+              </form>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-[1.25fr_.75fr]">
+                <a
+                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
+                  href="mailto:info@example.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
+                >
+                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
+                    <Mail className="h-5 w-5" />
+                  </span>
+                  <p className="mt-2 text-sm font-black text-marine">Email Us</p>
+                  <p className="text-xs font-semibold text-slate-500">
+                    info@example.com
+                  </p>
+                </a>
+                <a
+                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
+                  href="tel:0000000000"
+                >
+                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
+                    <Phone className="h-5 w-5" />
+                  </span>
+                  <p className="mt-2 text-sm font-black text-marine">Call Us</p>
+                  <p className="text-xs font-semibold text-slate-500">
+                    (000) 000-0000
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
