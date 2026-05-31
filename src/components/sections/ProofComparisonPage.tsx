@@ -1,21 +1,16 @@
 import {
   BadgeCheck,
   Beaker,
-  CalendarCheck,
   Droplets,
   ExternalLink,
   FlaskConical,
   Gift,
   HeartPulse,
-  Mail,
   Maximize2,
   Microscope,
-  Phone,
   RefreshCcw,
   Scale,
-  Send,
   ShieldCheck,
-  ShoppingCart,
   Target,
   Timer,
   Waves,
@@ -24,16 +19,13 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
-import contactImage from "../../assets/images/contact_us.jpg";
 import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
 import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
 import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
 import experiment4Image from "../../../dist/assets/experiments/experiment4.jpg";
 import featuresImage from "../../../dist/assets/features.jpg";
 import fiveComponentsImage from "../../../dist/assets/fivecomponents.jpg";
-import howPaysItselfImage from "../../../dist/assets/howpaysitself.jpg";
 import howItWorksImage from "../../../dist/assets/howitworks.jpg";
-import isItWorthItImage from "../../../dist/assets/isitworthit.jpg";
 import machineBackImage from "../../../dist/assets/thehero/themachine_back.jpg";
 import machineImage from "../../../dist/assets/thehero/themachine.jpg";
 import alkalineMachinesImage from "../../../dist/assets/otherh2sources/alkaline_machines.jpg";
@@ -417,7 +409,7 @@ const investmentValuePoints = [
   "The value is not only the water. It is the convenience, consistency, education, support, and owner programs that come with the system.",
 ];
 
-export function TechnologyPage() {
+export function ProofComparisonPage() {
   const [activeFeatureVisual, setActiveFeatureVisual] =
     useState<MachineFeatureVisual | null>(null);
   const [activeExperiment, setActiveExperiment] =
@@ -426,182 +418,122 @@ export function TechnologyPage() {
     useState<ScientificExperiment | null>(null);
   const [activeOtherH2Option, setActiveOtherH2Option] =
     useState<OtherH2Option | null>(null);
-  const [purchaseModalOpen, setPurchaseModalOpen] = useState(false);
 
   return (
     <PageLayout>
       <section
         className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
-        id="hydrogen-water-machine"
+        id="ionizer-vs-h2"
       >
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[8%] top-20 h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
-          <div className="absolute right-[10%] top-32 h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
+          <div className="absolute -left-24 top-24 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute right-0 top-16 h-80 w-80 rounded-full bg-cyan-400/15 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
             <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
-              Clean, Powerful, Ready In Seconds
+              The Antioxidant Comparison
             </p>
-            <h1 className="mt-7 text-4xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-              Introducing The{" "}
-              <span className="bg-gradient-to-r from-cyan-200 via-aqua to-blue-300 bg-clip-text text-transparent">
-                Molecular Hydrogen Water Machine
-              </span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-3xl text-xl leading-9 text-cyan-50/85">
-              More than water. It is a daily hydration upgrade designed to
-              deliver clean, hydrogen-rich water with a simple wellness story
-              people can understand.
-            </p>
-          </div>
-
-          <div className="mt-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr_0.9fr] lg:items-start">
-            <div className="grid gap-5">
-              {machineFeatures.slice(0, 4).map((feature) => (
-                <MachineFeatureCard feature={feature} key={feature.title} />
-              ))}
-            </div>
-
-            <div className="relative order-first lg:order-none">
-              <div className="absolute inset-8 rounded-full bg-cyan-400/25 blur-3xl" />
-              <div className="relative">
-                <figure className="mx-auto overflow-hidden rounded-[1.75rem] border border-cyan-200/25 shadow-[0_35px_120px_rgba(34,211,238,0.25)]">
-                  <img
-                    alt="Molecular hydrogen water machine"
-                    className="h-auto w-full object-contain object-center"
-                    src={machineImage}
-                  />
-                </figure>
-
-                <figure className="mt-5 overflow-hidden rounded-[1.75rem] border border-cyan-200/25 shadow-[0_26px_80px_rgba(34,211,238,0.18)]">
-                  <img
-                    alt="Back view of the molecular hydrogen water machine"
-                    className="h-auto w-full object-contain object-center"
-                    src={machineBackImage}
-                  />
-                </figure>
-              </div>
-            </div>
-
-            <div className="grid gap-5">
-              {machineFeatures.slice(4).map((feature) => (
-                <MachineFeatureCard feature={feature} key={feature.title} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-white py-20 text-slate-800 sm:py-24"
-        id="how-it-works"
-      >
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-20 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="absolute bottom-10 right-0 h-96 w-96 rounded-full bg-aqua/15 blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
-              How It Works
-            </p>
-            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight text-marine sm:text-6xl">
-              From Clean Water To Hydrogen-Rich Hydration
+            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-6xl">
+              Alkaline Ionizer{" "}
+              <span className="text-cyan-300">V/S</span> Hydrogen Water Machine
             </h2>
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              The machine follows a simple path: water enters the system,
-              molecular hydrogen is generated and dissolved, and fresh
-              hydrogen-rich water is dispensed for daily hydration.
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-cyan-50/80">
+              Both machines use water technology, but they tell very different
+              stories. Alkaline ionizers focus mainly on pH, while hydrogen
+              water machines focus on dissolved H2 as the active wellness
+              conversation.
             </p>
           </div>
 
-          <figure className="mt-12 overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
-            <img
-              alt="How the molecular hydrogen water machine works"
-              className="h-auto w-full object-contain object-center"
-              src={howItWorksImage}
-            />
-          </figure>
-
-          <div className="mt-12 overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
-            <div className="bg-gradient-to-r from-marine via-lagoon to-marine px-6 py-6 text-center text-white">
-              <p className="text-sm font-black uppercase tracking-[.25em] text-aqua">
-                System Breakdown
-              </p>
-              <h3 className="mt-3 text-3xl font-black leading-tight sm:text-4xl">
-                The Five Core Components Working Together
-              </h3>
-              <p className="mx-auto mt-3 max-w-3xl text-base leading-7 text-cyan-50/85">
-                Each part has a purpose, from water preparation and hydrogen
-                generation to safe delivery, cleaning, and everyday operation.
-              </p>
-            </div>
-            <figure className="bg-white">
-              <img
-                alt="Five core components of the molecular hydrogen water machine"
-                className="h-auto w-full object-contain object-center"
-                src={fiveComponentsImage}
-              />
-            </figure>
-          </div>
-
-          <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
-            The simpler the technology story feels, the easier it becomes for
-            families to understand why molecular hydrogen water is different.
-          </div>
-        </div>
-      </section>
-
-
-      <section
-        className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-white py-20 text-slate-800 sm:py-24"
-        id="machine-features"
-      >
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-20 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl" />
-          <div className="absolute bottom-12 right-0 h-96 w-96 rounded-full bg-aqua/15 blur-3xl" />
-        </div>
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="inline-flex rounded-full border border-lagoon/20 bg-white/85 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-lagoon shadow-sm backdrop-blur">
-              Machine Features
-            </p>
-            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight text-marine sm:text-6xl">
-              Built Around Performance, Quality, and Everyday Use
-            </h2>
-            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              The below cards summarize why "The Machine" delivers exceptional quality, performance and reliability at an affordable price.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-8 lg:grid-cols-2">
-            {machineFeatureVisuals.map((visual) => (
-              <MachineFeatureVisualCard
-                key={visual.title}
-                onOpen={() => setActiveFeatureVisual(visual)}
-                visual={visual}
-              />
+          <div className="mt-12 grid gap-5 lg:hidden">
+            {comparisonRows.map((row) => (
+              <MobileComparisonCard row={row} key={row.feature} />
             ))}
           </div>
 
-          <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
-            The machine is not just a dispenser. It is the delivery system for
-            the hydrogen-rich water story.
+          <div className="mt-12 hidden overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-white/[0.06] shadow-[0_35px_120px_rgba(34,211,238,0.18)] backdrop-blur lg:block">
+            <div className="grid grid-cols-[0.9fr_1.25fr_1.25fr] bg-gradient-to-r from-blue-900 via-marine to-blue-900 text-center">
+              <div className="border-r border-cyan-300/25 px-5 py-5 text-lg font-black uppercase tracking-[.12em]">
+                Feature
+              </div>
+              <div className="border-r border-cyan-300/25 px-5 py-5 text-lg font-black uppercase tracking-[.12em] text-cyan-100">
+                Water Ionizer
+              </div>
+              <div className="px-5 py-5 text-lg font-black uppercase tracking-[.12em] text-aqua">
+                Hydrogen Water Machine
+              </div>
+            </div>
+
+            {comparisonRows.map((row) => {
+              const Icon = row.icon;
+
+              return (
+                <div
+                  className="grid grid-cols-[0.9fr_1.25fr_1.25fr] border-t border-cyan-300/20"
+                  key={row.feature}
+                >
+                  <div className="flex items-center gap-4 border-r border-cyan-300/20 px-5 py-5">
+                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-cyan-300/40 bg-cyan-400/10 text-aqua">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <p className="text-lg font-black uppercase leading-6 tracking-[.06em] text-cyan-100">
+                      {row.feature}
+                    </p>
+                  </div>
+                  <div className="flex items-center border-r border-cyan-300/20 px-6 py-5 text-center text-xl font-bold leading-8 text-cyan-50/85">
+                    <p className="w-full">{row.ionizer}</p>
+                  </div>
+                  <div className="flex items-center bg-cyan-400/[0.06] px-6 py-5 text-center text-xl font-black leading-8 text-white">
+                    <p className="w-full">{row.hydrogen}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur">
+              <div className="flex items-center gap-4">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white/10 text-cyan-200">
+                  <Scale className="h-7 w-7" />
+                </div>
+                <h3 className="text-2xl font-black">The Simple Difference</h3>
+              </div>
+              <p className="mt-4 text-lg leading-8 text-cyan-50/78">
+                A water ionizer changes the water's pH. A hydrogen water
+                machine is designed to add dissolved molecular hydrogen. That
+                difference matters because pH and H2 are not the same thing.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-amber-300 bg-amber-50 p-6 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.24)]">
+              <div className="flex items-center gap-4">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl bg-white text-lagoon shadow-sm">
+                  <Beaker className="h-7 w-7" />
+                </div>
+                <h3 className="text-2xl font-black">Choose The H2 Story</h3>
+              </div>
+              <p className="mt-4 text-lg font-semibold leading-8">
+                For this presentation, the strongest educational message is not
+                "higher pH." It is the presence of dissolved H2, the smallest
+                molecule in nature, and why hydrogen-rich water deserves its own
+                clear explanation.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
+
       <section
         className="relative overflow-hidden bg-slate-950 py-20 text-white sm:py-24"
-        id="programs-protocols"
+        id="scientific-experiments"
       >
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-[6%] top-20 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
+          <div className="absolute left-[4%] top-20 h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
           <div className="absolute right-[8%] top-28 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
           <div className="absolute bottom-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-aqua/10 blur-3xl" />
         </div>
@@ -609,271 +541,116 @@ export function TechnologyPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
             <p className="inline-flex rounded-full border border-cyan-300/25 bg-white/10 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-aqua backdrop-blur">
-              Programs & Protocols
+              Scientific Experiments
             </p>
             <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight sm:text-6xl">
-              Added Value For{" "}
+              Simple Demonstrations That Make{" "}
               <span className="bg-gradient-to-r from-cyan-200 via-aqua to-blue-300 bg-clip-text text-transparent">
-                Machine Owners
-              </span>
+                Hydrogen Water Science
+              </span>{" "}
+              Easier To Understand
             </h2>
-            <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-cyan-50/82">
-              As an owner of The Machine, you gain access to additional
-              opportunities, rewards, and lifestyle-enhancing programs designed
-              to help you get even more value from your experience. Here are
-              just a few…
+            <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-cyan-50/82">
+              These experiments help explain hydrogen-rich water through
+              visible comparisons: antioxidant response, hydrogen
+              concentration, ORP readings, and diffusion. They are designed for
+              education, conversation, and clearer presentation flow.
             </p>
           </div>
 
-          <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1.05fr_.95fr]">
-            <div className="rounded-[2rem] border border-cyan-300/20 bg-white/[0.08] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur sm:p-6">
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-black uppercase tracking-[.25em] text-aqua">
-                    PROGRAMS
-                  </p>
-                  <h3 className="mt-2 text-3xl font-black">
-                    Rewards, Referrals, And Business Pathways
-                  </h3>
-                </div>
-                <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl border border-aqua/40 bg-aqua/15 text-aqua sm:grid">
-                  <Gift className="h-7 w-7" />
-                </div>
-              </div>
-
-              <div className="grid gap-5">
-                {programProtocolItems
-                  .filter((item) => item.category === "PROGRAMS")
-                  .map((item) => (
-                    <ProgramProtocolCard item={item} key={item.title} />
-                ))}
-              </div>
-            </div>
-
-            <div className="grid gap-8">
-              <div className="rounded-[2rem] border border-cyan-200/80 bg-gradient-to-b from-white to-ice p-5 text-marine shadow-clean sm:p-6">
-                <div className="mb-5 flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-black uppercase tracking-[.25em] text-lagoon">
-                      PROTOCOLS
-                    </p>
-                    <h3 className="mt-2 text-3xl font-black">
-                      Education And Community Support
-                    </h3>
-                  </div>
-                  <div className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-marine text-aqua shadow-clean sm:grid">
-                    <HeartPulse className="h-7 w-7" />
-                  </div>
-                </div>
-
-                <div className="grid gap-5">
-                  {programProtocolItems
-                    .filter((item) => item.category === "PROTOCOLS")
-                    .map((item) => (
-                      <ProgramProtocolCard item={item} key={item.title} light />
-                    ))}
-                </div>
-              </div>
-
-              <figure className="overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
-                <img
-                  alt="What else to think about for machine owners"
-                  className="h-full w-full object-cover"
-                  src={whatElseToThinkImage}
-                />
-              </figure>
-            </div>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {scientificExperiments.map((experiment) => (
+              <ScientificExperimentCard
+                experiment={experiment}
+                key={experiment.title}
+                onOpen={() => setActiveExperiment(experiment)}
+                onVideoOpen={() => setActiveExperimentVideo(experiment)}
+              />
+            ))}
           </div>
-
-          <figure className="mt-10 overflow-hidden rounded-[2rem] border border-cyan-300/25 bg-white/[0.08] shadow-[0_28px_90px_rgba(34,211,238,0.18)] backdrop-blur">
-            <img
-              alt="Ownership privileges for H2Systems machine owners"
-              className="h-auto w-full object-contain object-center"
-              src={ownershipPrivilegesImage}
-            />
-          </figure>
 
           <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
-            Programs create added value. Protocols help keep the wellness
-            conversation active, connected, and supported over time.
+            Visual experiments do not replace scientific research, but they make
+            the hydrogen water conversation easier for families to see,
+            remember, and discuss.
           </div>
         </div>
       </section>
 
+
       <section
-        className="relative overflow-hidden bg-[radial-gradient(circle_at_14%_8%,rgba(6,214,160,0.18),transparent_28%),radial-gradient(circle_at_86%_20%,rgba(14,165,233,0.18),transparent_30%),linear-gradient(180deg,#ffffff_0%,#effcff_58%,#ffffff_100%)] py-20 text-slate-800 sm:py-24"
-        id="investment"
+        className="relative overflow-hidden bg-[radial-gradient(circle_at_12%_8%,rgba(14,165,233,0.18),transparent_30%),radial-gradient(circle_at_90%_40%,rgba(6,214,160,0.12),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f1feff_58%,#ffffff_100%)] py-20 text-slate-800 sm:py-24"
+        id="other-sources-of-h2"
       >
-        <div className="pointer-events-none absolute left-0 top-20 h-px w-full bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
-        <div className="pointer-events-none absolute -left-28 bottom-20 h-96 w-96 rounded-full border border-cyan-200 bg-cyan-100/40 blur-3xl" />
-        <div className="pointer-events-none absolute -right-32 top-24 h-96 w-96 rounded-full border border-blue-200 bg-blue-100/35 blur-3xl" />
+        <div className="pointer-events-none absolute left-0 top-24 h-px w-full bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
+        <div className="pointer-events-none absolute -right-28 top-24 h-80 w-80 rounded-full border border-cyan-200 bg-cyan-100/30 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 bottom-20 h-96 w-96 rounded-full border border-blue-200 bg-blue-100/30 blur-3xl" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl text-center">
-            <p className="inline-flex rounded-full border border-lagoon/20 bg-white/80 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-lagoon shadow-sm">
-              The Investment
-            </p>
-            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight text-marine sm:text-6xl">
-              A Practical Decision For{" "}
-              <span className="bg-gradient-to-r from-lagoon via-marine to-slateblue bg-clip-text text-transparent">
-                Daily Hydrogen Water
-              </span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-4xl text-lg leading-8 text-slate-600">
-              This section helps visitors understand what they are investing in:
-              a premium home machine, a simpler daily water routine, and a
-              long-term wellness tool built around fresh molecular hydrogen.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-            <section className="overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
-              <figure className="relative bg-slate-950 p-px">
-                <img
-                  alt="Molecular hydrogen water machine investment discussion"
-                  className="h-auto w-full object-contain object-center"
-                  src={machineImage}
-                />
-                <div className="absolute bottom-4 right-4 rounded-2xl border border-amber-200 bg-amber-300 px-5 py-3 text-right text-slate-950 shadow-[0_18px_46px_rgba(251,191,36,0.25)] sm:bottom-6 sm:right-6">
-                  <p className="text-xs font-black uppercase tracking-[.2em]">
-                    Price
-                  </p>
-                  <p className="mt-1 text-2xl font-black leading-none sm:text-3xl">
-                    $4,895
-                  </p>
-                </div>
-              </figure>
-              <div className="p-6 sm:p-8">
-                <p className="text-sm font-black uppercase tracking-[.24em] text-lagoon">
-                  What The Machine Represents
-                </p>
-                <h3 className="mt-3 text-3xl font-black leading-tight text-marine">
-                  More Than A Countertop Appliance
-                </h3>
-                <p className="mt-4 text-lg font-semibold leading-8 text-slate-700">
-                  The investment is centered on fresh, measurable hydrogen-rich
-                  water at home. The machine becomes the daily delivery system
-                  for cleaner hydration, stronger consistency, and an easier way
-                  to share the H2 story with family and guests.
-                </p>
-              </div>
-            </section>
-
-            <div className="grid gap-5">
-              <section className="rounded-[2rem] border border-cyan-200/80 bg-gradient-to-br from-marine via-slateblue to-lagoon p-6 text-white shadow-[0_28px_90px_rgba(15,76,117,0.24)] sm:p-8">
-                <p className="text-sm font-black uppercase tracking-[.24em] text-aqua">
-                  Why It Is Worth It
-                </p>
-                <h3 className="mt-3 text-3xl font-black leading-tight sm:text-4xl">
-                  The Value Builds Every Day You Use It
-                </h3>
-                <p className="mt-4 text-lg leading-8 text-cyan-50/85">
-                  Exact pricing can be confirmed during the Hydration
-                  Conversation, but the value story is simple: the machine turns
-                  molecular hydrogen into something practical, fresh, and easy
-                  to use every day.
-                </p>
-
-                <div className="mt-7 grid gap-4">
-                  {investmentValuePoints.map((point, index) => (
-                    <article
-                      className="rounded-2xl border border-cyan-300/20 bg-white/[0.09] p-5 shadow-[0_18px_55px_rgba(0,0,0,0.16)] backdrop-blur"
-                      key={point}
-                    >
-                      <p className="text-xs font-black uppercase tracking-[.22em] text-aqua">
-                        Value {String(index + 1).padStart(2, "0")}
-                      </p>
-                      <p className="mt-2 text-base font-semibold leading-7 text-cyan-50/88">
-                        {point}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-
-                <div className="mt-7 rounded-2xl border border-amber-200 bg-amber-300 px-5 py-4 text-center text-lg font-black leading-7 text-slate-950 shadow-[0_18px_46px_rgba(251,191,36,0.25)]">
-                  A better water routine is easiest to value when you compare it
-                  against the cost, waste, and inconsistency of buying hydrogen
-                  products one serving at a time.
-                </div>
-              </section>
-
-              <button
-                className="inline-flex h-16 w-full cursor-pointer items-center justify-center gap-3 rounded-full border-2 border-lagoon bg-lagoon px-7 text-center text-sm font-black uppercase tracking-[.18em] text-white shadow-[0_18px_46px_rgba(17,138,178,0.24)] transition duration-300 hover:-translate-y-0.5 hover:bg-marine"
-                onClick={() => setPurchaseModalOpen(true)}
-                type="button"
-              >
-                <ShoppingCart className="h-5 w-5" />
-                How To Purchase
-              </button>
+          <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[.25em] text-lagoon">
+                Other Sources Of H2
+              </p>
+              <h2 className="mt-4 text-4xl font-black uppercase leading-tight tracking-tight text-marine sm:text-6xl">
+                How Else Can People Get Molecular Hydrogen?
+              </h2>
+              <p className="mt-6 text-xl font-black leading-8 text-slateblue">
+                The goal is not simply to consume molecular hydrogen - it is to understand which solutions deliver the best freshness, consistency, concentration & convenience to support your long term wellness goals.
+              </p>
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                Molecular hydrogen can be introduced in several ways, including
+                tablets, portable bottles, inhalation systems, baths, and
+                dedicated hydrogen water machines. Each option has a different
+                purpose, cost, routine, and level of convenience.
+              </p>
+              <p className="mt-4 text-lg leading-8 text-slate-600">
+                The best choice is the one that makes molecular hydrogen fresh,
+                measurable, easy to use, and simple enough to enjoy every day.
+                When H2 water becomes part of a consistent hydration routine,
+                the science becomes easier to understand and easier to live.
+              </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section
-        className="relative overflow-hidden bg-white py-20 text-slate-800 sm:py-24"
-        id="is-it-worth-it"
-      >
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200 to-transparent" />
-        <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-aqua/10 blur-3xl" />
-        <div className="pointer-events-none absolute -right-24 bottom-16 h-80 w-80 rounded-full bg-amber-200/35 blur-3xl" />
-
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="inline-flex rounded-full border border-lagoon/20 bg-cyan-50 px-5 py-2 text-sm font-black uppercase tracking-[.25em] text-lagoon shadow-sm">
-              Is It Worth It
-            </p>
-            <h2 className="mt-6 text-4xl font-black leading-tight tracking-tight text-marine sm:text-6xl">
-              Is It Worth It?
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-8">
-            <figure className="overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
+            <figure className="overflow-hidden rounded-xl border border-cyan-200/50 bg-slate-950 p-1 shadow-clean">
               <img
-                alt="Is it worth it investment comparison"
-                className="h-auto w-full object-contain object-center"
-                src={isItWorthItImage}
-              />
-            </figure>
-
-            <figure className="overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
-              <img
-                alt="How the hydrogen water machine pays for itself"
-                className="h-auto w-full object-contain object-center"
-                src={howPaysItselfImage}
+                alt="Other sources and options for getting molecular hydrogen"
+                className="h-auto w-full rounded-lg object-contain object-center"
+                src={otherH2OptionsImage}
               />
             </figure>
           </div>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {otherH2Options.map((option) => (
+              <OtherH2OptionCard
+                key={option.title}
+                onOpen={() => setActiveOtherH2Option(option)}
+                option={option}
+              />
+            ))}
+          </div>
+
+          <div className="mt-10 rounded-3xl border border-amber-300 bg-amber-50 px-6 py-5 text-center text-xl font-black leading-8 text-marine shadow-clean transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(245,158,11,0.22)]">
+            While other hydrogen options may offer occasional support, a dedicated hydrogen water machine provides a more practical, cost-effective, and consistent way to enjoy cleaner, fresher, high-potency molecular hydrogen every day.  The Machine becomes the better choice providing the highest quality water at the lowest cost per serving over time.
+          </div>
+
+          <figure className="mt-8 overflow-hidden rounded-[2rem] border border-cyan-200/80 bg-white shadow-clean">
+            <img
+              alt="Only H2 machines are designed to deliver fresh molecular hydrogen water"
+              className="h-auto w-full object-contain object-center"
+              src={onlyH2MachinesImage}
+            />
+          </figure>
         </div>
       </section>
 
-
-
-      {activeFeatureVisual ? (
-        <MachineFeatureVisualModal
-          onClose={() => setActiveFeatureVisual(null)}
-          visual={activeFeatureVisual}
-        />
-      ) : null}
-
-      {activeExperiment ? (
-        <ScientificExperimentModal
-          experiment={activeExperiment}
-          onClose={() => setActiveExperiment(null)}
-          onVideoOpen={() => setActiveExperimentVideo(activeExperiment)}
-        />
-      ) : null}
 
       {activeExperimentVideo ? (
         <ExperimentVideoModal
           experiment={activeExperimentVideo}
           onClose={() => setActiveExperimentVideo(null)}
         />
-      ) : null}
-
-      {purchaseModalOpen ? (
-        <PurchaseModal onClose={() => setPurchaseModalOpen(false)} />
       ) : null}
 
       {activeOtherH2Option ? (
@@ -883,190 +660,6 @@ export function TechnologyPage() {
         />
       ) : null}
     </PageLayout>
-  );
-}
-
-function PurchaseModal({ onClose }: { onClose: () => void }) {
-  const purchaseSteps = [
-    {
-      icon: CalendarCheck,
-      text: "Schedule a short Hydration Conversation so the right person can answer questions and confirm fit.",
-      title: "Start With A Conversation",
-    },
-    {
-      icon: ShieldCheck,
-      text: "Review the machine, owner support, pricing, and the daily routine before making the decision.",
-      title: "Review The Details",
-    },
-    {
-      icon: ShoppingCart,
-      text: "Complete the purchase through the approved H2Systems contact and receive next-step guidance.",
-      title: "Place The Order",
-    },
-  ];
-
-  return (
-    <div
-      aria-modal="true"
-      className="fixed inset-0 z-[80] overflow-y-auto bg-slate-950/75 px-4 pb-6 pt-24 backdrop-blur-sm sm:px-6 sm:pt-28"
-      role="dialog"
-    >
-      <div className="flex min-h-full items-center justify-center">
-        <div className="relative max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-[2rem] border border-cyan-100 bg-white shadow-[0_35px_120px_rgba(2,8,23,0.32)] sm:rounded-[3rem]">
-          <button
-            aria-label="Close purchase information"
-            className="absolute right-4 top-4 z-10 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-white/25 bg-white/90 text-marine shadow-sm transition hover:-translate-y-0.5 hover:bg-cyan-50"
-            onClick={onClose}
-            type="button"
-          >
-            <X className="h-5 w-5" />
-          </button>
-
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
-            <div className="relative overflow-hidden bg-marine p-6 text-white sm:p-8 lg:p-10">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(6,214,160,0.24),transparent_30%),radial-gradient(circle_at_90%_75%,rgba(17,138,178,0.36),transparent_36%),linear-gradient(135deg,#031822_0%,#073B4C_54%,#0a5f7a_100%)]" />
-              <div className="absolute inset-0 opacity-35 [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:38px_38px]" />
-
-              <div className="relative">
-                <p className="inline-flex rounded-full border border-cyan-200/25 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[.22em] text-aqua backdrop-blur">
-                  Purchase Path
-                </p>
-                <h2 className="mt-5 text-4xl font-black leading-tight tracking-tight sm:text-5xl">
-                  Ready To Bring H2 Water Home?
-                </h2>
-                <p className="mt-5 text-lg leading-8 text-cyan-50/82">
-                  The best next step is a simple conversation. We will confirm
-                  the machine details, answer questions, and guide you through
-                  the purchase process clearly.
-                </p>
-
-                <div className="mt-8 rounded-[1.75rem] border border-amber-200/70 bg-amber-50 p-5 text-marine shadow-[0_18px_45px_rgba(251,191,36,0.18)]">
-                  <p className="text-sm font-black uppercase tracking-[.2em] text-lagoon">
-                    Current Price
-                  </p>
-                  <p className="mt-2 text-4xl font-black">$4,895</p>
-                  <p className="mt-2 leading-7 text-slate-700">
-                    Ask about ordering, setup, owner support, and the available
-                    programs connected to the machine.
-                  </p>
-                </div>
-
-                <div className="mt-7 grid gap-4">
-                  {purchaseSteps.map((step) => {
-                    const Icon = step.icon;
-
-                    return (
-                      <article
-                        className="rounded-[1.5rem] border border-white/10 bg-white/10 p-5 backdrop-blur"
-                        key={step.title}
-                      >
-                        <div className="flex gap-4">
-                          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-aqua/15 text-aqua">
-                            <Icon className="h-6 w-6" />
-                          </span>
-                          <div>
-                            <h3 className="text-lg font-black">
-                              {step.title}
-                            </h3>
-                            <p className="mt-1 text-sm font-semibold leading-6 text-cyan-50/78">
-                              {step.text}
-                            </p>
-                          </div>
-                        </div>
-                      </article>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 sm:p-8 lg:p-10">
-              <figure className="mb-6 overflow-hidden rounded-[1.5rem] border border-cyan-100 bg-marine p-1.5 shadow-[0_18px_50px_rgba(7,59,76,0.16)] sm:rounded-[2rem]">
-                <img
-                  alt="Contact H2Systems for purchase information"
-                  className="h-auto w-full rounded-[1.15rem] object-contain sm:rounded-[1.6rem]"
-                  src={contactImage}
-                />
-              </figure>
-
-              <div className="rounded-[1.5rem] border border-cyan-100 bg-ice p-5 shadow-sm sm:rounded-[2rem] sm:p-6">
-                <h3 className="text-3xl font-black tracking-tight text-marine">
-                  Request Purchase Help
-                </h3>
-                <p className="mt-3 leading-7 text-slate-600">
-                  Share your contact details and a purchase specialist can help
-                  with the next step.
-                </p>
-
-                <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Name"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Phone"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Email"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Referrer Name (optional)"
-                  />
-                  <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                    <option>I'm interested in purchasing the machine</option>
-                    <option>Schedule a Hydration Conversation</option>
-                    <option>Ask about setup and support</option>
-                    <option>Ask about programs and protocols</option>
-                  </select>
-                  <textarea
-                    className="min-h-36 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="What would you like to know?"
-                  />
-                  <a
-                    className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
-                    href="mailto:info@example.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
-                  >
-                    <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
-                    <span className="transition-colors duration-200 group-hover:text-white">
-                      Send Purchase Request
-                    </span>
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-4 sm:grid-cols-[0.82fr_1.18fr]">
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="tel:0000000000"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Phone className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    (000) 000-0000
-                  </p>
-                </a>
-
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@example.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Mail className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    info@example.com
-                  </p>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }
 

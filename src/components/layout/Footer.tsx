@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   CalendarCheck,
+  BookOpenCheck,
   Cpu,
   Mail,
   Phone,
@@ -21,6 +22,40 @@ type FooterGroup = {
   links: FooterLink[];
   title: string;
 };
+
+type GuideLink = {
+  href: string;
+  icon?: LucideIcon;
+  label: string;
+  type: "facebook" | "youtube" | "guide";
+};
+
+function FacebookLogo() {
+  return (
+    <svg aria-hidden="true" className="h-9 w-9" viewBox="0 0 36 36">
+      <path
+        d="M36 18C36 8.0589 27.9411 0 18 0S0 8.0589 0 18c0 8.9856 6.5826 16.4304 15.1875 17.7804V23.2031h-4.5703V18h4.5703v-3.9656c0-4.5117 2.6865-7.0031 6.7992-7.0031 1.9692 0 4.0293.3516 4.0293.3516v4.4297h-2.2698c-2.2365 0-2.9337 1.3887-2.9337 2.8134V18h4.9922l-.798 5.2031h-4.1942v12.5773C29.4174 34.4304 36 26.9856 36 18Z"
+        fill="#1877F2"
+      />
+      <path
+        d="m25.0067 23.2031.798-5.2031h-4.9922v-3.374c0-1.4247.6972-2.8134 2.9337-2.8134h2.2698V7.3829s-2.0601-.3516-4.0293-.3516c-4.1127 0-6.7992 2.4914-6.7992 7.0031V18h-4.5703v5.2031h4.5703v12.5773c.9162.1437 1.8558.2196 2.8125.2196s1.8963-.0759 2.8125-.2196V23.2031h4.1942Z"
+        fill="#fff"
+      />
+    </svg>
+  );
+}
+
+function YouTubeLogo() {
+  return (
+    <svg aria-hidden="true" className="h-8 w-10" viewBox="0 0 48 34">
+      <path
+        d="M47.04 5.312A6.008 6.008 0 0 0 42.814 1.06C39.085.055 24.125.055 24.125.055s-14.96 0-18.689 1.006A6.008 6.008 0 0 0 1.21 5.312C.214 9.063.214 16.89.214 16.89s0 7.827.997 11.578a5.918 5.918 0 0 0 4.225 4.185c3.73 1.006 18.69 1.006 18.69 1.006s14.959 0 18.688-1.006a5.918 5.918 0 0 0 4.226-4.185c.997-3.751.997-11.578.997-11.578s0-7.827-.997-11.578Z"
+        fill="#FF0000"
+      />
+      <path d="m19.237 24.002 12.51-7.112-12.51-7.112v14.224Z" fill="#fff" />
+    </svg>
+  );
+}
 
 const footerGroups: FooterGroup[] = [
   {
@@ -48,12 +83,20 @@ const footerGroups: FooterGroup[] = [
       { href: "/technology#how-it-works", label: "How Does It Work" },
       { href: "/technology#machine-features", label: "Machine Features" },
       { href: "/technology#programs-protocols", label: "Programs & Protocols" },
-      { href: "/technology#ionizer-vs-h2", label: "Ionizer Vs H2 Machine" },
+      { href: "/technology#investment", label: "Investment" },
+      { href: "/technology#is-it-worth-it", label: "Is It Worth It" },
       {
-        href: "/technology#scientific-experiments",
+        href: "/proof-comparison#ionizer-vs-h2",
+        label: "Ionizer Vs H2 Machine",
+      },
+      {
+        href: "/proof-comparison#scientific-experiments",
         label: "Scientific Experiments",
       },
-      { href: "/technology#other-sources-of-h2", label: "Other Sources Of H2" },
+      {
+        href: "/proof-comparison#other-sources-of-h2",
+        label: "Other Sources Of H2",
+      },
     ],
   },
   {
@@ -86,7 +129,31 @@ const footerGroups: FooterGroup[] = [
         label: "What Research Show",
       },
       { href: "/resources#bonus-machine-program", label: "Bonus Machine Program" },
+      { href: "/resources#explore-more", label: "Explore More" },
+      // { href: "/resources#documents", label: "Documents" },
+      // { href: "/resources#videos", label: "Videos" },
+      // { href: "/resources#recorded-webinars", label: "Recorded Webinars" },
+      // { href: "/resources#youtube-vimeo-links", label: "YouTube/Vimeo Links" },
     ],
+  },
+];
+
+const guideLinks: GuideLink[] = [
+  {
+    href: "https://www.facebook.com/groups/1596145219185739/permalink/1596169665849961/?",
+    label: "Facebook",
+    type: "facebook",
+  },
+  {
+    href: "https://www.youtube.com/@HydrogenHeals",
+    label: "YouTube",
+    type: "youtube",
+  },
+  {
+    href: "https://simplebooklet.com/consumersguidetohydrogen#page=1",
+    icon: BookOpenCheck,
+    label: "Consumers Guide",
+    type: "guide",
   },
 ];
 
@@ -137,6 +204,46 @@ export function Footer() {
                 Explore Machine
                 <ArrowUpRight className="h-4 w-4" />
               </a>
+            </div>
+
+            <div className="mt-6">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-aqua">
+                Hydrogen Success Guides
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {guideLinks.map((link) => {
+                  const Icon = link.icon;
+
+                  return (
+                    <a
+                      className="group inline-flex min-w-[82px] flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/8 px-3 py-3 text-center text-[0.68rem] font-black uppercase leading-4 tracking-[.08em] text-cyan-50/88 transition hover:-translate-y-0.5 hover:border-aqua/40 hover:bg-white/14 hover:text-white"
+                      href={link.href}
+                      key={link.label}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      <span
+                        className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl text-white shadow-sm transition group-hover:scale-105 ${
+                          link.type === "facebook"
+                            ? "bg-[#1877F2]"
+                            : link.type === "youtube"
+                              ? "bg-[#FF0000]"
+                              : "bg-gradient-to-br from-lagoon to-aqua"
+                        }`}
+                      >
+                        {link.type === "facebook" ? (
+                          <FacebookLogo />
+                        ) : link.type === "youtube" ? (
+                          <YouTubeLogo />
+                        ) : Icon ? (
+                          <Icon className="h-6 w-6" />
+                        ) : null}
+                      </span>
+                      <span>{link.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

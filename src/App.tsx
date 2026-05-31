@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AboutPage } from "./components/sections/AboutPage";
 import { HomePage } from "./components/sections/HomePage";
+import { ProofComparisonPage } from "./components/sections/ProofComparisonPage";
 import { ResourcesPage } from "./components/sections/ResourcesPage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
 
@@ -34,6 +35,7 @@ function App() {
     `${window.location.pathname}${window.location.hash}`,
   );
   const isAboutPage = window.location.pathname === "/about";
+  const isProofComparisonPage = window.location.pathname === "/proof-comparison";
   const isResourcesPage = window.location.pathname === "/resources";
   const isTechnologyPage = window.location.pathname === "/technology";
 
@@ -73,6 +75,7 @@ function App() {
       const supportedPath =
         nextUrl.pathname === "/" ||
         nextUrl.pathname === "/about" ||
+        nextUrl.pathname === "/proof-comparison" ||
         nextUrl.pathname === "/resources" ||
         nextUrl.pathname === "/technology";
 
@@ -126,6 +129,10 @@ function App() {
 
   if (isTechnologyPage) {
     return <TechnologyPage />;
+  }
+
+  if (isProofComparisonPage) {
+    return <ProofComparisonPage />;
   }
 
   if (isAboutPage) {

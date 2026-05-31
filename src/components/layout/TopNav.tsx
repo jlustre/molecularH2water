@@ -282,6 +282,20 @@ const technologyPanel: MenuPanel = {
           key: "programs-protocols",
           label: "Programs & Protocols",
         },
+        {
+          description: "Review the machine investment and long-term value.",
+          href: "/technology#investment",
+          icon: Award,
+          key: "investment",
+          label: "Investment",
+        },
+        {
+          description: "Review the value comparison and payoff visuals.",
+          href: "/technology#is-it-worth-it",
+          icon: Sparkles,
+          key: "is-it-worth-it",
+          label: "Is It Worth It",
+        },
       ],
     },
     {
@@ -292,14 +306,14 @@ const technologyPanel: MenuPanel = {
       links: [
         {
           description: "Compare pH-focused ionizers with H2-focused machines.",
-          href: "/technology#ionizer-vs-h2",
+          href: "/proof-comparison#ionizer-vs-h2",
           icon: Waves,
           key: "ionizer-vs-h2",
           label: "Ionizer Vs H2 Machine",
         },
         {
           description: "Show iodine, PPB, ORP, and diffusion demonstrations.",
-          href: "/technology#scientific-experiments",
+          href: "/proof-comparison#scientific-experiments",
           icon: Microscope,
           key: "scientific-experiments",
           label: "Scientific Experiments",
@@ -307,7 +321,7 @@ const technologyPanel: MenuPanel = {
         {
           description:
             "Compare other ways people try to get molecular hydrogen.",
-          href: "/technology#other-sources-of-h2",
+          href: "/proof-comparison#other-sources-of-h2",
           icon: Atom,
           key: "other-sources-of-h2",
           label: "Other Sources Of H2",
@@ -359,44 +373,51 @@ const resourcesPanel: MenuPanel = {
           key: "bonus-machine-program",
           label: "Bonus Machine Program",
         },
-      ],
-    },
-    {
-      description: "Downloadable and watchable education resources.",
-      icon: Video,
-      key: "media-resources",
-      title: "Media Resources",
-      links: [
         {
-          description: "PDFs, handouts, forms, and education materials.",
-          href: "/resources#documents",
-          icon: FileText,
-          key: "documents",
-          label: "Documents",
-        },
-        {
-          description: "Short videos that explain the hydrogen water story.",
-          href: "/resources#videos",
-          icon: Video,
-          key: "videos",
-          label: "Videos",
-        },
-        {
-          description: "Long-form presentations and training sessions.",
-          href: "/resources#recorded-webinars",
-          icon: CalendarCheck,
-          key: "recorded-webinars",
-          label: "Recorded Webinars",
-        },
-        {
-          description: "Curated YouTube and Vimeo links for easy sharing.",
-          href: "/resources#youtube-vimeo-links",
-          icon: Youtube,
-          key: "youtube-vimeo-links",
-          label: "YouTube/Vimeo Links",
+          description: "Additional guide visuals for the next step.",
+          href: "/resources#explore-more",
+          icon: Sparkles,
+          key: "explore-more",
+          label: "Explore More",
         },
       ],
     },
+    // {
+    //   description: "Downloadable and watchable education resources.",
+    //   icon: Video,
+    //   key: "media-resources",
+    //   title: "Media Resources",
+    //   links: [
+    //     {
+    //       description: "PDFs, handouts, forms, and education materials.",
+    //       href: "/resources#documents",
+    //       icon: FileText,
+    //       key: "documents",
+    //       label: "Documents",
+    //     },
+    //     {
+    //       description: "Short videos that explain the hydrogen water story.",
+    //       href: "/resources#videos",
+    //       icon: Video,
+    //       key: "videos",
+    //       label: "Videos",
+    //     },
+    //     {
+    //       description: "Long-form presentations and training sessions.",
+    //       href: "/resources#recorded-webinars",
+    //       icon: CalendarCheck,
+    //       key: "recorded-webinars",
+    //       label: "Recorded Webinars",
+    //     },
+    //     {
+    //       description: "Curated YouTube and Vimeo links for easy sharing.",
+    //       href: "/resources#youtube-vimeo-links",
+    //       icon: Youtube,
+    //       key: "youtube-vimeo-links",
+    //       label: "YouTube/Vimeo Links",
+    //     },
+    //   ],
+    // },
   ],
 };
 
