@@ -6,7 +6,9 @@ import {
   CalendarCheck,
   ChevronDown,
   ChevronRight,
+  Code2,
   Cpu,
+  Download,
   Droplets,
   FileText,
   Gift,
@@ -16,6 +18,8 @@ import {
   HeartPulse,
   HelpCircle,
   Home,
+  Image,
+  Link2,
   Mail,
   Menu,
   Microscope,
@@ -27,7 +31,6 @@ import {
   Waves,
   X,
   Zap,
-  Youtube,
   type LucideIcon,
 } from "lucide-react";
 import { BrandMark } from "../ui/BrandMark";
@@ -382,54 +385,63 @@ const resourcesPanel: MenuPanel = {
         },
       ],
     },
-    // {
-    //   description: "Downloadable and watchable education resources.",
-    //   icon: Video,
-    //   key: "media-resources",
-    //   title: "Media Resources",
-    //   links: [
-    //     {
-    //       description: "PDFs, handouts, forms, and education materials.",
-    //       href: "/resources#documents",
-    //       icon: FileText,
-    //       key: "documents",
-    //       label: "Documents",
-    //     },
-    //     {
-    //       description: "Short videos that explain the hydrogen water story.",
-    //       href: "/resources#videos",
-    //       icon: Video,
-    //       key: "videos",
-    //       label: "Videos",
-    //     },
-    //     {
-    //       description: "Long-form presentations and training sessions.",
-    //       href: "/resources#recorded-webinars",
-    //       icon: CalendarCheck,
-    //       key: "recorded-webinars",
-    //       label: "Recorded Webinars",
-    //     },
-    //     {
-    //       description: "Curated YouTube and Vimeo links for easy sharing.",
-    //       href: "/resources#youtube-vimeo-links",
-    //       icon: Youtube,
-    //       key: "youtube-vimeo-links",
-    //       label: "YouTube/Vimeo Links",
-    //     },
-    //   ],
-    // },
+    {
+      description: "Downloadable and watchable education resources.",
+      icon: Video,
+      key: "media-resources",
+      title: "Media Resources",
+      links: [
+        {
+          description: "PDFs, handouts, forms, and education materials.",
+          href: "/resources/media/documents",
+          icon: FileText,
+          key: "documents",
+          label: "Documents",
+        },
+        {
+          description: "Short videos that explain the hydrogen water story.",
+          href: "/resources/media/videos",
+          icon: Video,
+          key: "videos",
+          label: "Videos",
+        },
+        {
+          description: "Curated website links for easy sharing.",
+          href: "/resources/media/links",
+          icon: Link2,
+          key: "links",
+          label: "Links",
+        },
+        {
+          description: "Approved visuals and shareable graphics.",
+          href: "/resources/media/images",
+          icon: Image,
+          key: "images",
+          label: "Images",
+        },
+        {
+          description: "Downloadable resources visitors can save.",
+          href: "/resources/media/downloads",
+          icon: Download,
+          key: "downloads",
+          label: "Downloads",
+        },
+        {
+          description: "Embedded resources and presentation-ready media.",
+          href: "/resources/media/embedded",
+          icon: Code2,
+          key: "embedded",
+          label: "Embedded",
+        },
+      ],
+    },
   ],
 };
 
 const menuPanels = [homePanel, foundationPanel, technologyPanel, resourcesPanel];
 const mobilePanelStorageKey = "h2systems-open-mobile-panel";
 const menuGroupStorageKey = "h2systems-menu-group-state";
-const underConstructionResourceKeys = new Set([
-  "documents",
-  "videos",
-  "recorded-webinars",
-  "youtube-vimeo-links",
-]);
+const underConstructionResourceKeys = new Set<string>();
 
 function getStoredMobilePanel(): MenuPanel["key"] | null {
   if (typeof window === "undefined") {

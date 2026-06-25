@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AboutPage } from "./components/sections/AboutPage";
 import { HomePage } from "./components/sections/HomePage";
+import { MediaResourcesPage } from "./components/sections/MediaResourcesPage";
 import { ProofComparisonPage } from "./components/sections/ProofComparisonPage";
 import { ResourcesPage } from "./components/sections/ResourcesPage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
@@ -36,6 +37,9 @@ function App() {
   );
   const isAboutPage = window.location.pathname === "/about";
   const isProofComparisonPage = window.location.pathname === "/proof-comparison";
+  const isMediaResourcesPage =
+    window.location.pathname === "/resources/media" ||
+    window.location.pathname.startsWith("/resources/media/");
   const isResourcesPage = window.location.pathname === "/resources";
   const isTechnologyPage = window.location.pathname === "/technology";
 
@@ -77,6 +81,8 @@ function App() {
         nextUrl.pathname === "/about" ||
         nextUrl.pathname === "/proof-comparison" ||
         nextUrl.pathname === "/resources" ||
+        nextUrl.pathname === "/resources/media" ||
+        nextUrl.pathname.startsWith("/resources/media/") ||
         nextUrl.pathname === "/technology";
 
       if (!supportedPath) {
@@ -141,6 +147,10 @@ function App() {
 
   if (isResourcesPage) {
     return <ResourcesPage />;
+  }
+
+  if (isMediaResourcesPage) {
+    return <MediaResourcesPage key={locationKey} />;
   }
 
   return <HomePage />;
