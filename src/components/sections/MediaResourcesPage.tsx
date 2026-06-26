@@ -167,10 +167,10 @@ function formatDate(dateValue: string) {
 function getPrimaryUrl(resource: MediaResource) {
   return (
     resource.open_resource_link ??
+    resource.shareable_link ??
     resource.resource_url ??
-    resource.file_url ??
     resource.url ??
-    resource.shareable_link
+    resource.file_url
   );
 }
 
@@ -179,7 +179,7 @@ function getPreviewUrl(resource: MediaResource) {
 }
 
 function getVideoSourceUrl(resource: MediaResource) {
-  return resource.resource_url ?? resource.url ?? resource.file_url;
+  return resource.resource_url ?? resource.url;
 }
 
 function getYouTubeVideoId(url: string | null) {
