@@ -35,8 +35,10 @@ type MediaResource = {
   is_pdf: boolean;
   is_video: boolean;
   mime_type: string | null;
+  open_resource_link?: string | null;
   resource_url: string | null;
   shareable_link: string | null;
+  thumbnail_url?: string | null;
   title: string;
   updated_at: string;
   url: string | null;
@@ -103,10 +105,27 @@ const categoryConfigs: CategoryConfig[] = [
 ];
 
 const localApiBaseUrl = "http://localhost:8000";
+const productionApiBaseUrl = "https://admin.molecularh2water.com";
+const configuredApiBaseUrl = import.meta.env.VITE_MEDIA_API_BASE_URL?.trim();
+
+function joinApiUrl(baseUrl: string, endpoint: string) {
+  return `${baseUrl.replace(/\/$/, "")}/${endpoint.replace(/^\//, "")}`;
+}
 
 function getApiUrl(endpoint: string) {
+  if (configuredApiBaseUrl) {
+    return joinApiUrl(configuredApiBaseUrl, endpoint);
+  }
+
   if (window.location.hostname === "localhost") {
-    return `${localApiBaseUrl}${endpoint}`;
+    return joinApiUrl(localApiBaseUrl, endpoint);
+  }
+
+  if (
+    window.location.hostname === "molecularh2water.com" ||
+    window.location.hostname === "www.molecularh2water.com"
+  ) {
+    return joinApiUrl(productionApiBaseUrl, endpoint);
   }
 
   return endpoint;
@@ -146,7 +165,66 @@ function formatDate(dateValue: string) {
 }
 
 function getPrimaryUrl(resource: MediaResource) {
-  return resource.resource_url ?? resource.file_url ?? resource.url ?? resource.shareable_link;
+  return (
+    resource.open_resource_link ??
+    resource.resource_url ??
+    resource.file_url ??
+    resource.url ??
+    resource.shareable_link
+  );
+}
+
+function getPreviewUrl(resource: MediaResource) {
+  return resource.file_url ?? resource.resource_url ?? resource.url;
+}
+
+function getVideoSourceUrl(resource: MediaResource) {
+  return resource.resource_url ?? resource.url ?? resource.file_url;
+}
+
+function getYouTubeVideoId(url: string | null) {
+  if (!url) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.replace(/^www\./, "");
+
+    if (host === "youtu.be") {
+      return parsedUrl.pathname.split("/").filter(Boolean)[0] ?? null;
+    }
+
+    if (host === "youtube.com" || host === "m.youtube.com") {
+      if (parsedUrl.pathname.startsWith("/embed/") || parsedUrl.pathname.startsWith("/shorts/")) {
+        return parsedUrl.pathname.split("/").filter(Boolean)[1] ?? null;
+      }
+
+      return parsedUrl.searchParams.get("v");
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+function getVideoThumbnailUrl(resource: MediaResource, primaryUrl: string | null) {
+  const configuredThumbnail = resource.thumbnail_url;
+  const videoId = getYouTubeVideoId(primaryUrl);
+
+  if (configuredThumbnail && !configuredThumbnail.includes("VIDEO_ID")) {
+    return configuredThumbnail;
+  }
+
+  if (!videoId) {
+    return configuredThumbnail ?? null;
+  }
+
+  return (configuredThumbnail ?? "https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg").replace(
+    "VIDEO_ID",
+    videoId,
+  );
 }
 
 export function MediaResourcesPage() {
@@ -195,6 +273,14 @@ export function MediaResourcesPage() {
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const contentType = response.headers.get("content-type") ?? "";
+
+        if (!contentType.includes("application/json")) {
+          throw new Error(
+            "The media API returned a web page instead of JSON. Set VITE_MEDIA_API_BASE_URL to the API host for the production build.",
+          );
         }
 
         const payload = (await response.json()) as ResourcesResponse;
@@ -338,7 +424,7 @@ export function MediaResourcesPage() {
                     <p className="mt-2 font-semibold leading-7 text-slate-700">
                       The media API did not respond successfully. Please make
                       sure the public endpoint is available at{" "}
-                      <span className="font-black">{activeConfig.endpoint}</span>.
+                      <span className="font-black">{getApiUrl(activeConfig.endpoint)}</span>.
                     </p>
                     <p className="mt-2 text-sm font-semibold text-slate-500">
                       {error}
@@ -387,25 +473,50 @@ function ResourceCard({
   const fileSize = formatFileSize(resource.file_size);
   const createdAt = formatDate(resource.created_at);
   const primaryUrl = getPrimaryUrl(resource);
+  const previewUrl = getPreviewUrl(resource);
+  const videoSourceUrl = getVideoSourceUrl(resource);
   const isImage = resource.mime_type?.startsWith("image/") || category === "images";
   const isPlayableVideo =
     resource.is_video || resource.mime_type?.startsWith("video/") || category === "videos";
+  const videoThumbnailUrl = isPlayableVideo
+    ? getVideoThumbnailUrl(resource, videoSourceUrl)
+    : null;
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-cyan-100 bg-white shadow-clean transition duration-300 hover:-translate-y-1 hover:border-lagoon/35 hover:shadow-lift">
       <div className="relative bg-slate-950">
-        {isImage && primaryUrl ? (
+        {isImage && previewUrl ? (
           <img
             alt={resource.title}
             className="aspect-[16/10] w-full object-cover"
-            src={primaryUrl}
+            src={previewUrl}
           />
-        ) : isPlayableVideo && primaryUrl ? (
+        ) : isPlayableVideo && videoThumbnailUrl ? (
+          <a
+            aria-label={`Open ${resource.title}`}
+            className="relative block"
+            href={primaryUrl ?? resource.shareable_link ?? undefined}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <img
+              alt={resource.title}
+              className="aspect-[16/10] w-full object-cover"
+              src={videoThumbnailUrl}
+            />
+            <span className="absolute inset-0 grid place-items-center bg-slate-950/18 transition group-hover:bg-slate-950/28">
+              <span className="grid h-20 w-20 place-items-center rounded-full border border-white/50 bg-white/90 text-lagoon shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition group-hover:scale-105 group-hover:bg-aqua group-hover:text-marine">
+                <PlayCircle className="h-10 w-10" />
+              </span>
+            </span>
+          </a>
+        ) : isPlayableVideo && videoSourceUrl ? (
           <video
             className="aspect-[16/10] w-full bg-black object-cover"
             controls
+            poster={resource.thumbnail_url ?? undefined}
             preload="metadata"
-            src={primaryUrl}
+            src={videoSourceUrl}
           />
         ) : (
           <div className="grid aspect-[16/10] place-items-center bg-[radial-gradient(circle_at_20%_20%,rgba(6,214,160,0.22),transparent_30%),linear-gradient(135deg,#031822_0%,#073B4C_100%)]">
@@ -458,24 +569,28 @@ function ResourceCard({
         <div className="mt-6 flex flex-wrap gap-3">
           {primaryUrl ? (
             <a
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-lagoon bg-lagoon px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-white shadow-[0_16px_36px_rgba(17,138,178,0.2)] transition hover:-translate-y-0.5 hover:border-marine hover:bg-marine hover:text-white hover:shadow-[0_18px_42px_rgba(7,59,76,0.28)]"
+              className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-lagoon bg-lagoon px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-white shadow-[0_16px_36px_rgba(17,138,178,0.2)] transition hover:-translate-y-0.5 hover:border-marine hover:bg-marine hover:text-white hover:shadow-[0_18px_42px_rgba(7,59,76,0.28)]"
               href={primaryUrl}
               rel="noreferrer"
               target="_blank"
             >
-              Open Resource
-              <ArrowUpRight className="h-4 w-4" />
+              <span className="text-white transition-colors group-hover/action:text-white">
+                Open Resource
+              </span>
+              <ArrowUpRight className="h-4 w-4 text-white transition-colors group-hover/action:text-white" />
             </a>
           ) : null}
           {resource.shareable_link ? (
             <a
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-marine bg-white px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-marine transition hover:-translate-y-0.5 hover:bg-marine hover:text-white"
+              className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-marine bg-white px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-marine transition hover:-translate-y-0.5 hover:bg-marine hover:text-white"
               href={resource.shareable_link}
               rel="noreferrer"
               target="_blank"
             >
-              Share Link
-              <ArrowUpRight className="h-4 w-4" />
+              <span className="text-marine transition-colors group-hover/action:text-white">
+                Share Link
+              </span>
+              <ArrowUpRight className="h-4 w-4 text-marine transition-colors group-hover/action:text-white" />
             </a>
           ) : null}
         </div>

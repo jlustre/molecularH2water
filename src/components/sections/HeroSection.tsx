@@ -1,3 +1,4 @@
+import { PlayCircle, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import hero1 from "../../../dist/assets/hero_images/hero1.jpg";
 import hero2 from "../../assets/images/hero/hero2.jpg";
@@ -6,10 +7,13 @@ import hero4 from "../../assets/images/hero/hero4.jpg";
 import hero5 from "../../assets/images/hero/hero5.jpg";
 
 const galleryImages = [hero1, hero2, hero3, hero4, hero5];
+const heroVideoUrl =
+  "https://player.vimeo.com/video/1202836206?autoplay=1&title=0&byline=0&portrait=0";
 
 export function HeroSection() {
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -83,6 +87,15 @@ export function HeroSection() {
               </span>
             </button>
 
+            <button
+              className="absolute bottom-6 right-4 z-20 inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-yellow-100 bg-yellow-300 px-4 py-2 text-xs font-black uppercase tracking-[.1em] text-slate-950 shadow-[0_14px_34px_rgba(250,204,21,0.34)] transition hover:-translate-y-0.5 hover:bg-yellow-200 hover:shadow-[0_18px_42px_rgba(250,204,21,0.44)] focus:outline-none focus:ring-4 focus:ring-yellow-200/70 sm:bottom-5 sm:right-[50px] sm:px-5 sm:py-2.5 sm:text-sm"
+              onClick={() => setIsVideoOpen(true)}
+              type="button"
+            >
+              <PlayCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+              Watch Video
+            </button>
+
             <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 gap-2 rounded-full bg-black/35 px-3 py-2 backdrop-blur sm:bottom-5 sm:gap-3">
               {galleryImages.map((_, idx) => (
                 <button
@@ -101,6 +114,48 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+
+      {isVideoOpen ? (
+        <div
+          aria-modal="true"
+          className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/88 px-4 py-8 backdrop-blur-sm sm:px-6"
+          onClick={() => setIsVideoOpen(false)}
+          role="dialog"
+        >
+          <div
+            className="mx-auto max-w-5xl overflow-hidden rounded-md border border-yellow-200/35 bg-slate-950 shadow-[0_35px_120px_rgba(0,0,0,0.55)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-4 bg-slate-950 px-5 py-4 text-white">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[.24em] text-yellow-300">
+                  Featured Video
+                </p>
+                <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+                  Molecular Hydrogen Water
+                </h2>
+              </div>
+              <button
+                aria-label="Close hero video modal"
+                className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+                onClick={() => setIsVideoOpen(false)}
+                type="button"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="aspect-video bg-black">
+              <iframe
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                className="h-full w-full"
+                src={heroVideoUrl}
+                title="Molecular Hydrogen Water video"
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
