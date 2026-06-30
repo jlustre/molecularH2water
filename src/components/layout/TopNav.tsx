@@ -299,6 +299,13 @@ const technologyPanel: MenuPanel = {
           key: "is-it-worth-it",
           label: "Is It Worth It",
         },
+        {
+          description: "Register your purchased machine for warranty coverage.",
+          href: "/warranty",
+          icon: ShieldCheck,
+          key: "warranty-registration",
+          label: "Warranty Registration",
+        },
       ],
     },
     {

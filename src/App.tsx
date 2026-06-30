@@ -5,6 +5,7 @@ import { MediaResourcesPage } from "./components/sections/MediaResourcesPage";
 import { ProofComparisonPage } from "./components/sections/ProofComparisonPage";
 import { ResourcesPage } from "./components/sections/ResourcesPage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
+import { WarrantyRegistrationPage } from "./components/sections/WarrantyRegistrationPage";
 
 function scrollToHashTarget() {
   const hash = window.location.hash;
@@ -42,6 +43,7 @@ function App() {
     window.location.pathname.startsWith("/resources/media/");
   const isResourcesPage = window.location.pathname === "/resources";
   const isTechnologyPage = window.location.pathname === "/technology";
+  const isWarrantyPage = window.location.pathname === "/warranty";
 
   useEffect(() => {
     const updateLocation = () => {
@@ -83,7 +85,8 @@ function App() {
         nextUrl.pathname === "/resources" ||
         nextUrl.pathname === "/resources/media" ||
         nextUrl.pathname.startsWith("/resources/media/") ||
-        nextUrl.pathname === "/technology";
+        nextUrl.pathname === "/technology" ||
+        nextUrl.pathname === "/warranty";
 
       if (!supportedPath) {
         return;
@@ -132,6 +135,10 @@ function App() {
       timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
     };
   }, [locationKey]);
+
+  if (isWarrantyPage) {
+    return <WarrantyRegistrationPage />;
+  }
 
   if (isTechnologyPage) {
     return <TechnologyPage />;

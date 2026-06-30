@@ -93,6 +93,7 @@ const footerGroups: FooterGroup[] = [
       { href: "/technology#programs-protocols", label: "Programs & Protocols" },
       { href: "/technology#investment", label: "Investment" },
       { href: "/technology#is-it-worth-it", label: "Is It Worth It" },
+      { href: "/warranty", label: "Warranty Registration" },
       {
         href: "/proof-comparison#ionizer-vs-h2",
         label: "Ionizer Vs H2 Machine",
@@ -188,6 +189,11 @@ const quickContacts: QuickContact[] = [
     icon: ShoppingCart,
     label: "How To Purchase The Machine",
     variant: "teal",
+  },
+  {
+    href: "/warranty",
+    icon: ShieldCheck,
+    label: "Register Machine Warranty",
   },
 ];
 
