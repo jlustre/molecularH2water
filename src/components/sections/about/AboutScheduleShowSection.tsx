@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import contactImage from "../../../assets/images/contact_us.jpg";
 import h2PresentationImage from "../../../assets/images/h2presentation.jpg";
+import { ProspectCaptureForm } from "../../forms/ProspectCaptureForm";
 
 const scheduleSteps = [
   {
@@ -299,59 +300,46 @@ function AttendLiveShowModal({ onClose }: { onClose: () => void }) {
                 />
               </figure>
 
-              <form className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                  placeholder="Name"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                  placeholder="Phone"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Email"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Referrer Name (optional)"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Preferred Day or Time"
-                />
-                <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                  <option>I want to attend a live Water Awareness Show</option>
-                  <option>I want to bring a guest</option>
-                  <option>I want to host a small group</option>
-                  <option>I have questions before attending</option>
-                </select>
-                <textarea
-                  className="min-h-28 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Tell us anything helpful about your schedule, guests, or questions."
-                />
-                <a
-                  className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
-                  href="mailto:info@example.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
-                >
-                  <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
-                  <span className="transition-colors duration-200 group-hover:text-white">
-                    Send Attendance Request
-                  </span>
-                </a>
-              </form>
+              <ProspectCaptureForm
+                description="Tell us about your schedule, guests, or questions and we will help you attend a live show."
+                formContext="water-awareness-show"
+                interestOptions={[
+                  {
+                    label: "Attend a live Water Awareness Show",
+                    value: "Attend a live Water Awareness Show",
+                  },
+                  {
+                    label: "Bring a guest",
+                    value: "Bring a guest",
+                  },
+                  {
+                    label: "Host a small group",
+                    value: "Host a small group",
+                  },
+                  {
+                    label: "Questions before attending",
+                    value: "Questions before attending",
+                  },
+                ]}
+                messagePlaceholder="Tell us anything helpful about your schedule, guests, or questions."
+                showPreferredTime
+                source="website"
+                submitLabel="Send Attendance Request"
+                title="Attend A Live Water Awareness Show"
+                trackingSource="water-awareness-show"
+              />
 
               <div className="mt-5 grid gap-3 sm:grid-cols-[1.25fr_.75fr]">
                 <a
                   className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@example.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
+                  href="mailto:info@molecularh2water.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
                 >
                   <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
                     <Mail className="h-5 w-5" />
                   </span>
                   <p className="mt-2 text-sm font-black text-marine">Email Us</p>
                   <p className="text-xs font-semibold text-slate-500">
-                    info@example.com
+                    info@molecularh2water.com
                   </p>
                 </a>
                 <a

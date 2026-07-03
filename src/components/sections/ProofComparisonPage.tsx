@@ -824,7 +824,7 @@ function ProgramProtocolCard({
                   ? "border-marine bg-white text-marine shadow-clean hover:bg-marine hover:text-white"
                   : "border-aqua bg-aqua text-white shadow-clean hover:bg-marine hover:text-white"
               }`}
-              href="mailto:info@example.com?subject=Programs%20And%20Protocols%20Registration"
+              href="mailto:info@molecularh2water.com?subject=Programs%20And%20Protocols%20Registration"
             >
               <span className="transition-colors duration-200">Register To Learn More</span>
             </a>

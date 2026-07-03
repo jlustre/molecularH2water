@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import contactImage from "../../../assets/images/contact_us.jpg";
 import wellnessAdvocateImage from "../../../assets/images/wellness_advocate.jpg";
+import { ProspectCaptureForm } from "../../forms/ProspectCaptureForm";
 
 const wellnessAdvocateBenefits = [
   {
@@ -186,59 +187,46 @@ function WellnessAdvocateZoomModal({ onClose }: { onClose: () => void }) {
                 />
               </figure>
 
-              <form className="grid gap-4 sm:grid-cols-[0.9fr_1.1fr]">
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                  placeholder="Name"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                  placeholder="Phone"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Email"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Referrer Name (optional)"
-                />
-                <input
-                  className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Preferred Day or Time"
-                />
-                <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                  <option>I want to learn about becoming a Wellness Advocate</option>
-                  <option>I want to share with friends or family</option>
-                  <option>I want to understand referral income</option>
-                  <option>I have questions before scheduling</option>
-                </select>
-                <textarea
-                  className="min-h-28 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                  placeholder="Tell us anything helpful before the Zoom."
-                />
-                <a
-                  className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
-                  href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom"
-                >
-                  <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
-                  <span className="transition-colors duration-200 group-hover:text-white">
-                    Send Zoom Request
-                  </span>
-                </a>
-              </form>
+              <ProspectCaptureForm
+                description="Share your details and we can schedule a 15-minute Wellness Advocate Zoom."
+                formContext="wellness-advocate-zoom"
+                interestOptions={[
+                  {
+                    label: "Learn about becoming a Wellness Advocate",
+                    value: "Learn about becoming a Wellness Advocate",
+                  },
+                  {
+                    label: "Share with friends or family",
+                    value: "Share with friends or family",
+                  },
+                  {
+                    label: "Understand referral income",
+                    value: "Understand referral income",
+                  },
+                  {
+                    label: "Questions before scheduling",
+                    value: "Questions before scheduling",
+                  },
+                ]}
+                messagePlaceholder="Tell us anything helpful before the Zoom."
+                showPreferredTime
+                source="website"
+                submitLabel="Send Zoom Request"
+                title="Schedule A Wellness Advocate Zoom"
+                trackingSource="wellness-advocate"
+              />
 
               <div className="mt-5 grid gap-3 sm:grid-cols-[1.25fr_.75fr]">
                 <a
                   className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@example.com?subject=Wellness%20Advocate%2015-Minute%20Zoom"
+                  href="mailto:info@molecularh2water.com?subject=Wellness%20Advocate%2015-Minute%20Zoom"
                 >
                   <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
                     <Mail className="h-5 w-5" />
                   </span>
                   <p className="mt-2 text-sm font-black text-marine">Email Us</p>
                   <p className="text-xs font-semibold text-slate-500">
-                    info@example.com
+                    info@molecularh2water.com
                   </p>
                 </a>
                 <a

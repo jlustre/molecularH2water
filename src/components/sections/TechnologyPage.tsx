@@ -25,6 +25,7 @@ import {
 import { useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
 import contactImage from "../../assets/images/contact_us.jpg";
+import { ProspectCaptureForm } from "../forms/ProspectCaptureForm";
 import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
 import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
 import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
@@ -997,53 +998,33 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
                 />
               </figure>
 
-              <div className="rounded-[1.5rem] border border-cyan-100 bg-ice p-5 shadow-sm sm:rounded-[2rem] sm:p-6">
-                <h3 className="text-3xl font-black tracking-tight text-marine">
-                  Request Purchase Help
-                </h3>
-                <p className="mt-3 leading-7 text-slate-600">
-                  Share your contact details and a purchase specialist can help
-                  with the next step.
-                </p>
-
-                <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Name"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Phone"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Email"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Referrer Name (optional)"
-                  />
-                  <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                    <option>I'm interested in purchasing the machine</option>
-                    <option>Schedule a Hydration Conversation</option>
-                    <option>Ask about setup and support</option>
-                    <option>Ask about programs and protocols</option>
-                  </select>
-                  <textarea
-                    className="min-h-36 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="What would you like to know?"
-                  />
-                  <a
-                    className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
-                    href="mailto:info@example.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
-                  >
-                    <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
-                    <span className="transition-colors duration-200 group-hover:text-white">
-                      Send Purchase Request
-                    </span>
-                  </a>
-                </div>
-              </div>
+              <ProspectCaptureForm
+                description="Share your contact details and a purchase specialist can help with the next step."
+                formContext="technology-purchase-help"
+                interestOptions={[
+                  {
+                    label: "Purchase the machine",
+                    value: "Purchase the machine",
+                  },
+                  {
+                    label: "Schedule a Hydration Conversation",
+                    value: "Schedule a Hydration Conversation",
+                  },
+                  {
+                    label: "Ask about setup and support",
+                    value: "Ask about setup and support",
+                  },
+                  {
+                    label: "Ask about programs and protocols",
+                    value: "Ask about programs and protocols",
+                  },
+                ]}
+                messagePlaceholder="What would you like to know?"
+                source="website"
+                submitLabel="Send Purchase Request"
+                title="Request Purchase Help"
+                trackingSource="technology-purchase"
+              />
 
               <div className="mt-6 grid gap-4 sm:grid-cols-[0.82fr_1.18fr]">
                 <a
@@ -1060,13 +1041,13 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
 
                 <a
                   className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@example.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
+                  href="mailto:info@molecularh2water.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
                 >
                   <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
                     <Mail className="h-5 w-5" />
                   </span>
                   <p className="mt-3 break-words text-sm font-black text-marine">
-                    info@example.com
+                    info@molecularh2water.com
                   </p>
                 </a>
               </div>
@@ -1241,7 +1222,7 @@ function ProgramProtocolCard({
                   ? "border-marine bg-white text-marine shadow-clean hover:bg-marine hover:text-white"
                   : "border-aqua bg-aqua text-white shadow-clean hover:bg-marine hover:text-white"
               }`}
-              href="mailto:info@example.com?subject=Programs%20And%20Protocols%20Registration"
+              href="mailto:info@molecularh2water.com?subject=Programs%20And%20Protocols%20Registration"
             >
               <span className="transition-colors duration-200">Register To Learn More</span>
             </a>

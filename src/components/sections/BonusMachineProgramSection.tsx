@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import bonusMachineImage from "../../assets/images/bonusmachine.jpg";
 import contactImage from "../../assets/images/contact_us.jpg";
+import { ProspectCaptureForm } from "../forms/ProspectCaptureForm";
 
 export function BonusMachineProgramSection() {
   const [bonusModalOpen, setBonusModalOpen] = useState(false);
@@ -179,68 +180,45 @@ function BonusMachineConversationModal({ onClose }: { onClose: () => void }) {
                 />
               </figure>
 
-              <div className="rounded-[1.5rem] border border-cyan-100 bg-ice p-5 shadow-sm sm:rounded-[2rem] sm:p-6">
-                <h3 className="text-3xl font-black tracking-tight text-marine">
-                  Request Bonus Program Info
-                </h3>
-                <p className="mt-3 leading-7 text-slate-600">
-                  Share your contact details and someone can schedule a
-                  conversation about the Bonus Machine Program.
-                </p>
-
-                <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Name"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100"
-                    placeholder="Phone"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Email"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Referrer Name (optional)"
-                  />
-                  <input
-                    className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="Preferred Day or Time"
-                  />
-                  <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                    <option>I want to learn about the Bonus Machine Program</option>
-                    <option>How to qualify for the bonus machine</option>
-                    <option>How to use the bonus machine for business</option>
-                    <option>How to share the program with others</option>
-                  </select>
-                  <textarea
-                    className="min-h-36 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2"
-                    placeholder="What would you like to know?"
-                  />
-                  <a
-                    className="group inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]"
-                    href="mailto:info@example.com?subject=Bonus%20Machine%20Program%20Conversation"
-                  >
-                    <Send className="h-5 w-5 transition-colors duration-200 group-hover:text-white" />
-                    <span className="transition-colors duration-200 group-hover:text-white">
-                      Send Bonus Program Request
-                    </span>
-                  </a>
-                </div>
-              </div>
+              <ProspectCaptureForm
+                description="Share your contact details and someone can schedule a conversation about the Bonus Machine Program."
+                formContext="bonus-machine-program"
+                interestOptions={[
+                  {
+                    label: "Learn about the Bonus Machine Program",
+                    value: "Learn about the Bonus Machine Program",
+                  },
+                  {
+                    label: "How to qualify for the bonus machine",
+                    value: "How to qualify for the bonus machine",
+                  },
+                  {
+                    label: "How to use the bonus machine for business",
+                    value: "How to use the bonus machine for business",
+                  },
+                  {
+                    label: "How to share the program with others",
+                    value: "How to share the program with others",
+                  },
+                ]}
+                messagePlaceholder="What would you like to know?"
+                showPreferredTime
+                source="website"
+                submitLabel="Send Bonus Program Request"
+                title="Request Bonus Program Info"
+                trackingSource="bonus-machine-program"
+              />
 
               <div className="mt-6 grid gap-4 sm:grid-cols-[1.18fr_0.82fr]">
                 <a
                   className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@example.com?subject=Bonus%20Machine%20Program%20Conversation"
+                  href="mailto:info@molecularh2water.com?subject=Bonus%20Machine%20Program%20Conversation"
                 >
                   <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
                     <Mail className="h-5 w-5" />
                   </span>
                   <p className="mt-3 break-words text-sm font-black text-marine">
-                    info@example.com
+                    info@molecularh2water.com
                   </p>
                 </a>
 

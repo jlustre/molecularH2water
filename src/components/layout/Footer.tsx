@@ -170,9 +170,9 @@ const guideLinks: GuideLink[] = [
 
 const quickContacts: QuickContact[] = [
   {
-    href: "mailto:info@example.com",
+    href: "mailto:info@molecularh2water.com",
     icon: Mail,
-    label: "info@example.com",
+    label: "info@molecularh2water.com",
   },
   {
     href: "tel:0000000000",

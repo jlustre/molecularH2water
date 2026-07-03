@@ -8,6 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import contactImage from "../../../assets/images/contact_us.jpg";
+import { ProspectCaptureForm } from "../../forms/ProspectCaptureForm";
 
 const contactOptions = [
   {
@@ -76,38 +77,36 @@ export function AboutContactSection() {
             </div>
 
             <div className="min-w-0 bg-white p-4 sm:p-8 lg:p-10">
-              <div className="max-w-full rounded-[1.5rem] border border-cyan-100 bg-ice p-4 shadow-sm sm:rounded-[2rem] sm:p-6">
-                <h3 className="text-3xl font-black tracking-tight text-marine">
-                  Start Here
-                </h3>
-                <p className="mt-3 leading-7 text-slate-600">
-                  Tell us what you are interested in and we will help you find
-                  the right next step.
-                </p>
-
-                <div className="mt-6 grid min-w-0 gap-4 sm:grid-cols-2">
-                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Name" />
-                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100" placeholder="Phone" />
-                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="Email" />
-                  <input className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="Referrer Name (optional)" />
-                  <select className="w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2">
-                    <option>I'm interested in...</option>
-                    <option>Attending a Water Awareness Show</option>
-                    <option>Becoming a Hydration Specialist</option>
-                    <option>Becoming a Wellness Advocate</option>
-                    <option>Learning about the H2 water machine</option>
-                  </select>
-                  <textarea className="min-h-44 w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100 sm:col-span-2" placeholder="How can we help?" />
-                  <a className="group mt-5 inline-flex w-full min-w-0 items-center justify-center gap-3 rounded-full border-2 border-marine bg-white px-5 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-marine shadow-[0_14px_35px_rgba(7,59,76,0.18)] transition hover:-translate-y-0.5 hover:bg-marine sm:col-span-2 sm:px-6 sm:tracking-[0.12em]" href="mailto:info@example.com">
-                    <Send className="h-5 w-5 group-hover:text-white transition-colors duration-200" />
-                    <span className="group-hover:text-white transition-colors duration-200">Send Message</span>
-                  </a>
-                </div>
-              </div>
+              <ProspectCaptureForm
+                description="Tell us what you are interested in and we will help you find the right next step."
+                formContext="about-contact"
+                interestOptions={[
+                  {
+                    label: "Attending a Water Awareness Show",
+                    value: "Attending a Water Awareness Show",
+                  },
+                  {
+                    label: "Becoming a Hydration Specialist",
+                    value: "Becoming a Hydration Specialist",
+                  },
+                  {
+                    label: "Becoming a Wellness Advocate",
+                    value: "Becoming a Wellness Advocate",
+                  },
+                  {
+                    label: "Learning about the H2 water machine",
+                    value: "Learning about the H2 water machine",
+                  },
+                ]}
+                messagePlaceholder="How can we help?"
+                source="website"
+                title="Start Here"
+                trackingSource="about-contact"
+              />
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {[
-                  { icon: Mail, label: "info@example.com" },
+                  { icon: Mail, label: "info@molecularh2water.com" },
                   { icon: Phone, label: "(000) 000-0000" },
                   { icon: MapPin, label: "Your City, State" },
                 ].map((item) => (
