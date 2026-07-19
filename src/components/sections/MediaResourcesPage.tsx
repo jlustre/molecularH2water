@@ -1,15 +1,14 @@
 import {
   AlertCircle,
   ArrowUpRight,
-  Code2,
   Download,
   FileText,
-  Image,
   Link2,
   Loader2,
   PlayCircle,
   RefreshCcw,
   Video,
+  X,
   type LucideIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -80,27 +79,6 @@ const categoryConfigs: CategoryConfig[] = [
     icon: Link2,
     key: "links",
     label: "Links",
-  },
-  {
-    description: "Shareable visuals, graphics, and image references.",
-    endpoint: "/api/resources/images",
-    icon: Image,
-    key: "images",
-    label: "Images",
-  },
-  {
-    description: "Downloadable files visitors can save for later.",
-    endpoint: "/api/resources/downloads",
-    icon: Download,
-    key: "downloads",
-    label: "Downloads",
-  },
-  {
-    description: "Embedded resources and presentation-ready media.",
-    endpoint: "/api/resources/embedded",
-    icon: Code2,
-    key: "embedded",
-    label: "Embedded",
   },
 ];
 
@@ -204,6 +182,47 @@ function getYouTubeVideoId(url: string | null) {
     }
   } catch {
     return null;
+  }
+
+  return null;
+}
+
+function getVimeoVideoId(url: string | null) {
+  if (!url) {
+    return null;
+  }
+
+  try {
+    const parsedUrl = new URL(url);
+    const host = parsedUrl.hostname.replace(/^www\./, "");
+
+    if (host !== "vimeo.com" && host !== "player.vimeo.com") {
+      return null;
+    }
+
+    const parts = parsedUrl.pathname.split("/").filter(Boolean);
+
+    if (host === "player.vimeo.com" && parts[0] === "video") {
+      return parts[1] ?? null;
+    }
+
+    return parts.find((part) => /^\d+$/.test(part)) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function getVideoEmbedUrl(url: string | null) {
+  const vimeoId = getVimeoVideoId(url);
+
+  if (vimeoId) {
+    return `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
+  }
+
+  const youtubeId = getYouTubeVideoId(url);
+
+  if (youtubeId) {
+    return `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`;
   }
 
   return null;
@@ -330,12 +349,12 @@ export function MediaResourcesPage() {
               </span>
             </h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-cyan-50/82">
-              Browse approved documents, videos, links, images, downloads, and
-              embedded resources from the public media library.
+              Browse approved documents, videos, and links from the public media
+              library.
             </p>
           </div>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <div className="mx-auto mt-10 grid max-w-4xl gap-3 sm:grid-cols-3">
             {categoryConfigs.map((config) => {
               const Icon = config.icon;
               const active = config.key === activeCategory;
@@ -470,11 +489,13 @@ function ResourceCard({
   category: ResourceCategory;
   resource: MediaResource;
 }) {
+  const [videoOpen, setVideoOpen] = useState(false);
   const fileSize = formatFileSize(resource.file_size);
   const createdAt = formatDate(resource.created_at);
   const primaryUrl = getPrimaryUrl(resource);
   const previewUrl = getPreviewUrl(resource);
   const videoSourceUrl = getVideoSourceUrl(resource);
+  const videoEmbedUrl = getVideoEmbedUrl(videoSourceUrl);
   const isImage = resource.mime_type?.startsWith("image/") || category === "images";
   const isPlayableVideo =
     resource.is_video || resource.mime_type?.startsWith("video/") || category === "videos";
@@ -483,118 +504,228 @@ function ResourceCard({
     : null;
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-cyan-100 bg-white shadow-clean transition duration-300 hover:-translate-y-1 hover:border-lagoon/35 hover:shadow-lift">
-      <div className="relative bg-slate-950">
-        {isImage && previewUrl ? (
-          <img
-            alt={resource.title}
-            className="aspect-[16/10] w-full object-cover"
-            src={previewUrl}
-          />
-        ) : isPlayableVideo && videoThumbnailUrl ? (
-          <a
-            aria-label={`Open ${resource.title}`}
-            className="relative block"
-            href={primaryUrl ?? resource.shareable_link ?? undefined}
-            rel="noreferrer"
-            target="_blank"
-          >
+    <>
+      <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-cyan-100 bg-white shadow-clean transition duration-300 hover:-translate-y-1 hover:border-lagoon/35 hover:shadow-lift">
+        <div className="relative bg-slate-950">
+          {isImage && previewUrl ? (
             <img
               alt={resource.title}
               className="aspect-[16/10] w-full object-cover"
-              src={videoThumbnailUrl}
+              src={previewUrl}
             />
-            <span className="absolute inset-0 grid place-items-center bg-slate-950/18 transition group-hover:bg-slate-950/28">
-              <span className="grid h-20 w-20 place-items-center rounded-full border border-white/50 bg-white/90 text-lagoon shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition group-hover:scale-105 group-hover:bg-aqua group-hover:text-marine">
-                <PlayCircle className="h-10 w-10" />
+          ) : isPlayableVideo && videoThumbnailUrl && videoEmbedUrl ? (
+            <button
+              aria-label={`Play ${resource.title}`}
+              className="relative block w-full cursor-pointer text-left"
+              onClick={() => setVideoOpen(true)}
+              type="button"
+            >
+              <img
+                alt={resource.title}
+                className="aspect-[16/10] w-full object-cover"
+                src={videoThumbnailUrl}
+              />
+              <span className="absolute inset-0 grid place-items-center bg-slate-950/18 transition group-hover:bg-slate-950/28">
+                <span className="grid h-20 w-20 place-items-center rounded-full border border-white/50 bg-white/90 text-lagoon shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition group-hover:scale-105 group-hover:bg-aqua group-hover:text-marine">
+                  <PlayCircle className="h-10 w-10" />
+                </span>
               </span>
-            </span>
-          </a>
-        ) : isPlayableVideo && videoSourceUrl ? (
-          <video
-            className="aspect-[16/10] w-full bg-black object-cover"
-            controls
-            poster={resource.thumbnail_url ?? undefined}
-            preload="metadata"
-            src={videoSourceUrl}
-          />
-        ) : (
-          <div className="grid aspect-[16/10] place-items-center bg-[radial-gradient(circle_at_20%_20%,rgba(6,214,160,0.22),transparent_30%),linear-gradient(135deg,#031822_0%,#073B4C_100%)]">
-            <div className="grid h-20 w-20 place-items-center rounded-[1.6rem] border border-cyan-200/25 bg-white/10 text-aqua shadow-[0_18px_50px_rgba(0,0,0,0.24)]">
-              {resource.is_pdf ? (
-                <FileText className="h-10 w-10" />
-              ) : isPlayableVideo ? (
-                <PlayCircle className="h-10 w-10" />
-              ) : category === "links" ? (
-                <Link2 className="h-10 w-10" />
-              ) : (
-                <Download className="h-10 w-10" />
-              )}
+            </button>
+          ) : isPlayableVideo && videoThumbnailUrl ? (
+            <a
+              aria-label={`Open ${resource.title}`}
+              className="relative block"
+              href={primaryUrl ?? resource.shareable_link ?? undefined}
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img
+                alt={resource.title}
+                className="aspect-[16/10] w-full object-cover"
+                src={videoThumbnailUrl}
+              />
+              <span className="absolute inset-0 grid place-items-center bg-slate-950/18 transition group-hover:bg-slate-950/28">
+                <span className="grid h-20 w-20 place-items-center rounded-full border border-white/50 bg-white/90 text-lagoon shadow-[0_18px_50px_rgba(0,0,0,0.28)] transition group-hover:scale-105 group-hover:bg-aqua group-hover:text-marine">
+                  <PlayCircle className="h-10 w-10" />
+                </span>
+              </span>
+            </a>
+          ) : isPlayableVideo && videoSourceUrl ? (
+            <video
+              className="aspect-[16/10] w-full bg-black object-cover"
+              controls
+              poster={resource.thumbnail_url ?? undefined}
+              preload="metadata"
+              src={videoSourceUrl}
+            />
+          ) : (
+            <div className="grid aspect-[16/10] place-items-center bg-[radial-gradient(circle_at_20%_20%,rgba(6,214,160,0.22),transparent_30%),linear-gradient(135deg,#031822_0%,#073B4C_100%)]">
+              <div className="grid h-20 w-20 place-items-center rounded-[1.6rem] border border-cyan-200/25 bg-white/10 text-aqua shadow-[0_18px_50px_rgba(0,0,0,0.24)]">
+                {resource.is_pdf ? (
+                  <FileText className="h-10 w-10" />
+                ) : isPlayableVideo ? (
+                  <PlayCircle className="h-10 w-10" />
+                ) : category === "links" ? (
+                  <Link2 className="h-10 w-10" />
+                ) : (
+                  <Download className="h-10 w-10" />
+                )}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-black uppercase tracking-[.14em] text-lagoon">
-            {resource.category_label}
-          </span>
-          {fileSize ? (
-            <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-black uppercase tracking-[.14em] text-amber-700">
-              {fileSize}
+        <div className="flex flex-1 flex-col p-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs font-black uppercase tracking-[.14em] text-lagoon">
+              {resource.category_label}
             </span>
-          ) : null}
+            {fileSize ? (
+              <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-black uppercase tracking-[.14em] text-amber-700">
+                {fileSize}
+              </span>
+            ) : null}
+          </div>
+
+          <h3 className="mt-4 text-2xl font-black leading-tight text-marine">
+            {resource.title}
+          </h3>
+          {resource.description ? (
+            <p className="mt-3 flex-1 text-base font-semibold leading-7 text-slate-600">
+              {resource.description}
+            </p>
+          ) : (
+            <p className="mt-3 flex-1 text-base font-semibold leading-7 text-slate-500">
+              Resource details are available from the linked media item.
+            </p>
+          )}
+
+          <div className="mt-5 grid gap-2 text-sm font-semibold text-slate-500">
+            {resource.file_name ? <p>{resource.file_name}</p> : null}
+            {resource.mime_type ? <p>{resource.mime_type}</p> : null}
+            {createdAt ? <p>Published {createdAt}</p> : null}
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            {videoEmbedUrl ? (
+              <button
+                className="group/action inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border-2 border-lagoon bg-lagoon px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-white shadow-[0_16px_36px_rgba(17,138,178,0.2)] transition hover:-translate-y-0.5 hover:border-marine hover:bg-marine hover:text-white hover:shadow-[0_18px_42px_rgba(7,59,76,0.28)]"
+                onClick={() => setVideoOpen(true)}
+                type="button"
+              >
+                <span className="text-white transition-colors group-hover/action:text-white">
+                  Watch Video
+                </span>
+                <PlayCircle className="h-4 w-4 text-white transition-colors group-hover/action:text-white" />
+              </button>
+            ) : primaryUrl ? (
+              <a
+                className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-lagoon bg-lagoon px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-white shadow-[0_16px_36px_rgba(17,138,178,0.2)] transition hover:-translate-y-0.5 hover:border-marine hover:bg-marine hover:text-white hover:shadow-[0_18px_42px_rgba(7,59,76,0.28)]"
+                href={primaryUrl}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span className="text-white transition-colors group-hover/action:text-white">
+                  Open Resource
+                </span>
+                <ArrowUpRight className="h-4 w-4 text-white transition-colors group-hover/action:text-white" />
+              </a>
+            ) : null}
+            {resource.shareable_link ? (
+              <a
+                className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-marine bg-white px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-marine transition hover:-translate-y-0.5 hover:bg-marine hover:text-white"
+                href={resource.shareable_link}
+                rel="noreferrer"
+                target="_blank"
+              >
+                <span className="text-marine transition-colors group-hover/action:text-white">
+                  Share Link
+                </span>
+                <ArrowUpRight className="h-4 w-4 text-marine transition-colors group-hover/action:text-white" />
+              </a>
+            ) : null}
+          </div>
+        </div>
+      </article>
+
+      {videoOpen && videoEmbedUrl ? (
+        <VideoPlayerModal
+          embedUrl={videoEmbedUrl}
+          onClose={() => setVideoOpen(false)}
+          title={resource.title}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function VideoPlayerModal({
+  embedUrl,
+  onClose,
+  title,
+}: {
+  embedUrl: string;
+  onClose: () => void;
+  title: string;
+}) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      aria-modal="true"
+      className="fixed inset-0 z-[40000] overflow-y-auto bg-slate-950/90 px-4 py-8 backdrop-blur-sm sm:px-6"
+      onClick={onClose}
+      role="dialog"
+    >
+      <div
+        className="mx-auto max-w-5xl overflow-hidden rounded-md border border-cyan-200/30 bg-slate-950 shadow-[0_35px_120px_rgba(0,0,0,0.55)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-slate-950 via-marine to-slate-950 px-5 py-4 text-white">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.24em] text-aqua">
+              Media Video
+            </p>
+            <h2 className="mt-1 text-xl font-black leading-tight sm:text-2xl">
+              {title}
+            </h2>
+          </div>
+          <button
+            aria-label={`Close ${title} video`}
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full bg-white/12 text-white transition hover:bg-white/22"
+            onClick={onClose}
+            type="button"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
 
-        <h3 className="mt-4 text-2xl font-black leading-tight text-marine">
-          {resource.title}
-        </h3>
-        {resource.description ? (
-          <p className="mt-3 flex-1 text-base font-semibold leading-7 text-slate-600">
-            {resource.description}
-          </p>
-        ) : (
-          <p className="mt-3 flex-1 text-base font-semibold leading-7 text-slate-500">
-            Resource details are available from the linked media item.
-          </p>
-        )}
-
-        <div className="mt-5 grid gap-2 text-sm font-semibold text-slate-500">
-          {resource.file_name ? <p>{resource.file_name}</p> : null}
-          {resource.mime_type ? <p>{resource.mime_type}</p> : null}
-          {createdAt ? <p>Published {createdAt}</p> : null}
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-3">
-          {primaryUrl ? (
-            <a
-              className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-lagoon bg-lagoon px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-white shadow-[0_16px_36px_rgba(17,138,178,0.2)] transition hover:-translate-y-0.5 hover:border-marine hover:bg-marine hover:text-white hover:shadow-[0_18px_42px_rgba(7,59,76,0.28)]"
-              href={primaryUrl}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <span className="text-white transition-colors group-hover/action:text-white">
-                Open Resource
-              </span>
-              <ArrowUpRight className="h-4 w-4 text-white transition-colors group-hover/action:text-white" />
-            </a>
-          ) : null}
-          {resource.shareable_link ? (
-            <a
-              className="group/action inline-flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-marine bg-white px-5 py-3 text-center text-sm font-black uppercase tracking-[.1em] text-marine transition hover:-translate-y-0.5 hover:bg-marine hover:text-white"
-              href={resource.shareable_link}
-              rel="noreferrer"
-              target="_blank"
-            >
-              <span className="text-marine transition-colors group-hover/action:text-white">
-                Share Link
-              </span>
-              <ArrowUpRight className="h-4 w-4 text-marine transition-colors group-hover/action:text-white" />
-            </a>
-          ) : null}
+        <div className="aspect-video bg-black">
+          <iframe
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+            src={embedUrl}
+            title={`${title} video`}
+          />
         </div>
       </div>
-    </article>
+    </div>
   );
 }

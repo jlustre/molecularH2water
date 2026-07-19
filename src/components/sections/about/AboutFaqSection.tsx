@@ -1,11 +1,37 @@
-import { useState } from "react";
-import { faqs } from "../../../data/siteContent";
+import { useEffect, useState } from "react";
 import edwinExplainingImage from "../../../assets/images/edwinexplaining.jpg";
+import { fetchPublishedFaqs, getFallbackFaqs, type FaqItem } from "../../../lib/faqs";
 import { RichText } from "../../elements/RichText";
 import { ChevronDown } from "lucide-react";
 
 export function AboutFaqSection() {
   const [openFaq, setOpenFaq] = useState(-1);
+  const [faqs, setFaqs] = useState<FaqItem[]>(() => getFallbackFaqs());
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadFaqs() {
+      try {
+        const publishedFaqs = await fetchPublishedFaqs(controller.signal);
+
+        if (publishedFaqs.length > 0) {
+          setFaqs(publishedFaqs);
+        }
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        console.error("Unable to load FAQs from the API.", error);
+      }
+    }
+
+    void loadFaqs();
+
+    return () => controller.abort();
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-pearl via-ice to-white py-24" id="faq">
       <div className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-aqua/12 blur-3xl" />
@@ -48,7 +74,7 @@ export function AboutFaqSection() {
               return (
                 <article
                   className={`overflow-hidden rounded-[1.5rem] border transition ${isOpen ? "border-lagoon/35 bg-white shadow-clean" : "border-cyan-100 bg-white/80 shadow-sm hover:-translate-y-0.5 hover:border-lagoon/25 hover:bg-white hover:shadow-clean"}`}
-                  key={faq.question}
+                  key={faq.id ?? faq.question}
                 >
                   <button
                     className="flex w-full cursor-pointer items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"

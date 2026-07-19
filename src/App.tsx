@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AboutPage } from "./components/sections/AboutPage";
 import { HomePage } from "./components/sections/HomePage";
+import { InstallationQuestionnairePage } from "./components/sections/InstallationQuestionnairePage";
 import { MediaResourcesPage } from "./components/sections/MediaResourcesPage";
 import { ProofComparisonPage } from "./components/sections/ProofComparisonPage";
 import { ResourcesPage } from "./components/sections/ResourcesPage";
@@ -37,6 +38,7 @@ function App() {
     `${window.location.pathname}${window.location.hash}`,
   );
   const isAboutPage = window.location.pathname === "/about";
+  const isInstallationPage = window.location.pathname === "/installation";
   const isProofComparisonPage = window.location.pathname === "/proof-comparison";
   const isMediaResourcesPage =
     window.location.pathname === "/resources/media" ||
@@ -81,6 +83,7 @@ function App() {
       const supportedPath =
         nextUrl.pathname === "/" ||
         nextUrl.pathname === "/about" ||
+        nextUrl.pathname === "/installation" ||
         nextUrl.pathname === "/proof-comparison" ||
         nextUrl.pathname === "/resources" ||
         nextUrl.pathname === "/resources/media" ||
@@ -135,6 +138,10 @@ function App() {
       timeoutIds.forEach((timeoutId) => window.clearTimeout(timeoutId));
     };
   }, [locationKey]);
+
+  if (isInstallationPage) {
+    return <InstallationQuestionnairePage />;
+  }
 
   if (isWarrantyPage) {
     return <WarrantyRegistrationPage />;

@@ -1,11 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import edwinExplainingImage from "../../../dist/assets/edwinexplaining.jpg";
-import { faqs } from "../../data/siteContent";
+import { fetchPublishedFaqs, getFallbackFaqs, type FaqItem } from "../../lib/faqs";
 import { RichText } from "../elements/RichText";
 
 export function FaqSection() {
   const [openFaq, setOpenFaq] = useState(-1);
+  const [faqs, setFaqs] = useState<FaqItem[]>(() => getFallbackFaqs());
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadFaqs() {
+      try {
+        const publishedFaqs = await fetchPublishedFaqs(controller.signal);
+
+        if (publishedFaqs.length > 0) {
+          setFaqs(publishedFaqs);
+        }
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        console.error("Unable to load FAQs from the API.", error);
+      }
+    }
+
+    void loadFaqs();
+
+    return () => controller.abort();
+  }, []);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-white py-24">
@@ -64,7 +89,7 @@ export function FaqSection() {
                       ? "border-lagoon/35 bg-white shadow-clean"
                       : "border-cyan-100 bg-white/80 shadow-sm hover:-translate-y-0.5 hover:border-lagoon/25 hover:bg-white hover:shadow-clean"
                   }`}
-                  key={faq.question}
+                  key={faq.id ?? faq.question}
                 >
                   <button
                     className="flex w-full cursor-pointer items-center justify-between gap-5 px-5 py-5 text-left sm:px-6"

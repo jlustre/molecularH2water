@@ -9,6 +9,7 @@ import {
   ShoppingCart,
   Sparkles,
   Users,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
 import { BrandMark } from "../ui/BrandMark";
@@ -94,6 +95,10 @@ const footerGroups: FooterGroup[] = [
       { href: "/technology#investment", label: "Investment" },
       { href: "/technology#is-it-worth-it", label: "Is It Worth It" },
       { href: "/warranty", label: "Warranty Registration" },
+      {
+        href: "/installation",
+        label: "Pre-Installation Questionnaire",
+      },
       {
         href: "/proof-comparison#ionizer-vs-h2",
         label: "Ionizer Vs H2 Machine",
@@ -194,6 +199,11 @@ const quickContacts: QuickContact[] = [
     href: "/warranty",
     icon: ShieldCheck,
     label: "Register Machine Warranty",
+  },
+  {
+    href: "/installation",
+    icon: Wrench,
+    label: "Pre-Installation Questionnaire",
   },
 ];
 
