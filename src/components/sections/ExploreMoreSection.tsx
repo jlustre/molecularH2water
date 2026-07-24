@@ -1,8 +1,6 @@
 import {
   CalendarCheck,
-  Mail,
   MessageCircle,
-  Phone,
   Send,
   Users,
   X,
@@ -13,6 +11,7 @@ import contactImage from "../../assets/images/contact_us.jpg";
 import exploreMoreImage from "../../../dist/assets/exploremore.jpg";
 import yourGuideImage from "../../../dist/assets/yourguide.png";
 import { ProspectCaptureForm } from "../forms/ProspectCaptureForm";
+import { ContactQuickLinks } from "../site/ContactQuickLinks";
 
 export function ExploreMoreSection() {
   const [conversationModalOpen, setConversationModalOpen] = useState(false);
@@ -185,31 +184,10 @@ function HydrationConversationModal({ onClose }: { onClose: () => void }) {
                 trackingSource="explore-more"
               />
 
-              <div className="mt-6 grid gap-4 sm:grid-cols-[1.18fr_0.82fr]">
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@molecularh2water.com?subject=Schedule%20A%20Hydration%20Conversation"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Mail className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    info@molecularh2water.com
-                  </p>
-                </a>
-
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="tel:0000000000"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Phone className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    (000) 000-0000
-                  </p>
-                </a>
-              </div>
+              <ContactQuickLinks
+                emailSubject="Schedule A Hydration Conversation"
+                variant="compact"
+              />
             </div>
           </div>
         </div>

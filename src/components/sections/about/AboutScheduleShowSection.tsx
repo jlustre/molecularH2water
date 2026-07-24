@@ -1,9 +1,7 @@
 import {
   CalendarCheck,
   CircleHelp,
-  Mail,
   MonitorPlay,
-  Phone,
   PlayCircle,
   Send,
   Sparkles,
@@ -15,6 +13,7 @@ import { useState } from "react";
 import contactImage from "../../../assets/images/contact_us.jpg";
 import h2PresentationImage from "../../../assets/images/h2presentation.jpg";
 import { ProspectCaptureForm } from "../../forms/ProspectCaptureForm";
+import { ContactQuickLinks } from "../../site/ContactQuickLinks";
 
 const scheduleSteps = [
   {
@@ -329,32 +328,7 @@ function AttendLiveShowModal({ onClose }: { onClose: () => void }) {
                 trackingSource="water-awareness-show"
               />
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-[1.25fr_.75fr]">
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@molecularh2water.com?subject=Attend%20A%20Live%20Water%20Awareness%20Show"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Mail className="h-5 w-5" />
-                  </span>
-                  <p className="mt-2 text-sm font-black text-marine">Email Us</p>
-                  <p className="text-xs font-semibold text-slate-500">
-                    info@molecularh2water.com
-                  </p>
-                </a>
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="tel:0000000000"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Phone className="h-5 w-5" />
-                  </span>
-                  <p className="mt-2 text-sm font-black text-marine">Call Us</p>
-                  <p className="text-xs font-semibold text-slate-500">
-                    (000) 000-0000
-                  </p>
-                </a>
-              </div>
+              <ContactQuickLinks emailSubject="Attend A Live Water Awareness Show" />
             </div>
           </div>
         </div>

@@ -7,10 +7,8 @@ import {
   FlaskConical,
   Gift,
   HeartPulse,
-  Mail,
   Maximize2,
   Microscope,
-  Phone,
   RefreshCcw,
   Scale,
   Send,
@@ -26,6 +24,9 @@ import { useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
 import contactImage from "../../assets/images/contact_us.jpg";
 import { ProspectCaptureForm } from "../forms/ProspectCaptureForm";
+import { ContactQuickLinks } from "../site/ContactQuickLinks";
+import { useSiteSettings } from "../site/SiteSettingsProvider";
+import { mailtoHref } from "../../lib/siteSettings";
 import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
 import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
 import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
@@ -1026,31 +1027,12 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
                 trackingSource="technology-purchase"
               />
 
-              <div className="mt-6 grid gap-4 sm:grid-cols-[0.82fr_1.18fr]">
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="tel:0000000000"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Phone className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    (000) 000-0000
-                  </p>
-                </a>
-
-                <a
-                  className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean"
-                  href="mailto:info@molecularh2water.com?subject=How%20To%20Purchase%20H2%20Water%20Machine"
-                >
-                  <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
-                    <Mail className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 break-words text-sm font-black text-marine">
-                    info@molecularh2water.com
-                  </p>
-                </a>
-              </div>
+              <ContactQuickLinks
+                className="mt-6 grid gap-4 sm:grid-cols-[0.82fr_1.18fr]"
+                emailSubject="How To Purchase H2 Water Machine"
+                phoneFirst
+                variant="compact"
+              />
             </div>
           </div>
         </div>
@@ -1174,6 +1156,7 @@ function ProgramProtocolCard({
   light?: boolean;
 }) {
   const Icon = item.icon;
+  const site = useSiteSettings();
 
   return (
     <article
@@ -1222,7 +1205,10 @@ function ProgramProtocolCard({
                   ? "border-marine bg-white text-marine shadow-clean hover:bg-marine hover:text-white"
                   : "border-aqua bg-aqua text-white shadow-clean hover:bg-marine hover:text-white"
               }`}
-              href="mailto:info@molecularh2water.com?subject=Programs%20And%20Protocols%20Registration"
+              href={mailtoHref(
+                site.email,
+                "Programs And Protocols Registration",
+              )}
             >
               <span className="transition-colors duration-200">Register To Learn More</span>
             </a>

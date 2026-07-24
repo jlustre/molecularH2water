@@ -12,7 +12,7 @@ export type InstallationQuestionnairePayload = {
   phone: string;
   postal_code: string;
   property_type: string;
-  sink_photo?: File | null;
+  sink_photos?: File[];
   special_requirements?: string;
   state: string;
   street_address: string;
@@ -69,9 +69,9 @@ export async function submitInstallationQuestionnaire(
       body.append("additional_notes", payload.additional_notes.trim());
     }
 
-    if (payload.sink_photo) {
-      body.append("sink_photo", payload.sink_photo);
-    }
+    (payload.sink_photos ?? []).forEach((file) => {
+      body.append("sink_photos[]", file);
+    });
 
     const response = await fetch(getApiUrl("/api/installation-questionnaires"), {
       body,

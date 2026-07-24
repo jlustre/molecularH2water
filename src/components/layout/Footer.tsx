@@ -12,6 +12,8 @@ import {
   Wrench,
   type LucideIcon,
 } from "lucide-react";
+import { mailtoHref, telHref } from "../../lib/siteSettings";
+import { useSiteSettings } from "../site/SiteSettingsProvider";
 import { BrandMark } from "../ui/BrandMark";
 
 type FooterLink = {
@@ -85,20 +87,10 @@ const footerGroups: FooterGroup[] = [
     icon: Cpu,
     title: "Technology",
     links: [
-      {
-        href: "/technology#hydrogen-water-machine",
-        label: "Hydrogen Water Machine",
-      },
       { href: "/technology#how-it-works", label: "How Does It Work" },
       { href: "/technology#machine-features", label: "Machine Features" },
       { href: "/technology#programs-protocols", label: "Programs & Protocols" },
-      { href: "/technology#investment", label: "Investment" },
       { href: "/technology#is-it-worth-it", label: "Is It Worth It" },
-      { href: "/warranty", label: "Warranty Registration" },
-      {
-        href: "/installation",
-        label: "Pre-Installation Questionnaire",
-      },
       {
         href: "/proof-comparison#ionizer-vs-h2",
         label: "Ionizer Vs H2 Machine",
@@ -123,10 +115,6 @@ const footerGroups: FooterGroup[] = [
       { href: "/about#contact", label: "Contact US" },
       { href: "/about#hydration-specialist", label: "Hydration Specialist" },
       { href: "/about#wellness-advocate", label: "Wellness Advocate" },
-      {
-        href: "/about#schedule-water-awareness-show",
-        label: "Water Awareness Show",
-      },
     ],
   },
   {
@@ -147,67 +135,66 @@ const footerGroups: FooterGroup[] = [
       { href: "/resources/media/documents", label: "Documents" },
       { href: "/resources/media/videos", label: "Videos" },
       { href: "/resources/media/links", label: "Links" },
-      { href: "/resources/media/images", label: "Images" },
-      { href: "/resources/media/downloads", label: "Downloads" },
-      { href: "/resources/media/embedded", label: "Embedded" },
     ],
   },
 ];
 
-const guideLinks: GuideLink[] = [
-  {
-    href: "https://www.facebook.com/groups/1596145219185739/permalink/1596169665849961/?",
-    label: "Facebook",
-    type: "facebook",
-  },
-  {
-    href: "https://www.youtube.com/@HydrogenHeals",
-    label: "YouTube",
-    type: "youtube",
-  },
-  {
-    href: "https://simplebooklet.com/consumersguidetohydrogen#page=1",
-    icon: BookOpenCheck,
-    label: "Consumers Guide",
-    type: "guide",
-  },
-];
-
-const quickContacts: QuickContact[] = [
-  {
-    href: "mailto:info@molecularh2water.com",
-    icon: Mail,
-    label: "info@molecularh2water.com",
-  },
-  {
-    href: "tel:0000000000",
-    icon: Phone,
-    label: "(000) 000-0000",
-  },
-  {
-    href: "/about#schedule-water-awareness-show",
-    icon: CalendarCheck,
-    label: "Schedule A Show",
-  },
-  {
-    href: "/technology#investment",
-    icon: ShoppingCart,
-    label: "How To Purchase The Machine",
-    variant: "teal",
-  },
-  {
-    href: "/warranty",
-    icon: ShieldCheck,
-    label: "Register Machine Warranty",
-  },
-  {
-    href: "/installation",
-    icon: Wrench,
-    label: "Pre-Installation Questionnaire",
-  },
-];
-
 export function Footer() {
+  const site = useSiteSettings();
+
+  const guideLinks: GuideLink[] = [
+    {
+      href: site.facebook_url,
+      label: "Facebook",
+      type: "facebook",
+    },
+    {
+      href: site.youtube_url,
+      label: "YouTube",
+      type: "youtube",
+    },
+    {
+      href: site.consumers_guide_url,
+      icon: BookOpenCheck,
+      label: "Consumers Guide",
+      type: "guide",
+    },
+  ];
+
+  const quickContacts: QuickContact[] = [
+    {
+      href: mailtoHref(site.email),
+      icon: Mail,
+      label: site.email,
+    },
+    {
+      href: telHref(site.phone_tel),
+      icon: Phone,
+      label: site.phone,
+    },
+    {
+      href: "/about#schedule-water-awareness-show",
+      icon: CalendarCheck,
+      label: "Schedule A Show",
+    },
+    {
+      href: "/technology#investment",
+      icon: ShoppingCart,
+      label: "How To Purchase The Machine",
+      variant: "teal",
+    },
+    {
+      href: "/warranty",
+      icon: ShieldCheck,
+      label: "Register Machine Warranty",
+    },
+    {
+      href: "/installation",
+      icon: Wrench,
+      label: "Pre-Installation Questionnaire",
+    },
+  ];
+
   return (
     <footer className="relative overflow-hidden bg-slate-950 text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_16%_15%,rgba(6,214,160,0.16),transparent_28%),radial-gradient(circle_at_86%_10%,rgba(17,138,178,0.22),transparent_32%),linear-gradient(135deg,#031822_0%,#073B4C_48%,#071b26_100%)]" />
@@ -335,7 +322,7 @@ export function Footer() {
         </div>
 
         <div className="mt-5 flex flex-col gap-2 border-t border-white/10 pt-5 text-xs text-cyan-50/52 sm:flex-row sm:items-center sm:justify-between">
-          <p>Copyright 2026 H2Systems. All rights reserved.</p>
+          <p>Copyright 2026 {site.company_name}. All rights reserved.</p>
           <p>Endless Energy. Cellular Renewal. Better Hydration Awareness.</p>
         </div>
       </div>

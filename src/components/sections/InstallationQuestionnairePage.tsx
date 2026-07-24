@@ -1,10 +1,12 @@
-import { CheckCircle2, Loader2, Upload } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { CheckCircle2, Loader2, Plus, Trash2, Upload } from "lucide-react";
+import { useRef, useState, type FormEvent } from "react";
 import {
   submitInstallationQuestionnaire,
 } from "../../lib/installationQuestionnaires";
 import { PageLayout } from "../layout/PageLayout";
 import { SectionHeading } from "../ui/SectionHeading";
+
+const MAX_SINK_PHOTOS = 8;
 
 type FormState = {
   additional_notes: string;
@@ -85,10 +87,11 @@ const initialFormState: FormState = {
 
 export function InstallationQuestionnairePage() {
   const [form, setForm] = useState<FormState>(initialFormState);
-  const [sinkPhoto, setSinkPhoto] = useState<File | null>(null);
+  const [sinkPhotos, setSinkPhotos] = useState<File[]>([]);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submissionId, setSubmissionId] = useState<number | null>(null);
+  const sinkPhotoInputRef = useRef<HTMLInputElement | null>(null);
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
@@ -104,6 +107,34 @@ export function InstallationQuestionnairePage() {
     });
   }
 
+  function addSinkPhotos(fileList: FileList | null) {
+    if (!fileList || fileList.length === 0) {
+      return;
+    }
+
+    const incoming = Array.from(fileList).filter((file) =>
+      file.type.startsWith("image/"),
+    );
+
+    setSinkPhotos((current) => {
+      const remainingSlots = MAX_SINK_PHOTOS - current.length;
+
+      if (remainingSlots <= 0) {
+        return current;
+      }
+
+      return [...current, ...incoming.slice(0, remainingSlots)];
+    });
+
+    if (sinkPhotoInputRef.current) {
+      sinkPhotoInputRef.current.value = "";
+    }
+  }
+
+  function removeSinkPhoto(index: number) {
+    setSinkPhotos((current) => current.filter((_, photoIndex) => photoIndex !== index));
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitState("loading");
@@ -111,7 +142,7 @@ export function InstallationQuestionnairePage() {
 
     const result = await submitInstallationQuestionnaire({
       ...form,
-      sink_photo: sinkPhoto,
+      sink_photos: sinkPhotos,
     });
 
     if (!result.ok) {
@@ -123,7 +154,7 @@ export function InstallationQuestionnairePage() {
     setSubmissionId(result.id ?? null);
     setSubmitState("success");
     setForm(initialFormState);
-    setSinkPhoto(null);
+    setSinkPhotos([]);
   }
 
   return (
@@ -514,30 +545,78 @@ export function InstallationQuestionnairePage() {
                     </div>
 
                     <div>
-                      <label className={labelClassName} htmlFor="sink_photo">
-                        Please Upload A Photo of your current sink
-                      </label>
-                      <label
-                        className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-cyan-200 bg-ice/50 px-5 py-8 text-center transition hover:border-lagoon/40"
-                        htmlFor="sink_photo"
-                      >
-                        <Upload className="h-8 w-8 text-lagoon" />
-                        <span className="text-sm font-bold text-marine">
-                          {sinkPhoto
-                            ? sinkPhoto.name
-                            : "Browse Files or drag and drop"}
-                        </span>
+                      <div className="mb-2 flex items-center justify-between gap-3">
+                        <label className={labelClassName} htmlFor="sink_photo">
+                          Please Upload Photos of your current sink
+                        </label>
                         <span className="text-xs font-semibold text-slate-500">
-                          JPG, PNG, or WEBP up to 10MB
+                          {sinkPhotos.length}/{MAX_SINK_PHOTOS}
                         </span>
-                      </label>
+                      </div>
+
+                      {sinkPhotos.length > 0 ? (
+                        <ul className="mb-3 grid gap-3">
+                          {sinkPhotos.map((photo, index) => (
+                            <li
+                              className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-100 bg-white px-4 py-3"
+                              key={`${photo.name}-${photo.lastModified}-${index}`}
+                            >
+                              <div className="min-w-0">
+                                <p className="truncate text-sm font-bold text-marine">
+                                  {photo.name}
+                                </p>
+                                <p className="text-xs font-semibold text-slate-500">
+                                  {(photo.size / (1024 * 1024)).toFixed(1)} MB
+                                </p>
+                              </div>
+                              <button
+                                aria-label={`Remove ${photo.name}`}
+                                className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-rose-100 text-rose-600 transition hover:bg-rose-50"
+                                onClick={() => removeSinkPhoto(index)}
+                                type="button"
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
+
+                      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
+                        <label
+                          className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-cyan-200 bg-ice/50 px-5 py-8 text-center transition hover:border-lagoon/40"
+                          htmlFor="sink_photo"
+                        >
+                          <Upload className="h-8 w-8 text-lagoon" />
+                          <span className="text-sm font-bold text-marine">
+                            {sinkPhotos.length > 0
+                              ? "Add more photos"
+                              : "Browse Files or drag and drop"}
+                          </span>
+                          <span className="text-xs font-semibold text-slate-500">
+                            JPG, PNG, or WEBP up to 10MB each
+                          </span>
+                        </label>
+
+                        <button
+                          aria-label="Add another photo"
+                          className="inline-flex min-h-24 items-center justify-center gap-2 rounded-2xl border border-cyan-100 bg-white px-5 py-4 text-sm font-black text-marine shadow-sm transition hover:-translate-y-0.5 hover:border-lagoon/30 disabled:cursor-not-allowed disabled:opacity-50"
+                          disabled={sinkPhotos.length >= MAX_SINK_PHOTOS}
+                          onClick={() => sinkPhotoInputRef.current?.click()}
+                          type="button"
+                        >
+                          <Plus className="h-5 w-5 text-lagoon" />
+                          Add Photo
+                        </button>
+                      </div>
+
                       <input
                         accept="image/jpeg,image/png,image/webp,image/gif"
                         className="sr-only"
                         id="sink_photo"
-                        onChange={(event) =>
-                          setSinkPhoto(event.target.files?.[0] ?? null)
-                        }
+                        multiple
+                        onChange={(event) => addSinkPhotos(event.target.files)}
+                        ref={sinkPhotoInputRef}
                         type="file"
                       />
                     </div>

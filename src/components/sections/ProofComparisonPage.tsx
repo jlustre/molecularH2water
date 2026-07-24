@@ -18,7 +18,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useState } from "react";
+import { mailtoHref } from "../../lib/siteSettings";
 import { PageLayout } from "../layout/PageLayout";
+import { useSiteSettings } from "../site/SiteSettingsProvider";
 import experiment1Image from "../../../dist/assets/experiments/experiment1.jpg";
 import experiment2Image from "../../../dist/assets/experiments/experiment2.jpg";
 import experiment3Image from "../../../dist/assets/experiments/experiment3.jpg";
@@ -776,6 +778,7 @@ function ProgramProtocolCard({
   light?: boolean;
 }) {
   const Icon = item.icon;
+  const site = useSiteSettings();
 
   return (
     <article
@@ -824,7 +827,10 @@ function ProgramProtocolCard({
                   ? "border-marine bg-white text-marine shadow-clean hover:bg-marine hover:text-white"
                   : "border-aqua bg-aqua text-white shadow-clean hover:bg-marine hover:text-white"
               }`}
-              href="mailto:info@molecularh2water.com?subject=Programs%20And%20Protocols%20Registration"
+              href={mailtoHref(
+                site.email,
+                "Programs And Protocols Registration",
+              )}
             >
               <span className="transition-colors duration-200">Register To Learn More</span>
             </a>

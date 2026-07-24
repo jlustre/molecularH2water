@@ -8,7 +8,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import contactImage from "../../../assets/images/contact_us.jpg";
+import { mailtoHref, telHref } from "../../../lib/siteSettings";
 import { ProspectCaptureForm } from "../../forms/ProspectCaptureForm";
+import { useSiteSettings } from "../../site/SiteSettingsProvider";
 
 const contactOptions = [
   {
@@ -29,6 +31,8 @@ const contactOptions = [
 ];
 
 export function AboutContactSection() {
+  const site = useSiteSettings();
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-white via-ice to-pearl py-24" id="contact">
       <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-aqua/12 blur-3xl" />
@@ -106,9 +110,17 @@ export function AboutContactSection() {
 
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {[
-                  { icon: Mail, label: "info@molecularh2water.com" },
-                  { icon: Phone, label: "(000) 000-0000" },
-                  { icon: MapPin, label: "Your City, State" },
+                  {
+                    href: mailtoHref(site.email),
+                    icon: Mail,
+                    label: site.email,
+                  },
+                  {
+                    href: telHref(site.phone_tel),
+                    icon: Phone,
+                    label: site.phone,
+                  },
+                  { icon: MapPin, label: site.location },
                 ].map((item) => (
                   <ContactInfoCard item={item} key={item.label} />
                 ))}
@@ -148,18 +160,29 @@ function ContactOptionCard({
 function ContactInfoCard({
   item,
 }: {
-  item: { icon: LucideIcon; label: string };
+  item: { href?: string; icon: LucideIcon; label: string };
 }) {
   const Icon = item.icon;
-
-  return (
-    <div className="rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean">
+  const className =
+    "rounded-[1.4rem] border border-cyan-100 bg-white p-4 text-center shadow-sm transition hover:-translate-y-1 hover:border-lagoon/30 hover:bg-ice hover:shadow-clean";
+  const content = (
+    <>
       <span className="mx-auto grid h-11 w-11 place-items-center rounded-2xl bg-cyan-50 text-lagoon">
         <Icon className="h-5 w-5" />
       </span>
       <p className="mt-3 break-words text-sm font-black text-marine">
         {item.label}
       </p>
-    </div>
+    </>
   );
+
+  if (item.href) {
+    return (
+      <a className={className} href={item.href}>
+        {content}
+      </a>
+    );
+  }
+
+  return <div className={className}>{content}</div>;
 }
