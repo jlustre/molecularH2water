@@ -1,5 +1,5 @@
 import { CheckCircle2, Loader2, Plus, Trash2, Upload } from "lucide-react";
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   submitInstallationQuestionnaire,
 } from "../../lib/installationQuestionnaires";
@@ -88,10 +88,26 @@ const initialFormState: FormState = {
 export function InstallationQuestionnairePage() {
   const [form, setForm] = useState<FormState>(initialFormState);
   const [sinkPhotos, setSinkPhotos] = useState<File[]>([]);
+  const [sinkPhotoPreviews, setSinkPhotoPreviews] = useState<
+    Array<{ file: File; url: string }>
+  >([]);
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submissionId, setSubmissionId] = useState<number | null>(null);
   const sinkPhotoInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    const previews = sinkPhotos.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+
+    setSinkPhotoPreviews(previews);
+
+    return () => {
+      previews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    };
+  }, [sinkPhotos]);
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((current) => ({ ...current, [key]: value }));
@@ -555,28 +571,35 @@ export function InstallationQuestionnairePage() {
                       </div>
 
                       {sinkPhotos.length > 0 ? (
-                        <ul className="mb-3 grid gap-3">
-                          {sinkPhotos.map((photo, index) => (
+                        <ul className="mb-3 grid gap-3 sm:grid-cols-2">
+                          {sinkPhotoPreviews.map(({ file: photo, url }, index) => (
                             <li
-                              className="flex items-center justify-between gap-3 rounded-2xl border border-cyan-100 bg-white px-4 py-3"
+                              className="overflow-hidden rounded-2xl border border-cyan-100 bg-white"
                               key={`${photo.name}-${photo.lastModified}-${index}`}
                             >
-                              <div className="min-w-0">
-                                <p className="truncate text-sm font-bold text-marine">
-                                  {photo.name}
-                                </p>
-                                <p className="text-xs font-semibold text-slate-500">
-                                  {(photo.size / (1024 * 1024)).toFixed(1)} MB
-                                </p>
+                              <img
+                                alt={photo.name}
+                                className="h-36 w-full object-cover"
+                                src={url}
+                              />
+                              <div className="flex items-center justify-between gap-3 px-4 py-3">
+                                <div className="min-w-0">
+                                  <p className="truncate text-sm font-bold text-marine">
+                                    {photo.name}
+                                  </p>
+                                  <p className="text-xs font-semibold text-slate-500">
+                                    {(photo.size / (1024 * 1024)).toFixed(1)} MB
+                                  </p>
+                                </div>
+                                <button
+                                  aria-label={`Remove ${photo.name}`}
+                                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-rose-100 text-rose-600 transition hover:bg-rose-50"
+                                  onClick={() => removeSinkPhoto(index)}
+                                  type="button"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </button>
                               </div>
-                              <button
-                                aria-label={`Remove ${photo.name}`}
-                                className="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-rose-100 text-rose-600 transition hover:bg-rose-50"
-                                onClick={() => removeSinkPhoto(index)}
-                                type="button"
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </button>
                             </li>
                           ))}
                         </ul>

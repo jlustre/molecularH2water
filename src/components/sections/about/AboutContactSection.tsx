@@ -101,8 +101,13 @@ export function AboutContactSection() {
                     label: "Learning about the H2 water machine",
                     value: "Learning about the H2 water machine",
                   },
+                  {
+                    label: "Warranty Service",
+                    value: "Warranty Service",
+                  },
                 ]}
                 messagePlaceholder="How can we help?"
+                enableWarrantySupport
                 source="website"
                 title="Start Here"
                 trackingSource="about-contact"

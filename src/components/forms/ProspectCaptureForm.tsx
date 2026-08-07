@@ -1,13 +1,24 @@
-import { CheckCircle2, Loader2, Send } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { CheckCircle2, Loader2, Send, Trash2 } from "lucide-react";
+import { useEffect, useState, type FormEvent } from "react";
 import { submitProspect } from "../../lib/prospects";
 
 const inputClassName =
   "w-full min-w-0 rounded-2xl border border-cyan-100 bg-white px-5 py-4 font-semibold text-marine outline-none transition focus:border-lagoon/40 focus:ring-4 focus:ring-cyan-100";
+const WARRANTY_INTEREST_VALUE = "Warranty Service";
+const MAX_WARRANTY_MEDIA_FILES = 6;
+const WARRANTY_VIDEO_MIN_SECONDS = 10;
+const WARRANTY_VIDEO_MAX_SECONDS = 20;
 
 export type ProspectInterestOption = {
   label: string;
   value: string;
+};
+
+type WarrantyMediaPreview = {
+  file: File;
+  url: string;
+  isImage: boolean;
+  isVideo: boolean;
 };
 
 type ProspectCaptureFormProps = {
@@ -22,7 +33,47 @@ type ProspectCaptureFormProps = {
   submitLabel?: string;
   title: string;
   trackingSource?: string;
+  enableWarrantySupport?: boolean;
 };
+
+async function getVideoDurationInSeconds(file: File): Promise<number> {
+  const objectUrl = URL.createObjectURL(file);
+
+  try {
+    const duration = await new Promise<number>((resolve, reject) => {
+      const video = document.createElement("video");
+      video.preload = "metadata";
+
+      video.onloadedmetadata = () => resolve(video.duration);
+      video.onerror = () => reject(new Error("Unable to read video metadata."));
+      video.src = objectUrl;
+    });
+
+    return duration;
+  } finally {
+    URL.revokeObjectURL(objectUrl);
+  }
+}
+
+function fileIdentity(file: File): string {
+  return `${file.name}-${file.size}-${file.lastModified}`;
+}
+
+function uniqueFiles(files: File[]): File[] {
+  const seen = new Set<string>();
+
+  return files.filter((file) => {
+    const key = fileIdentity(file);
+
+    if (seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+
+    return true;
+  });
+}
 
 export function ProspectCaptureForm({
   title,
@@ -36,6 +87,7 @@ export function ProspectCaptureForm({
   showReferrer = true,
   showPreferredTime = false,
   messagePlaceholder = "How can we help?",
+  enableWarrantySupport = false,
 }: ProspectCaptureFormProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -46,12 +98,95 @@ export function ProspectCaptureForm({
     defaultInterest ?? interestOptions[0]?.value ?? "",
   );
   const [message, setMessage] = useState("");
+  const [warrantyConcern, setWarrantyConcern] = useState("");
+  const [warrantyMedia, setWarrantyMedia] = useState<File[]>([]);
+  const [warrantyMediaPreviews, setWarrantyMediaPreviews] = useState<WarrantyMediaPreview[]>([]);
   const [consentGiven, setConsentGiven] = useState(false);
   const [honeypot, setHoneypot] = useState("");
   const [submitState, setSubmitState] = useState<
     "error" | "idle" | "loading" | "success"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const isWarrantyService =
+    enableWarrantySupport && interestedIn === WARRANTY_INTEREST_VALUE;
+
+  useEffect(() => {
+    const previews = warrantyMedia.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+      isImage: file.type.startsWith("image/"),
+      isVideo: file.type.startsWith("video/"),
+    }));
+
+    setWarrantyMediaPreviews(previews);
+
+    return () => {
+      previews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    };
+  }, [warrantyMedia]);
+
+  async function handleWarrantyMediaChange(files: FileList | null) {
+    const selectedFiles = Array.from(files ?? []);
+    const mergedFiles = uniqueFiles([...warrantyMedia, ...selectedFiles]);
+
+    if (mergedFiles.length > MAX_WARRANTY_MEDIA_FILES) {
+      setSubmitState("error");
+      setErrorMessage(`Please upload up to ${MAX_WARRANTY_MEDIA_FILES} files.`);
+      return;
+    }
+
+    const videoFiles = mergedFiles.filter((file) =>
+      file.type.startsWith("video/"),
+    );
+
+    if (videoFiles.length > 1 || (videoFiles.length === 1 && mergedFiles.length > 1)) {
+      setSubmitState("error");
+      setErrorMessage("Please upload either one 10-20 second video or image files.");
+      return;
+    }
+
+    if (videoFiles.length === 1) {
+      try {
+        const durationSeconds = await getVideoDurationInSeconds(videoFiles[0]);
+
+        if (
+          Number.isFinite(durationSeconds) &&
+          (durationSeconds < WARRANTY_VIDEO_MIN_SECONDS ||
+            durationSeconds > WARRANTY_VIDEO_MAX_SECONDS)
+        ) {
+          setSubmitState("error");
+          setErrorMessage("Warranty video must be between 10 and 20 seconds.");
+          return;
+        }
+      } catch {
+        setSubmitState("error");
+        setErrorMessage("Unable to read the video file. Please try another file.");
+        return;
+      }
+    }
+
+    setWarrantyMedia(mergedFiles);
+    if (submitState === "error") {
+      setSubmitState("idle");
+      setErrorMessage(null);
+    }
+  }
+
+  function handleInterestChange(value: string) {
+    setInterestedIn(value);
+
+    if (value !== WARRANTY_INTEREST_VALUE) {
+      setWarrantyConcern("");
+      setWarrantyMedia([]);
+    }
+  }
+
+  function removeWarrantyMediaFile(fileToRemove: File) {
+    const fileToRemoveId = fileIdentity(fileToRemove);
+    setWarrantyMedia((current) =>
+      current.filter((file) => fileIdentity(file) !== fileToRemoveId),
+    );
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -64,6 +199,20 @@ export function ProspectCaptureForm({
       return;
     }
 
+    if (isWarrantyService) {
+      if (!warrantyConcern.trim()) {
+        setSubmitState("error");
+        setErrorMessage("Please describe your warranty concern.");
+        return;
+      }
+
+      if (warrantyMedia.length === 0) {
+        setSubmitState("error");
+        setErrorMessage("Please upload images or a 10-20 second video.");
+        return;
+      }
+    }
+
     const result = await submitProspect({
       name: name.trim(),
       phone: phone.trim() || undefined,
@@ -72,6 +221,10 @@ export function ProspectCaptureForm({
       preferred_time: preferredTime.trim() || undefined,
       interested_in: interestedIn,
       message: message.trim() || undefined,
+      warranty_concern: isWarrantyService
+        ? warrantyConcern.trim() || undefined
+        : undefined,
+      warranty_media: isWarrantyService ? warrantyMedia : undefined,
       source,
       form_context: formContext,
       tracking_source: trackingSource,
@@ -92,6 +245,8 @@ export function ProspectCaptureForm({
     setReferrerName("");
     setPreferredTime("");
     setMessage("");
+    setWarrantyConcern("");
+    setWarrantyMedia([]);
     setConsentGiven(false);
   }
 
@@ -181,7 +336,7 @@ export function ProspectCaptureForm({
         ) : null}
         <select
           className={`${inputClassName} sm:col-span-2`}
-          onChange={(event) => setInterestedIn(event.target.value)}
+          onChange={(event) => handleInterestChange(event.target.value)}
           required
           value={interestedIn}
         >
@@ -191,6 +346,74 @@ export function ProspectCaptureForm({
             </option>
           ))}
         </select>
+        {isWarrantyService ? (
+          <>
+            <textarea
+              className={`${inputClassName} min-h-32 sm:col-span-2`}
+              onChange={(event) => setWarrantyConcern(event.target.value)}
+              placeholder="Describe your warranty concern"
+              required
+              value={warrantyConcern}
+            />
+            <div className="sm:col-span-2">
+              <label className="mb-2 block text-sm font-semibold text-marine">
+                Upload images or one 10-20 second video
+              </label>
+              <input
+                accept="image/*,video/mp4,video/webm,video/quicktime"
+                className="block w-full rounded-2xl border border-cyan-100 bg-white px-4 py-3 text-sm font-semibold text-marine file:mr-4 file:rounded-full file:border-0 file:bg-cyan-50 file:px-4 file:py-2 file:text-xs file:font-black file:uppercase file:tracking-[0.08em] file:text-lagoon"
+                multiple
+                onChange={async (event) => {
+                  await handleWarrantyMediaChange(event.target.files);
+                  event.currentTarget.value = "";
+                }}
+                required={isWarrantyService}
+                type="file"
+              />
+              <p className="mt-2 text-xs font-semibold text-slate-500">
+                Upload up to {MAX_WARRANTY_MEDIA_FILES} files. Video uploads must be 10-20 seconds.
+              </p>
+              {warrantyMediaPreviews.length > 0 ? (
+                <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {warrantyMediaPreviews.map((preview) => (
+                    <figure
+                      className="relative overflow-hidden rounded-2xl border border-cyan-100 bg-white shadow-sm"
+                      key={`${preview.file.name}-${preview.file.size}-${preview.file.lastModified}`}
+                    >
+                      <button
+                        aria-label={`Remove ${preview.file.name}`}
+                        className="absolute right-2 top-2 z-10 inline-flex h-7 w-7 items-center justify-center rounded-full border border-white/80 bg-marine/85 text-sm font-black text-white shadow-sm transition hover:bg-marine"
+                        onClick={() => removeWarrantyMediaFile(preview.file)}
+                        type="button"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                      {preview.isImage ? (
+                        <img
+                          alt={preview.file.name}
+                          className="h-32 w-full object-cover"
+                          src={preview.url}
+                        />
+                      ) : preview.isVideo ? (
+                        <video
+                          className="h-32 w-full bg-slate-900 object-cover"
+                          controls={false}
+                          muted
+                          playsInline
+                          preload="metadata"
+                          src={preview.url}
+                        />
+                      ) : null}
+                      <figcaption className="px-3 py-2 text-xs font-semibold text-slate-600">
+                        {preview.file.name}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </>
+        ) : null}
         <textarea
           className={`${inputClassName} min-h-36 sm:col-span-2`}
           onChange={(event) => setMessage(event.target.value)}
