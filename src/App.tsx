@@ -7,6 +7,7 @@ import { MediaResourcesPage } from "./components/sections/MediaResourcesPage";
 import { ProofComparisonPage } from "./components/sections/ProofComparisonPage";
 import { ResourcesPage } from "./components/sections/ResourcesPage";
 import { TechnologyPage } from "./components/sections/TechnologyPage";
+import { TestimonialsPage } from "./components/sections/TestimonialsPage";
 import { WarrantyRegistrationPage } from "./components/sections/WarrantyRegistrationPage";
 
 function scrollToHashTarget() {
@@ -39,6 +40,7 @@ function App() {
     `${window.location.pathname}${window.location.hash}`,
   );
   const isAboutPage = window.location.pathname === "/about";
+  const isTestimonialsPage = window.location.pathname === "/testimonials";
   const isInstallationPage = window.location.pathname === "/installation";
   const isProofComparisonPage = window.location.pathname === "/proof-comparison";
   const isMediaResourcesPage =
@@ -87,6 +89,7 @@ function App() {
       const supportedPath =
         nextUrl.pathname === "/" ||
         nextUrl.pathname === "/about" ||
+        nextUrl.pathname === "/testimonials" ||
         nextUrl.pathname === "/installation" ||
         nextUrl.pathname === "/proof-comparison" ||
         nextUrl.pathname === "/resources" ||
@@ -163,6 +166,10 @@ function App() {
 
   if (isAboutPage) {
     return <AboutPage />;
+  }
+
+  if (isTestimonialsPage) {
+    return <TestimonialsPage />;
   }
 
   if (isResourcesPage) {

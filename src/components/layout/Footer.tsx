@@ -115,6 +115,7 @@ const footerGroups: FooterGroup[] = [
     links: [
       { href: "/#home", label: "Homepage" },
       { href: "/about#who-we-are", label: "Who We Are" },
+      { href: "/testimonials", label: "Testimonials" },
       { href: "/about#faq", label: "FAQ" },
       { href: "/about#contact", label: "Contact US" },
       { href: "/about#hydration-specialist", label: "Hydration Specialist" },
