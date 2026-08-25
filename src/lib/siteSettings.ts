@@ -14,7 +14,7 @@ export type SiteSettings = {
 export const defaultSiteSettings: SiteSettings = {
   company_name: "Molecular H2 Water",
   consumers_guide_url:
-    "https://simplebooklet.com/consumersguidetohydrogen#page=1",
+    "https://heyzine.com/flip-book/c249c5d00b.html",
   email: "info@molecularh2water.com",
   facebook_url:
     "https://www.facebook.com/groups/1596145219185739/permalink/1596169665849961/?",

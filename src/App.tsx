@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AboutPage } from "./components/sections/AboutPage";
+import { ComplimentaryProductEcosystemPage } from "./components/sections/ComplimentaryProductEcosystemPage";
 import { HomePage } from "./components/sections/HomePage";
 import { InstallationQuestionnairePage } from "./components/sections/InstallationQuestionnairePage";
 import { MediaResourcesPage } from "./components/sections/MediaResourcesPage";
@@ -46,6 +47,9 @@ function App() {
   const isResourcesPage = window.location.pathname === "/resources";
   const isTechnologyPage = window.location.pathname === "/technology";
   const isWarrantyPage = window.location.pathname === "/warranty";
+  const isComplimentaryProductEcosystemPage =
+    window.location.pathname === "/complimentary-product-ecosystem" ||
+    window.location.pathname === "/complimentary-product-ecosytem";
 
   useEffect(() => {
     const updateLocation = () => {
@@ -89,7 +93,9 @@ function App() {
         nextUrl.pathname === "/resources/media" ||
         nextUrl.pathname.startsWith("/resources/media/") ||
         nextUrl.pathname === "/technology" ||
-        nextUrl.pathname === "/warranty";
+        nextUrl.pathname === "/warranty" ||
+        nextUrl.pathname === "/complimentary-product-ecosystem" ||
+        nextUrl.pathname === "/complimentary-product-ecosytem";
 
       if (!supportedPath) {
         return;
@@ -165,6 +171,10 @@ function App() {
 
   if (isMediaResourcesPage) {
     return <MediaResourcesPage key={locationKey} />;
+  }
+
+  if (isComplimentaryProductEcosystemPage) {
+    return <ComplimentaryProductEcosystemPage />;
   }
 
   return <HomePage />;

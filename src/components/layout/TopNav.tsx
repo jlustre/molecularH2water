@@ -291,6 +291,14 @@ const technologyPanel: MenuPanel = {
           label: "Investment",
         },
         {
+          description:
+            "See how The Machine, H2GO bottle, and HIM inhaler work together.",
+          href: "/complimentary-product-ecosystem",
+          icon: Link2,
+          key: "complimentary-product-ecosystem",
+          label: "Complimentary Product Ecosystem",
+        },
+        {
           description: "Review the value comparison and payoff visuals.",
           href: "/technology#is-it-worth-it",
           icon: Sparkles,

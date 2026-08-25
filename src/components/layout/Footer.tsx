@@ -90,6 +90,10 @@ const footerGroups: FooterGroup[] = [
       { href: "/technology#how-it-works", label: "How Does It Work" },
       { href: "/technology#machine-features", label: "Machine Features" },
       { href: "/technology#programs-protocols", label: "Programs & Protocols" },
+      {
+        href: "/complimentary-product-ecosystem",
+        label: "Complimentary Product Ecosystem",
+      },
       { href: "/technology#is-it-worth-it", label: "Is It Worth It" },
       {
         href: "/proof-comparison#ionizer-vs-h2",
